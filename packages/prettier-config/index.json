@@ -1,0 +1,24 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "bracketSpacing": true,
+  "trailingComma": "none",
+  "printWidth": 80,
+  "bracketSameLine": false,
+  "tabWidth": 2,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "singleAttributePerLine": true,
+
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 160,
+        "singleAttributePerLine": false,
+        "singleQuote": false
+      }
+    }
+  ]
+}
