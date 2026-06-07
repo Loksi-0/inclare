@@ -11,12 +11,14 @@
 # deps
 node_modules/
 
+# generated
+**/generated/
+
 # build
 dist
 
 # env
-.env
-.env.production
+.env*
 
 # logs
 logs/
