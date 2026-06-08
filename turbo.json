@@ -4,7 +4,10 @@
     "DATABASE_URL",
     "PORT",
     "CLIENT_URL",
-    "NODE_ENV"
+    "NODE_ENV",
+    "JWT_SECRET",
+    "SECURE_COOKIE",
+    "PASSWORD_SALT_ROUNDS"
   ],
   "ui": "tui",
   "tasks": {

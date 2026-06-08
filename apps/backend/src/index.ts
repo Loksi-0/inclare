@@ -1,4 +1,5 @@
 import '@/helpers/env.js'
+import '@/scripts/clearExpiredTokens.js'
 import { serve } from '@hono/node-server'
 import getEnv from '@/helpers/getEnv.js'
 import { serveStatic } from '@hono/node-server/serve-static'

@@ -1,6 +1,6 @@
 import apiError from '@/helpers/apiError.js'
 import { moderatorProcedure } from '@/procedures/moderator.procedure.js'
-import { publicProcedure } from '@/procedures/public.procedure.js'
+import { publicProcedure } from '@/trpc.js'
 import { router } from '@/trpc.js'
 import { UserSchema } from '@/validators/index.js'
 import { ERROR_CODES } from '@repo/api-error-codes'

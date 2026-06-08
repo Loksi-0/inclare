@@ -2,8 +2,8 @@ import type { Context } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 import getEnv from './getEnv.js'
 
-export const setDeviceIdCookie = (c: Context, token: string) => {
-  setCookie(c, 'deviceId', token, {
+export const setDeviceIdCookie = (c: Context, deviceId: string) => {
+  setCookie(c, 'deviceId', deviceId, {
     httpOnly: true,
     secure: getEnv('SECURE_COOKIE') === 'true',
     sameSite: 'Strict'

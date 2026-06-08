@@ -11,6 +11,16 @@ export const ERROR_CODES = {
       code: 'USER_NOT_FOUND'
     }
   },
+  AUTH: {
+    USER_EXISTS: {
+      status: 409,
+      code: 'AUTH_USER_EXISTS'
+    },
+    WRONG_PASSWORD: {
+      status: 400,
+      code: 'AUTH_WRONG_PASSWORD'
+    }
+  },
   REQUEST: {
     TOO_MANY_REQUESTS: {
       status: 429,
