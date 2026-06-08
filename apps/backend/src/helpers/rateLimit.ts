@@ -1,6 +1,6 @@
 import { rateLimiter } from 'hono-rate-limiter'
 import apiError from './apiError.js'
-import ERROR_CODES from '../../shared/constants/errorCodes.js'
+import { ERROR_CODES } from '@repo/api-error-codes'
 
 const rateLimit = (minutes: number, limit: number) => {
   return rateLimiter({
@@ -11,10 +11,7 @@ const rateLimit = (minutes: number, limit: number) => {
       c.req.header('cf-connecting-ip') ||
       'unknown',
     handler: () => {
-      apiError(
-        ERROR_CODES.REQUEST.TOO_MANY_REQUESTS,
-        `Слишком много попыток. Попробуйте через ${String(minutes)} минут`
-      )
+      return apiError(ERROR_CODES.REQUEST.TOO_MANY_REQUESTS)
     }
   })
 }

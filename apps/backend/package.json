@@ -4,7 +4,7 @@
   "exports": {
     ".": {
       "types": "./src/routers/_app.ts"
-    } 
+    }
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
@@ -22,9 +22,11 @@
     "hono": "^4.12.23",
     "hono-rate-limiter": "^0.5.3",
     "pg": "^8.21.0",
+    "superjson": "^2.2.6",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@repo/api-error-codes": "workspace:*",
     "@repo/prettier-config": "workspace:^",
     "@repo/typescript-config": "workspace:^",
     "@types/node": "^20.11.17",

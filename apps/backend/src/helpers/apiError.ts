@@ -1,24 +1,23 @@
-import { HTTPException } from 'hono/http-exception'
-import type { ContentfulStatusCode } from 'hono/utils/http-status'
-import type { ErrorCode } from '../../shared/constants/errorCodes.js'
+import type { ErrorCode } from '@repo/api-error-codes'
+import { TRPCError } from '@trpc/server'
+import { HTTPToTRPCStatus } from './HTTPToTRPCStatus.js'
 
-const apiError = (
-  error: { status: ContentfulStatusCode; code: ErrorCode },
-  message?: string
-) => {
-  const body = JSON.stringify({
-    code: error.code,
-    message: message || 'Произошла ошибка'
-  })
+type ErrorPayload = {
+  status: number
+  code: ErrorCode
+}
 
-  const response = new Response(body, {
-    status: error.status,
-    headers: {
-      'Content-Type': 'application/json'
+const apiError = (error: ErrorPayload, message?: string) => {
+  const trpcStatus = HTTPToTRPCStatus(error.status)
+
+  throw new TRPCError({
+    code: trpcStatus,
+    message: message || 'Произошла ошибка',
+    cause: {
+      code: error.code,
+      message
     }
   })
-
-  throw new HTTPException(error.status, { res: response })
 }
 
 export default apiError
