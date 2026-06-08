@@ -1,4 +1,10 @@
 export const ERROR_CODES = {
+  SESSION: {
+    UNAUTHORIZED: {
+      status: 401,
+      code: 'SESSION_UNAUTHORIZED'
+    }
+  },
   USER: {
     NOT_FOUND: {
       status: 404,
@@ -9,6 +15,10 @@ export const ERROR_CODES = {
     TOO_MANY_REQUESTS: {
       status: 429,
       code: 'REQUEST_TOO_MANY_REQUESTS'
+    },
+    FORBIDDEN: {
+      status: 403,
+      code: 'REQUEST_FORBIDDEN'
     }
   }
 } as const
