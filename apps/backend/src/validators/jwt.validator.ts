@@ -1,4 +1,4 @@
-import { stringSchema } from '@/lib/zod-types/stringSchema.js'
+import { stringSchema } from '@/lib/zod-types/stringSchema'
 import z from 'zod'
 
 export const payload = z.object({
@@ -6,8 +6,6 @@ export const payload = z.object({
   deviceId: stringSchema(),
   role: z.literal(['USER', 'MODERATOR']),
   exp: z.number(),
-  nbf: z.number(),
-  iat: z.number(),
-  iss: z.string()
+  iat: z.number()
 })
 export type Payload = z.infer<typeof payload>

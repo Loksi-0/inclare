@@ -1,12 +1,9 @@
 {
   "extends": "@repo/typescript-config/honojs.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "./dist",
     "paths": {
       "@/*": ["./src/*"],
-      "@db": ["./prisma/generated/client.js"]
+      "@db/*": ["./prisma/generated/*"]
     }
-  },
-  "exclude": ["node_modules", "dist"]
+  }
 }

@@ -1,10 +1,10 @@
-import apiError from '@/helpers/apiError.js'
-import { publicProcedure } from '@/trpc.js'
+import apiError from '@/helpers/apiError'
+import { publicProcedure } from '@/trpc'
 import { ERROR_CODES } from '@repo/api-error-codes'
-import type { JwtSchema } from '@/validators/index.js'
-import { parseJwtToken } from '@/helpers/parseJwtToken.js'
-import { TokenService } from '@/services/token.service.js'
-import { setTokenCookie } from '@/helpers/tokenCookie.js'
+import type { JwtSchema } from '@/validators/index'
+import { parseJwtToken } from '@/helpers/parseJwtToken'
+import { TokenService } from '@/services/token.service'
+import { setTokenCookie } from '@/helpers/tokenCookie'
 
 const getValidUserId = (
   payload: JwtSchema.Payload | null,

@@ -1,4 +1,4 @@
-import { prisma } from '@/context.js'
+import { prisma } from '@/context'
 import cron from 'node-cron'
 
 cron.schedule('0 3 * * *', async () => {

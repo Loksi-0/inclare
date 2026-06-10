@@ -1,19 +1,15 @@
-import apiError from '@/helpers/apiError.js'
-import {
-  getDeviceIdCookie,
-  setDeviceIdCookie
-} from '@/helpers/deviceIdCookie.js'
-import getEnv from '@/helpers/getEnv.js'
-import { setTokenCookie } from '@/helpers/tokenCookie.js'
-import { protectedProcedure } from '@/procedures/protected.procedure.js'
-import { publicProcedure } from '@/trpc.js'
-import { TokenService } from '@/services/token.service.js'
-import { router } from '@/trpc.js'
-import { AuthSchema } from '@/validators/index.js'
-import type { User } from '@db'
+import apiError from '@/helpers/apiError'
+import getEnv from '@/helpers/getEnv'
+import { protectedProcedure } from '@/procedures/protected.procedure'
+import { publicProcedure, router } from '@/trpc'
+import { TokenService } from '@/services/token.service'
+import { AuthSchema } from '@/validators/index'
+import type { User } from '@db/client'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import bcrypt from 'bcryptjs'
 import type { Context } from 'hono'
+import { getDeviceIdCookie, setDeviceIdCookie } from '@/helpers/deviceIdCookie'
+import { setTokenCookie } from '@/helpers/tokenCookie'
 
 const setCookies = async (c: Context, user: User) => {
   const deviceId = getDeviceIdCookie(c) || crypto.randomUUID()

@@ -1,16 +1,19 @@
-import { prisma } from '@/context.js'
-import getEnv from '@/helpers/getEnv.js'
-import type { JwtSchema } from '@/validators/index.js'
+import { prisma } from '@/context'
+import getEnv from '@/helpers/getEnv'
+import type { JwtSchema } from '@/validators/index'
 import { sign } from 'hono/jwt'
 
 export const TokenService = {
-  generateToken: async (payload: JwtSchema.Payload) => {
+  generateToken: async (
+    payload: Pick<JwtSchema.Payload, 'userId' | 'role' | 'deviceId'>
+  ) => {
     const token = await sign(
       {
         userId: payload.userId,
         role: payload.role,
         deviceId: payload.deviceId,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
+        iat: Math.floor(Date.now() / 1000)
       },
       getEnv('JWT_SECRET'),
       'HS256'
@@ -19,7 +22,10 @@ export const TokenService = {
     return token
   },
 
-  saveToken: async (token: string, payload: JwtSchema.Payload) => {
+  saveToken: async (
+    token: string,
+    payload: Pick<JwtSchema.Payload, 'userId' | 'deviceId'>
+  ) => {
     const savedToken = await prisma.token.upsert({
       where: {
         userId_deviceId: {
@@ -31,11 +37,11 @@ export const TokenService = {
         token,
         deviceId: payload.deviceId,
         userId: payload.userId,
-        expiresAt: new Date(Date.now() + 60 * 60 * 24 * 30)
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
       },
       update: {
         token,
-        expiresAt: new Date(Date.now() + 60 * 60 * 24 * 30)
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
       }
     })
 

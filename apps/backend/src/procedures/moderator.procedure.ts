@@ -1,5 +1,5 @@
-import apiError from '@/helpers/apiError.js'
-import { protectedProcedure } from './protected.procedure.js'
+import apiError from '@/helpers/apiError'
+import { protectedProcedure } from './protected.procedure'
 import { ERROR_CODES } from '@repo/api-error-codes'
 
 export const moderatorProcedure = protectedProcedure.use(({ ctx, next }) => {

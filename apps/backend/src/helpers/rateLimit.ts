@@ -1,5 +1,5 @@
 import { rateLimiter } from 'hono-rate-limiter'
-import apiError from './apiError.js'
+import apiError from './apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
 
 const rateLimit = (minutes: number, limit: number) => {

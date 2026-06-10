@@ -1,20 +1,20 @@
-import '@/helpers/env.js'
-import '@/scripts/clearExpiredTokens.js'
+import '@/helpers/env'
+import '@/scripts/clearExpiredTokens'
 import { serve } from '@hono/node-server'
-import getEnv from '@/helpers/getEnv.js'
+import getEnv from '@/helpers/getEnv'
 import { serveStatic } from '@hono/node-server/serve-static'
-import rateLimit from '@/helpers/rateLimit.js'
+import rateLimit from '@/helpers/rateLimit'
 import { compress } from 'hono/compress'
 import { cors } from 'hono/cors'
 import { Hono } from 'hono'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
-import { createContext } from './context.js'
-import { appRouter } from './routers/index.js'
+import { createContext } from '@/context'
+import { appRouter } from '@/routers/_app'
 
 const app = new Hono()
 
 app.use(
-  '/trpc/*',
+  '*',
   cors({
     origin: ['http://localhost:3000', getEnv('CLIENT_URL')],
     credentials: true

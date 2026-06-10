@@ -1,6 +1,6 @@
 import { verify } from 'hono/jwt'
-import getEnv from './getEnv.js'
-import { JwtSchema } from '@/validators/index.js'
+import getEnv from './getEnv'
+import { JwtSchema } from '@/validators/index'
 
 export const parseJwtToken = async (token: string | undefined) => {
   try {

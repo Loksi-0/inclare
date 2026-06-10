@@ -1,4 +1,4 @@
-import { stringSchema } from '@/lib/zod-types/stringSchema.js'
+import { stringSchema } from '@/lib/zod-types/stringSchema'
 import z from 'zod'
 
 export const register = z.object({

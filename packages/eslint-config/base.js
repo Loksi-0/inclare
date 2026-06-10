@@ -16,13 +16,7 @@ export const baseConfig = defineConfig([
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        project: './tsconfig.json',
-        ecmaFeatures: {
-          jsx: true
-        }
-      }
+      sourceType: 'module'
     },
     plugins: {
       turbo: turboPlugin,

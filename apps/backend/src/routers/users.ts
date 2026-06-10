@@ -1,8 +1,7 @@
-import apiError from '@/helpers/apiError.js'
-import { moderatorProcedure } from '@/procedures/moderator.procedure.js'
-import { publicProcedure } from '@/trpc.js'
-import { router } from '@/trpc.js'
-import { UserSchema } from '@/validators/index.js'
+import apiError from '@/helpers/apiError'
+import { moderatorProcedure } from '@/procedures/moderator.procedure'
+import { publicProcedure, router } from '@/trpc'
+import { UserSchema } from '@/validators/index'
 import { ERROR_CODES } from '@repo/api-error-codes'
 
 export const userRouter = router({

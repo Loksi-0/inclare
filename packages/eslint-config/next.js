@@ -26,12 +26,6 @@ export const nextJsConfig = defineConfig([
     settings: {
       react: {
         version: 'detect'
-      },
-      'import/resolver': {
-        typescript: {
-          alwaysTryTypes: true,
-          project: './tsconfig.json'
-        }
       }
     },
     rules: {

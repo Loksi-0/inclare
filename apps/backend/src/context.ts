@@ -1,10 +1,10 @@
 import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
-import getEnv from '@/helpers/getEnv.js'
+import getEnv from '@/helpers/getEnv'
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '@db'
+import { PrismaClient } from '@db/client'
 import type { Context as HonoContext } from 'hono'
-import { getTokenCookie } from './helpers/tokenCookie.js'
-import { getDeviceIdCookie } from './helpers/deviceIdCookie.js'
+import { getTokenCookie } from './helpers/tokenCookie'
+import { getDeviceIdCookie } from './helpers/deviceIdCookie'
 
 export const prisma = new PrismaClient({
   adapter: new PrismaPg({
@@ -27,4 +27,4 @@ export const createContext = (
   }
 }
 
-export type Context = Awaited<ReturnType<typeof createContext>>
+export type Context = ReturnType<typeof createContext>

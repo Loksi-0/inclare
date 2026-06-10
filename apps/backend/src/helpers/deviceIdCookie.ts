@@ -1,6 +1,6 @@
 import type { Context } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
-import getEnv from './getEnv.js'
+import getEnv from './getEnv'
 
 export const setDeviceIdCookie = (c: Context, deviceId: string) => {
   setCookie(c, 'deviceId', deviceId, {
