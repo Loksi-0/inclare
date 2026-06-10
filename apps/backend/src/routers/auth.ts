@@ -4,27 +4,10 @@ import { protectedProcedure } from '@/procedures/protected.procedure'
 import { publicProcedure, router } from '@/trpc'
 import { TokenService } from '@/services/token.service'
 import { AuthSchema } from '@/validators/index'
-import type { User } from '@db/client'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import bcrypt from 'bcryptjs'
-import type { Context } from 'hono'
-import { getDeviceIdCookie, setDeviceIdCookie } from '@/helpers/deviceIdCookie'
-import { setTokenCookie } from '@/helpers/tokenCookie'
-
-const setCookies = async (c: Context, user: User) => {
-  const deviceId = getDeviceIdCookie(c) || crypto.randomUUID()
-  const payload = {
-    userId: user.id,
-    role: user.role,
-    deviceId
-  }
-
-  const token = await TokenService.generateToken(payload)
-  await TokenService.saveToken(token, payload)
-
-  setDeviceIdCookie(c, deviceId)
-  setTokenCookie(c, token)
-}
+import { setAuthCookies } from '@/helpers/setAuthCookies'
+import { deleteTokenCookie } from '@/helpers/tokenCookie'
 
 export const authRouter = router({
   register: publicProcedure
@@ -49,7 +32,7 @@ export const authRouter = router({
         }
       })
 
-      await setCookies(ctx.honoContext, user)
+      await setAuthCookies(ctx.honoContext, user)
 
       return user
     }),
@@ -74,7 +57,7 @@ export const authRouter = router({
         return apiError(ERROR_CODES.AUTH.WRONG_PASSWORD)
       }
 
-      await setCookies(ctx.honoContext, user)
+      await setAuthCookies(ctx.honoContext, user)
 
       return user
     }),
@@ -85,10 +68,12 @@ export const authRouter = router({
 
   logoutCurrentDevice: protectedProcedure.mutation(async ({ ctx }) => {
     await TokenService.deleteToken(ctx.token)
+    deleteTokenCookie(ctx.honoContext)
   }),
 
   logoutAll: protectedProcedure.mutation(async ({ ctx }) => {
     await TokenService.deleteAllUserTokens(ctx.user.id)
+    deleteTokenCookie(ctx.honoContext)
   }),
 
   logoutAllExceptCurrent: protectedProcedure.mutation(async ({ ctx }) => {

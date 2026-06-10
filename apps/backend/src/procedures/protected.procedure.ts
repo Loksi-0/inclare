@@ -5,6 +5,7 @@ import type { JwtSchema } from '@/validators/index'
 import { parseJwtToken } from '@/helpers/parseJwtToken'
 import { TokenService } from '@/services/token.service'
 import { setTokenCookie } from '@/helpers/tokenCookie'
+import { unauthorized } from '@/helpers/unauthorized'
 
 const getValidUserId = (
   payload: JwtSchema.Payload | null,
@@ -19,14 +20,22 @@ const getValidUserId = (
 
 export const protectedProcedure = publicProcedure.use(async ({ ctx, next }) => {
   if (!ctx.deviceId || !ctx.token) {
-    return apiError(ERROR_CODES.SESSION.UNAUTHORIZED)
+    return unauthorized(ctx.honoContext)
+  }
+
+  const dbToken = await ctx.prisma.token.findUnique({
+    where: { token: ctx.token }
+  })
+
+  if (!dbToken) {
+    return unauthorized(ctx.honoContext)
   }
 
   const payload = await parseJwtToken(ctx.token)
   const userId = getValidUserId(payload, ctx.deviceId)
 
   if (!payload || !userId) {
-    return apiError(ERROR_CODES.SESSION.UNAUTHORIZED)
+    return unauthorized(ctx.honoContext)
   }
 
   const user = await ctx.prisma.user.findUnique({
@@ -35,7 +44,7 @@ export const protectedProcedure = publicProcedure.use(async ({ ctx, next }) => {
   })
 
   if (!user) {
-    return apiError(ERROR_CODES.SESSION.UNAUTHORIZED)
+    return unauthorized(ctx.honoContext)
   }
 
   if (user.isBanned) {
