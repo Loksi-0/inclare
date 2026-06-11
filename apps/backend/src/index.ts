@@ -43,3 +43,5 @@ serve(
     console.log(`Server is running on port ${String(info.port)}`)
   }
 )
+
+export default app
