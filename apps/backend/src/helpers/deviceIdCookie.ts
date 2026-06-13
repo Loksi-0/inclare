@@ -6,7 +6,8 @@ export const setDeviceIdCookie = (c: Context, deviceId: string) => {
   setCookie(c, 'deviceId', deviceId, {
     httpOnly: true,
     secure: getEnv('SECURE_COOKIE') === 'true',
-    sameSite: 'Strict'
+    sameSite: 'Strict',
+    maxAge: 60 * 60 * 24 * 365
   })
 }
 

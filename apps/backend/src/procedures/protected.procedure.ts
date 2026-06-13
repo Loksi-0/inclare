@@ -4,6 +4,7 @@ import { TokenService } from '@/services/token.service'
 import { setTokenCookie } from '@/helpers/tokenCookie'
 import { unauthorized } from '@/helpers/unauthorized'
 import { hybridProcedure } from './hybrid.procedure'
+import { setDeviceIdCookie } from '@/helpers/deviceIdCookie'
 
 export const protectedProcedure = hybridProcedure.use(async ({ ctx, next }) => {
   if (!ctx.deviceId || !ctx.token || !ctx.user || !ctx.payload) {
@@ -17,11 +18,12 @@ export const protectedProcedure = hybridProcedure.use(async ({ ctx, next }) => {
   const now = Date.now()
   const refreshDelay = 1000 * 60 * 60 * 24 * 5
 
-  if (now - ctx.payload.iat * 1000 < refreshDelay) {
+  if (now - ctx.payload.iat * 1000 > refreshDelay) {
     const newToken = await TokenService.generateToken(ctx.payload)
     await TokenService.saveToken(newToken, ctx.payload)
 
     setTokenCookie(ctx.honoContext, newToken)
+    setDeviceIdCookie(ctx.honoContext, ctx.deviceId)
   }
 
   return next({
