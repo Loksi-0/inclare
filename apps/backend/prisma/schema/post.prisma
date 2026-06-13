@@ -1,0 +1,17 @@
+model Post {
+  id String @id @default(cuid())
+
+  description String?
+  isDrafted   Boolean @default(true) @map("is_drafted")
+
+  authorId String @map("author_id")
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  likes  Like[]
+  photos Photo[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("posts")
+}

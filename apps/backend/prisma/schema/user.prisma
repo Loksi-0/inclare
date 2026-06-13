@@ -14,10 +14,14 @@ model User {
   isPrivate   Boolean @default(false) @map("is_private")
   isBanned    Boolean @default(false) @map("is_banned")
   role        Role    @default(USER)
-  tokens      Token[]
+
+  tokens Token[]
+  posts  Post[]
+  likes  Like[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([isPrivate])
   @@map("users")
 }

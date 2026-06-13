@@ -1,0 +1,22 @@
+model Photo {
+  id String @id @default(cuid())
+
+  order        Int
+  optimizedUrl String @map("optimized_url")
+  rawUrl       String @map("raw_url")
+
+  shutterSpeed String? @map("shutter_speed")
+  iso          Int?
+  aperture     Float?
+  focalLength  String?  @map("focal_length")
+  cameraModel  String? @map("camera_model")
+
+  postId String @map("post_id")
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([order, postId])
+  @@map("photos")
+}

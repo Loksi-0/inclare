@@ -1,5 +1,5 @@
 import { honoConfig } from '@repo/eslint-config/hono'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
 const backendConfig = defineConfig([
   ...honoConfig,
@@ -9,9 +9,9 @@ const backendConfig = defineConfig([
         projectService: true,
         tsconfigRootDir: import.meta.dirname
       }
-    },
-    ignores: ['prisma/generated/**']
-  }
+    }
+  },
+  globalIgnores(['prisma/generated/**'])
 ])
 
 export default backendConfig

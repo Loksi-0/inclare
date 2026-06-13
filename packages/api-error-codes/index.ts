@@ -5,6 +5,18 @@ export const ERROR_CODES = {
       code: 'SESSION_UNAUTHORIZED'
     }
   },
+  POST: {
+    NOT_FOUND: {
+      status: 404,
+      code: 'POST_NOT_FOUND'
+    }
+  },
+  PHOTO: {
+    UNSUPPORTED_FORMAT: {
+      status: 415,
+      code: 'PHOTO_UNSUPPORTED_FORMAT'
+    }
+  },
   USER: {
     NOT_FOUND: {
       status: 404,
