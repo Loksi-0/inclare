@@ -5,12 +5,17 @@ import { PrismaClient } from '@db/client'
 import type { Context as HonoContext } from 'hono'
 import { getTokenCookie } from './helpers/tokenCookie'
 import { getDeviceIdCookie } from './helpers/deviceIdCookie'
+import { createClient as redisClient, type RedisClientType } from 'redis'
 
 export const prisma = new PrismaClient({
   adapter: new PrismaPg({
     connectionString: getEnv('DATABASE_URL')
   })
 })
+
+export const redis: RedisClientType = await redisClient({
+  url: getEnv('REDIS_URL') || 'redis://localhost:6379'
+}).connect()
 
 export const createContext = (
   opts: FetchCreateContextFnOptions,
@@ -21,6 +26,7 @@ export const createContext = (
 
   return {
     prisma,
+    redis,
     deviceId,
     token,
     honoContext: c

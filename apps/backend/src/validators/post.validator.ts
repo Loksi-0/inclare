@@ -8,3 +8,7 @@ export const getOne = z.object({
 export const create = z.object({
   description: stringSchema().optional()
 })
+
+export const getFeed = z.object({
+  limit: z.number().optional()
+})

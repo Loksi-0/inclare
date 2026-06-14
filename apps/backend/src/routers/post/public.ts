@@ -1,92 +1,53 @@
 import apiError from '@/helpers/apiError'
 import { hybridProcedure } from '@/procedures/hybrid.procedure'
+import { PostService } from '@/services/post.service'
 import { router } from '@/trpc'
 import { PostSchema } from '@/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 
 export const publicPostRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.prisma.post.findMany({
-      where: {
-        isDrafted: false,
-        author: {
-          isPrivate: false,
-          isBanned: false
-        }
-      },
-      include: {
-        photos: true,
-        _count: {
-          select: { likes: true }
-        },
-        likes: ctx.user?.id
-          ? {
-              where: {
-                userId: ctx.user.id
-              },
-              select: {
-                id: true
-              }
-            }
-          : false
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    })
+    const posts = await PostService.find({ userId: ctx.user?.id })
 
-    const postsDto = posts.map((p) => ({
-      ...p,
-      likesCount: p._count.likes,
-      isLiked: ctx.user ? p.likes.length > 0 : false
-    }))
-
-    return postsDto
+    return posts
   }),
 
   getOne: hybridProcedure
     .input(PostSchema.getOne)
     .query(async ({ ctx, input }) => {
-      const post = await ctx.prisma.post.findUnique({
-        where: {
-          id: input.id,
-          isDrafted: false,
-          author: {
-            isPrivate: false,
-            isBanned: false
-          }
-        },
-        include: {
-          author: {
-            omit: { password: true }
-          },
-          photos: true,
-          _count: {
-            select: { likes: true }
-          },
-          likes: ctx.user?.id
-            ? {
-                where: {
-                  userId: ctx.user.id
-                },
-                select: {
-                  id: true
-                }
-              }
-            : false
-        }
+      const post = await PostService.findUnique({
+        id: input.id,
+        userId: ctx.user?.id
       })
 
       if (!post) {
         return apiError(ERROR_CODES.POST.NOT_FOUND)
       }
 
-      const postDto = {
-        ...post,
-        likesCount: post._count.likes,
-        isLiked: ctx.user ? post.likes.length > 0 : false
+      return post
+    }),
+
+  getFeed: hybridProcedure
+    .input(PostSchema.getFeed)
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.user?.id
+      const redisKey = userId ? `user:${userId}:viewed` : null
+      const limit = input.limit || 20
+
+      const viewedIds = redisKey ? await ctx.redis.sMembers(redisKey) : []
+
+      const recommendedIds = await PostService.getRecommendedIds({
+        limit,
+        viewedIds
+      })
+
+      if (recommendedIds.length > 0 && redisKey) {
+        await ctx.redis.sAdd(redisKey, recommendedIds)
+        await ctx.redis.expire(redisKey, 86400)
       }
 
-      return postDto
+      const posts = await PostService.find({ ids: recommendedIds, userId })
+
+      return posts
     })
 })
