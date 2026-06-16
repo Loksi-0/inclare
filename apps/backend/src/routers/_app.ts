@@ -7,6 +7,7 @@ import { photoRouter } from './photo'
 export type * from '@db/client'
 export type { PrismaClient } from '@db/internal/class'
 export type * from '@db/internal/prismaNamespace'
+export type * from 'redis'
 
 export const appRouter = router({
   user: userRouter,

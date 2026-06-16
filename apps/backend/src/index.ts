@@ -1,5 +1,6 @@
 import '@/helpers/env'
 import '@/scripts/clearExpiredTokens'
+import '@/scripts/getFallingStars'
 import { serve } from '@hono/node-server'
 import getEnv from '@/helpers/getEnv'
 import { serveStatic } from '@hono/node-server/serve-static'

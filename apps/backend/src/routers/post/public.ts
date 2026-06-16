@@ -1,9 +1,11 @@
 import apiError from '@/helpers/apiError'
+import { starsEmitter, type StarsEmitterMap } from '@/helpers/starsEmitter'
 import { hybridProcedure } from '@/procedures/hybrid.procedure'
 import { PostService } from '@/services/post.service'
-import { router } from '@/trpc'
+import { publicProcedure, router } from '@/trpc'
 import { PostSchema } from '@/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
+import { on } from 'events'
 
 export const publicPostRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
@@ -32,7 +34,7 @@ export const publicPostRouter = router({
     .query(async ({ ctx, input }) => {
       const userId = ctx.user?.id
       const redisKey = userId ? `user:${userId}:viewed` : null
-      const limit = input.limit || 20
+      const limit = input?.limit || 20
 
       const viewedIds = redisKey ? await ctx.redis.sMembers(redisKey) : []
 
@@ -49,5 +51,15 @@ export const publicPostRouter = router({
       const posts = await PostService.find({ ids: recommendedIds, userId })
 
       return posts
-    })
+    }),
+
+  fallingStar: publicProcedure.subscription(async function* ({ signal }) {
+    const eventStream = on(starsEmitter, 'falling-star', { signal })
+
+    for await (const [data] of eventStream) {
+      const star = data as StarsEmitterMap['falling-star'][0]
+
+      yield star
+    }
+  })
 })
