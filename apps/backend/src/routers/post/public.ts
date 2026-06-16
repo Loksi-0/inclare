@@ -1,3 +1,4 @@
+import { REDIS_KEYS } from '@/constants'
 import apiError from '@/helpers/apiError'
 import { starsEmitter, type StarsEmitterMap } from '@/helpers/starsEmitter'
 import { hybridProcedure } from '@/procedures/hybrid.procedure'
@@ -33,7 +34,7 @@ export const publicPostRouter = router({
     .input(PostSchema.getFeed)
     .query(async ({ ctx, input }) => {
       const userId = ctx.user?.id
-      const redisKey = userId ? `user:${userId}:viewed` : null
+      const redisKey = userId ? REDIS_KEYS.USER.VIEWED(userId) : null
       const limit = input?.limit || 20
 
       const viewedIds = redisKey ? await ctx.redis.sMembers(redisKey) : []

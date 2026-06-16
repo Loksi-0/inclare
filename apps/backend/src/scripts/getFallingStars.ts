@@ -1,13 +1,26 @@
-import { prisma } from '@/context'
+import { REDIS_KEYS } from '@/constants'
+import { prisma, redis } from '@/context'
 import getEnv from '@/helpers/getEnv'
 import { starsEmitter } from '@/helpers/starsEmitter'
+import { Prisma } from '@db/client'
 
 const getFallingStars = async () => {
   const MIN_AVG_VELOCITY = 0.1
   const K = Math.max(Number(getEnv('FALLING_STAR_COEFFICIENT')), 1.1)
 
-  const PAST_INTERVAL = 12
+  const PAST_INTERVAL = 18
   const NOW_INTERVAL = 6
+
+  const NOW_TIMESTAMP = Math.floor(Date.now() / 1000)
+
+  await redis.zRemRangeByScore(
+    REDIS_KEYS.STARS.VIEWED,
+    0,
+    NOW_TIMESTAMP - 60 * 60 * PAST_INTERVAL
+  )
+
+  const viewedStars = await redis.zRange(REDIS_KEYS.STARS.VIEWED, 0, -1)
+  const viewedStarsIds = viewedStars.length > 0 ? viewedStars : ['__NONE__']
 
   const activePosts: { count: number }[] = await prisma.$queryRaw`
     SELECT COUNT(*)::int as count FROM "posts" p
@@ -72,12 +85,19 @@ const getFallingStars = async () => {
       WHERE
         pm.v_past > (gm.v_avg_past * ${K})
         AND pm.v_now <= gm.v_avg_now - (gm.v_avg_now / ${K})
+        AND pm.post_id NOT IN (${Prisma.join(viewedStarsIds)})
       ORDER BY RANDOM()
       LIMIT 1;
     `
 
   if (stars[0]) {
-    starsEmitter.emit('falling-star', stars[0].id)
+    const starId = stars[0].id
+
+    await redis.zAdd(REDIS_KEYS.STARS.VIEWED, [
+      { score: NOW_TIMESTAMP, value: starId }
+    ])
+
+    starsEmitter.emit('falling-star', starId)
   }
 }
 

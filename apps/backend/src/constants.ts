@@ -23,3 +23,12 @@ export const TEMP_POST = {
   PATH: (userId: string, postId: string) =>
     path.join(UPLOADS.PATH, userId, postId, 'temp')
 }
+
+export const REDIS_KEYS = {
+  STARS: {
+    VIEWED: 'stars:viewed'
+  },
+  USER: {
+    VIEWED: (userId: string) => `user:${userId}:viewed`
+  }
+}
