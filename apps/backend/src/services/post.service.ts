@@ -1,4 +1,5 @@
-import { prisma } from '@/context'
+import { REDIS_KEYS } from '@/constants'
+import { prisma, redis } from '@/context'
 import getEnv from '@/helpers/getEnv'
 import { Prisma } from '@db/client'
 
@@ -105,11 +106,16 @@ export const PostService = {
     const newLimit = limit - trendingLimit
     viewedIds = viewedIds.length > 0 ? viewedIds : ['__NONE__']
 
+    const configGravity = await redis.get(REDIS_KEYS.CONFIG.GRAVITY)
+    const GRAVITY = configGravity
+      ? Number(configGravity)
+      : Number(getEnv('DEFAULT_ALGORITHM_GRAVITY'))
+
     const rawPosts: { id: string }[] = await prisma.$queryRaw`
         SELECT main.id FROM ( 
           (
             SELECT p.*,
-            (COUNT(l.id) - 1) / POWER((EXTRACT(EPOCH FROM (NOW() - p.created_at)) / 3600) + 2, ${Number(getEnv('ALGORYTHM_GRAVITY'))}) as "score"
+            (COUNT(l.id) - 1) / POWER((EXTRACT(EPOCH FROM (NOW() - p.created_at)) / 3600) + 2, ${GRAVITY}) as "score"
             FROM "posts" p
             LEFT JOIN "likes" l ON l.post_id = p.id
             INNER JOIN "users" u ON p.author_id = u.id

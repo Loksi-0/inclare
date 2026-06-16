@@ -6,10 +6,19 @@ import { Prisma } from '@db/client'
 
 const getFallingStars = async () => {
   const MIN_AVG_VELOCITY = 0.1
-  const K = Math.max(Number(getEnv('FALLING_STAR_COEFFICIENT')), 1.1)
+  const configK = await redis.get(REDIS_KEYS.CONFIG.FALLING_STAR.K)
+  const K = configK
+    ? Number(configK)
+    : Number(getEnv('DEFAULT_FALLING_STAR_COEFFICIENT'))
 
-  const PAST_INTERVAL = 18
-  const NOW_INTERVAL = 6
+  const configPastInterval = await redis.get(
+    REDIS_KEYS.CONFIG.FALLING_STAR.PAST_INTERVAL
+  )
+  const configNowInterval = await redis.get(
+    REDIS_KEYS.CONFIG.FALLING_STAR.NOW_INTERVAL
+  )
+  const PAST_INTERVAL = configPastInterval ? Number(configPastInterval) : 12
+  const NOW_INTERVAL = configNowInterval ? Number(configNowInterval) : 6
 
   const NOW_TIMESTAMP = Math.floor(Date.now() / 1000)
 

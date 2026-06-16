@@ -30,5 +30,13 @@ export const REDIS_KEYS = {
   },
   USER: {
     VIEWED: (userId: string) => `user:${userId}:viewed`
+  },
+  CONFIG: {
+    GRAVITY: 'config:gravity',
+    FALLING_STAR: {
+      K: 'config:falling_star:k',
+      PAST_INTERVAL: 'config:falling_star:past',
+      NOW_INTERVAL: 'config:falling_star:now'
+    }
   }
 }

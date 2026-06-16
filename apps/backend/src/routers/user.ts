@@ -1,26 +1,43 @@
 import apiError from '@/helpers/apiError'
+import { hybridProcedure } from '@/procedures/hybrid.procedure'
 import { moderatorProcedure } from '@/procedures/moderator.procedure'
-import { publicProcedure, router } from '@/trpc'
+import { router } from '@/trpc'
 import { UserSchema } from '@/validators/index'
+import type { Prisma, User } from '@db/client'
 import { ERROR_CODES } from '@repo/api-error-codes'
 
 export const userRouter = router({
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: hybridProcedure.query(async ({ ctx }) => {
+    const filters: Record<User['role'], Prisma.UserWhereInput> = {
+      USER: { isPrivate: false, isBanned: false, role: 'USER' },
+      MODERATOR: { role: 'USER' },
+      ADMIN: {}
+    }
+
     const users = await ctx.prisma.user.findMany({
-      where: { isPrivate: false },
+      where: filters[ctx.user?.role || 'USER'],
       omit: { password: true }
     })
 
     return users
   }),
 
-  getOne: publicProcedure
+  getOne: hybridProcedure
     .input(UserSchema.getOne)
     .query(async ({ ctx, input }) => {
+      const filters: Record<
+        User['role'],
+        Omit<Prisma.UserWhereUniqueInput, 'id'>
+      > = {
+        USER: { isPrivate: false, isBanned: false, role: 'USER' },
+        MODERATOR: { role: 'USER' },
+        ADMIN: {}
+      }
+
       const user = await ctx.prisma.user.findUnique({
         where: {
           id: input.id,
-          isPrivate: false
+          ...filters[ctx.user?.role || 'USER']
         },
         omit: { password: true }
       })

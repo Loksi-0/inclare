@@ -33,6 +33,12 @@ export const ERROR_CODES = {
       code: 'AUTH_WRONG_PASSWORD'
     }
   },
+  CONFIG: {
+    WRONG_INTERVALS: {
+      status: 400,
+      code: 'CONFIG_WRONG_INTERVALS'
+    }
+  },
   REQUEST: {
     TOO_MANY_REQUESTS: {
       status: 429,
