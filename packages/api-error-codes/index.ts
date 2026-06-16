@@ -37,6 +37,14 @@ export const ERROR_CODES = {
     WRONG_INTERVALS: {
       status: 400,
       code: 'CONFIG_WRONG_INTERVALS'
+    },
+    WRONG_GRAVITY: {
+      status: 400,
+      code: 'CONFIG_WRONG_GRAVITY'
+    },
+    WRONG_FALLING_STAR_K: {
+      status: 400,
+      code: 'CONFIG_WRONG_FALLING_STAR_K'
     }
   },
   REQUEST: {

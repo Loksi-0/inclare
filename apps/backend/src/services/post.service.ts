@@ -1,4 +1,4 @@
-import { REDIS_KEYS } from '@/constants'
+import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@/constants'
 import { prisma, redis } from '@/context'
 import getEnv from '@/helpers/getEnv'
 import { Prisma } from '@db/client'
@@ -106,10 +106,10 @@ export const PostService = {
     const newLimit = limit - trendingLimit
     viewedIds = viewedIds.length > 0 ? viewedIds : ['__NONE__']
 
-    const configGravity = await redis.get(REDIS_KEYS.CONFIG.GRAVITY)
-    const GRAVITY = configGravity
-      ? Number(configGravity)
-      : Number(getEnv('DEFAULT_ALGORITHM_GRAVITY'))
+    const GRAVITY = parseFloat(
+      (await redis.hGet(REDIS_KEYS.CONFIG.ALGORITHM, 'gravity')) ||
+        ALGORITHM_DEFAULTS.GRAVITY
+    )
 
     const rawPosts: { id: string }[] = await prisma.$queryRaw`
         SELECT main.id FROM ( 

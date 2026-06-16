@@ -24,6 +24,13 @@ export const TEMP_POST = {
     path.join(UPLOADS.PATH, userId, postId, 'temp')
 }
 
+export const ALGORITHM_DEFAULTS = {
+  GRAVITY: '1.7',
+  K: '2',
+  PAST_INTERVAL: '12',
+  NOW_INTERVAL: '6'
+}
+
 export const REDIS_KEYS = {
   STARS: {
     VIEWED: 'stars:viewed'
@@ -32,11 +39,6 @@ export const REDIS_KEYS = {
     VIEWED: (userId: string) => `user:${userId}:viewed`
   },
   CONFIG: {
-    GRAVITY: 'config:gravity',
-    FALLING_STAR: {
-      K: 'config:falling_star:k',
-      PAST_INTERVAL: 'config:falling_star:past',
-      NOW_INTERVAL: 'config:falling_star:now'
-    }
+    ALGORITHM: 'config:algo'
   }
 }

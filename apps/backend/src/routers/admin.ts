@@ -34,10 +34,13 @@ export const adminRouter = router({
   setAlgorithmGravity: adminProcedure
     .input(AdminSchema.setGravity)
     .mutation(async ({ ctx, input }) => {
-      const newGravity =
-        input.gravity >= 1 ? input.gravity : Number(getEnv('ALGORITHM_GRAVITY'))
+      const newGravity = input.gravity
 
-      await ctx.redis.set(REDIS_KEYS.CONFIG.GRAVITY, newGravity)
+      if (newGravity < 1) {
+        return apiError(ERROR_CODES.CONFIG.WRONG_GRAVITY)
+      }
+
+      await ctx.redis.hSet(REDIS_KEYS.CONFIG.ALGORITHM, 'gravity', newGravity)
 
       return newGravity
     }),
@@ -45,10 +48,13 @@ export const adminRouter = router({
   setFallingStarCoefficient: adminProcedure
     .input(AdminSchema.setFallingStarK)
     .mutation(async ({ ctx, input }) => {
-      const newK =
-        input.K >= 1.1 ? input.K : Number(getEnv('FALLING_STAR_COEFFICIENT'))
+      const newK = input.K
 
-      await ctx.redis.set(REDIS_KEYS.CONFIG.FALLING_STAR.K, newK)
+      if (newK < 1.1) {
+        return apiError(ERROR_CODES.CONFIG.WRONG_FALLING_STAR_K)
+      }
+
+      await ctx.redis.hSet(REDIS_KEYS.CONFIG.ALGORITHM, 'k_coefficient', newK)
 
       return newK
     }),
@@ -56,11 +62,13 @@ export const adminRouter = router({
   setFallingStarIntervals: adminProcedure
     .input(AdminSchema.setFallingStarIntervals)
     .mutation(async ({ ctx, input }) => {
-      const prevPast = await ctx.redis.get(
-        REDIS_KEYS.CONFIG.FALLING_STAR.PAST_INTERVAL
+      const prevPast = await ctx.redis.hGet(
+        REDIS_KEYS.CONFIG.ALGORITHM,
+        'past_interval'
       )
-      const prevNow = await ctx.redis.get(
-        REDIS_KEYS.CONFIG.FALLING_STAR.NOW_INTERVAL
+      const prevNow = await ctx.redis.hGet(
+        REDIS_KEYS.CONFIG.ALGORITHM,
+        'now_interval'
       )
 
       const numberPrevPast = prevPast ? Number(prevPast) : null
@@ -74,14 +82,16 @@ export const adminRouter = router({
       }
 
       if (input.past) {
-        await ctx.redis.set(
-          REDIS_KEYS.CONFIG.FALLING_STAR.PAST_INTERVAL,
+        await ctx.redis.hSet(
+          REDIS_KEYS.CONFIG.ALGORITHM,
+          'past_interval',
           input.past
         )
       }
       if (input.now) {
-        await ctx.redis.set(
-          REDIS_KEYS.CONFIG.FALLING_STAR.NOW_INTERVAL,
+        await ctx.redis.hSet(
+          REDIS_KEYS.CONFIG.ALGORITHM,
+          'now_interval',
           input.now
         )
       }
@@ -93,25 +103,13 @@ export const adminRouter = router({
     }),
 
   getConfig: adminProcedure.query(async ({ ctx }) => {
-    const K = await ctx.redis.get(REDIS_KEYS.CONFIG.FALLING_STAR.K)
-    const gravity = await ctx.redis.get(REDIS_KEYS.CONFIG.GRAVITY)
-    const pastInterval = await ctx.redis.get(
-      REDIS_KEYS.CONFIG.FALLING_STAR.PAST_INTERVAL
-    )
-    const nowInterval = await ctx.redis.get(
-      REDIS_KEYS.CONFIG.FALLING_STAR.NOW_INTERVAL
-    )
-
-    const numberK = K ? Number(K) : null
-    const numberGravity = gravity ? Number(gravity) : null
-    const numberPastInterval = pastInterval ? Number(pastInterval) : null
-    const numberNowInterval = nowInterval ? Number(nowInterval) : null
+    const config = await ctx.redis.hGetAll(REDIS_KEYS.CONFIG.ALGORITHM)
 
     return {
-      fallingStarK: numberK,
-      alogrithmGravity: numberGravity,
-      pastInterval: numberPastInterval,
-      nowInterval: numberNowInterval
+      fallingStarK: config.k_coefficient,
+      alogrithmGravity: config.gravity,
+      pastInterval: config.past_interval,
+      nowInterval: config.now_interval
     }
   })
 })

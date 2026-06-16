@@ -1,24 +1,23 @@
-import { REDIS_KEYS } from '@/constants'
+import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@/constants'
 import { prisma, redis } from '@/context'
-import getEnv from '@/helpers/getEnv'
 import { starsEmitter } from '@/helpers/starsEmitter'
 import { Prisma } from '@db/client'
 
 const getFallingStars = async () => {
   const MIN_AVG_VELOCITY = 0.1
-  const configK = await redis.get(REDIS_KEYS.CONFIG.FALLING_STAR.K)
-  const K = configK
-    ? Number(configK)
-    : Number(getEnv('DEFAULT_FALLING_STAR_COEFFICIENT'))
+  const K = parseFloat(
+    (await redis.hGet(REDIS_KEYS.CONFIG.ALGORITHM, 'k_coefficient')) ||
+      ALGORITHM_DEFAULTS.K
+  )
 
-  const configPastInterval = await redis.get(
-    REDIS_KEYS.CONFIG.FALLING_STAR.PAST_INTERVAL
+  const PAST_INTERVAL = Number(
+    (await redis.hGet(REDIS_KEYS.CONFIG.ALGORITHM, 'past_interval')) ||
+      ALGORITHM_DEFAULTS.PAST_INTERVAL
   )
-  const configNowInterval = await redis.get(
-    REDIS_KEYS.CONFIG.FALLING_STAR.NOW_INTERVAL
+  const NOW_INTERVAL = Number(
+    (await redis.hGet(REDIS_KEYS.CONFIG.ALGORITHM, 'now_interval')) ||
+      ALGORITHM_DEFAULTS.NOW_INTERVAL
   )
-  const PAST_INTERVAL = configPastInterval ? Number(configPastInterval) : 12
-  const NOW_INTERVAL = configNowInterval ? Number(configNowInterval) : 6
 
   const NOW_TIMESTAMP = Math.floor(Date.now() / 1000)
 

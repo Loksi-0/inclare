@@ -6,7 +6,6 @@
     "CLIENT_URL",
     "REDIS_URL",
     "NODE_ENV",
-    "ALGORYTHM_GRAVITY",
     "JWT_SECRET",
     "SECURE_COOKIE",
     "PASSWORD_SALT_ROUNDS",
