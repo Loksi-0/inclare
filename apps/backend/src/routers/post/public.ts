@@ -51,7 +51,15 @@ export const publicPostRouter = router({
 
       const posts = await PostService.find({ ids: recommendedIds, userId })
 
-      return posts
+      const postsDto = posts.map((p) => ({
+        id: p.id,
+        description: p.description,
+        likesCount: p.likesCount,
+        isLiked: p.isLiked,
+        previewUrl: p.photos[0].optimizedUrl
+      }))
+
+      return postsDto
     }),
 
   fallingStar: publicProcedure.subscription(async function* ({ signal }) {
