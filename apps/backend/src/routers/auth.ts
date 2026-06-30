@@ -28,7 +28,9 @@ export const authRouter = router({
         data: {
           name: input.name,
           email: input.email,
-          password: hashPassword
+          password: hashPassword,
+          description: input.description,
+          avatar: input.avatar
         }
       })
 

@@ -1,6 +1,9 @@
+import { USER_PROFILE } from '@/constants'
 import apiError from '@/helpers/apiError'
+import { compressJpeg } from '@/helpers/compressJpeg'
 import { hybridProcedure } from '@/procedures/hybrid.procedure'
 import { moderatorProcedure } from '@/procedures/moderator.procedure'
+import { protectedProcedure } from '@/procedures/protected.procedure'
 import { router } from '@/trpc'
 import { UserSchema } from '@/validators/index'
 import type { Prisma, User } from '@db/client'
@@ -47,6 +50,46 @@ export const userRouter = router({
       }
 
       return user
+    }),
+
+  setAvatar: protectedProcedure
+    .input(UserSchema.setAvatar)
+    .mutation(async ({ ctx, input }) => {
+      const avatarPath = USER_PROFILE.PATH(ctx.user.id)
+      const avatarLink = USER_PROFILE.URL(ctx.user.id)
+
+      const bytes = await input.bytes()
+      const imgBuffer = Buffer.from(bytes)
+
+      await compressJpeg({
+        width: 200,
+        height: 200,
+        img: imgBuffer,
+        output: avatarPath
+      })
+
+      await ctx.prisma.user.update({
+        where: { id: ctx.user.id },
+        data: { avatar: avatarLink }
+      })
+
+      return avatarLink
+    }),
+
+  update: protectedProcedure
+    .input(UserSchema.update)
+    .mutation(async ({ ctx, input }) => {
+      const updatedUser = await ctx.prisma.user.update({
+        where: {
+          id: ctx.user.id
+        },
+        data: {
+          name: input.name,
+          description: input.description
+        }
+      })
+
+      return updatedUser
     }),
 
   setBan: moderatorProcedure

@@ -3,7 +3,7 @@ import type { RedisClientType } from 'redis'
 
 export const initRedisConfig = async (redis: RedisClientType) => {
   try {
-    console.log('[REDIS] Проверка и инициализация дефолтных конфигов...')
+    console.log('[REDIS] Initializing default config values...')
 
     await Promise.all([
       redis.hSetNX(
@@ -28,8 +28,8 @@ export const initRedisConfig = async (redis: RedisClientType) => {
       )
     ])
 
-    console.log('[REDIS] Конфигурация успешно синхронизирована')
+    console.log('[REDIS] Config initialized successfully')
   } catch (e) {
-    console.error('[REDIS ERROR] Ошибка инициализации дефолтных значений:', e)
+    console.error('[REDIS ERROR] Initializing error:', e)
   }
 }

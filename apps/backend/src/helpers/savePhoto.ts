@@ -1,5 +1,4 @@
 import fs, { constants } from 'fs/promises'
-import sharp from 'sharp'
 import cuid from '@bugsnag/cuid'
 import path from 'path'
 import { OPTIMIZED_POST, RAW_POST, TEMP_POST } from '@/constants'
@@ -7,6 +6,7 @@ import { getExif } from './getExif'
 import { exiftool } from 'exiftool-vendored'
 import apiError from './apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
+import { compressJpeg } from './compressJpeg'
 
 type Options = {
   file: File
@@ -61,14 +61,12 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
       }
     }
 
-    await sharp(isRaw ? tempPath : rawBuffer)
-      .rotate()
-      .resize(1920, null)
-      .jpeg({
-        progressive: true,
-        quality: 85
-      })
-      .toFile(optimizedPath)
+    await compressJpeg({
+      width: 1920,
+      height: null,
+      img: isRaw ? tempPath : rawBuffer,
+      output: optimizedPath
+    })
 
     if (isRaw) {
       await fs.unlink(tempPath)

@@ -11,6 +11,7 @@ import { Hono } from 'hono'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { createContext } from '@/context'
 import { appRouter } from '@/routers/_app'
+import { UPLOADS } from './constants'
 
 const app = new Hono()
 
@@ -22,7 +23,7 @@ app.use(
   })
 )
 
-app.use('/uploads/*', serveStatic({ root: './' }))
+app.use(`${UPLOADS.URL}/*`, serveStatic({ root: './' }))
 app.use(rateLimit(1, 90))
 app.use('*', compress())
 

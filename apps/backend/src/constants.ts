@@ -24,6 +24,11 @@ export const TEMP_POST = {
     path.join(UPLOADS.PATH, userId, postId, 'temp')
 }
 
+export const USER_PROFILE = {
+  PATH: (userId: string) => path.join(UPLOADS.PATH, userId, 'profile'),
+  URL: (userId: string) => [UPLOADS.URL, userId, 'profile'].join('/')
+}
+
 export const ALGORITHM_DEFAULTS = {
   GRAVITY: '1.7',
   K: '2',
