@@ -1,0 +1,20 @@
+@use '@/app/styles/helpers' as *;
+
+.toast {
+  @include fluid-text(16, 14);
+
+  font-family: var(--font-family-mono);
+  padding: fluid(10, 5) fluid(20, 15);
+
+  &.error {
+    color: var(--color-red);
+    background-color: var(--color-red-10);
+    box-shadow: 0 0 1rem 0 #d02f2f10;
+  }
+
+  &.message {
+    color: var(--color-dark);
+    background-color: var(--color-white);
+    box-shadow: 0 0 1rem 0 #1a1f2110;
+  }
+}

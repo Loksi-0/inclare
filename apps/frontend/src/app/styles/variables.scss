@@ -1,0 +1,32 @@
+@use '@/app/styles/helpers' as *;
+
+:root {
+  --color-white: #ffffff;
+  --color-light: #fafafa;
+
+  --color-gray-20: #e7ecee;
+  --color-gray-10: #6c7b80;
+
+  --color-dark: #1a1f21;
+
+  --color-red-10: #fff0f0;
+  --color-red: #db3434;
+
+  --color-select: var(--color-white);
+
+  --border: #{rem(1)} solid var(--color-gray-20);
+
+  --container-width: #{rem(1600)};
+  --container-small-width: #{rem(750)};
+  --container-form-width: #{rem(500)};
+  --container-padding-x: #{fluid(90, 30)};
+
+  --transition-duration: 0.2s;
+
+  --scrollbar-width: 0px;
+  --100vw: calc(100vw - var(--scrollbar-width));
+
+  @include tablet {
+    --container-padding-x: #{rem(24)};
+  }
+}

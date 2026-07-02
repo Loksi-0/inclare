@@ -56,6 +56,12 @@ export const ERROR_CODES = {
       status: 403,
       code: 'REQUEST_FORBIDDEN'
     }
+  },
+  SERVER: {
+    INTERNAL_ERROR: {
+      code: 'SERVER_INTERNAL_ERROR',
+      status: 500
+    }
   }
 } as const
 
