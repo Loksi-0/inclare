@@ -5,7 +5,7 @@ import { hybridProcedure } from '@/procedures/hybrid.procedure'
 import { moderatorProcedure } from '@/procedures/moderator.procedure'
 import { protectedProcedure } from '@/procedures/protected.procedure'
 import { router } from '@/trpc'
-import { UserSchema } from '@/validators/index'
+import { UserSchema } from '@/validators'
 import type { Prisma, User } from '@db/client'
 import { ERROR_CODES } from '@repo/api-error-codes'
 

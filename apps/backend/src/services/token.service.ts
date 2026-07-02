@@ -1,6 +1,6 @@
 import { prisma } from '@/context'
 import getEnv from '@/helpers/getEnv'
-import type { JwtSchema } from '@/validators/index'
+import type { JwtSchema } from '@/validators'
 import { sign } from 'hono/jwt'
 
 export const TokenService = {
