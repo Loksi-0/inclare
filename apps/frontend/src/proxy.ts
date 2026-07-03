@@ -6,6 +6,10 @@ export const proxy = async (req: NextRequest) => {
   const token = req.cookies.get(COOKIES.TOKEN)?.value
   const pathname = req.nextUrl.pathname
 
+  if (pathname.startsWith('/_next')) {
+    return NextResponse.next()
+  }
+
   if (pathname === '/') {
     return NextResponse.redirect(new URL(PAGES.LOGIN, req.url))
   }

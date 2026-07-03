@@ -1,0 +1,47 @@
+@use '@/app/styles/helpers' as *;
+
+.button {
+  @include fluid-text(14, 12);
+
+  font-family: var(--font-family-mono);
+  display: flex;
+  flex-direction: row;
+  column-gap: rem(10);
+  align-items: center;
+  justify-content: center;
+
+  @include hover {
+    filter: blur(1);
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &:active {
+    filter: blur(0);
+    scale: 0.95;
+  }
+}
+
+.solid {
+  padding: rem(15) rem(30);
+  background-color: var(--color-dark);
+  color: var(--color-white);
+
+  &.disabled {
+    background-color: var(--color-gray-10);
+    color: var(--color-gray-20);
+  }
+}
+
+.outlined {
+  padding: rem(15) rem(30);
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  border: var(--border);
+
+  &.disabled {
+    color: var(--color-gray-10);
+  }
+}
