@@ -16,7 +16,7 @@
   &__body {
     display: flex;
     flex-direction: column;
-    gap: fluid(30, 20);
+    gap: rem(30);
     align-items: start;
 
     @include mobile {

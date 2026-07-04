@@ -1,0 +1,34 @@
+@use '@/app/styles/helpers' as *;
+
+.misted {
+  position: relative;
+  padding: rem(15);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+
+  &__mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__rect {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 950;
+    width: 100%;
+    height: 100%;
+    mask-image: url(#misted-mask);
+  }
+}
