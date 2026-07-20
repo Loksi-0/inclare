@@ -1,0 +1,9 @@
+@use '@/app/styles/helpers' as *;
+
+.dark path {
+  fill: var(--color-dark);
+}
+
+.light path {
+  fill: var(--color-white);
+}

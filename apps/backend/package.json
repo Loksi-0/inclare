@@ -23,6 +23,7 @@
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@repo/constants": "workspace:^",
+    "@repo/validators": "workspace:^",
     "@trpc/server": "^11.17.0",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",

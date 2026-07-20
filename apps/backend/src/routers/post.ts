@@ -1,6 +1,6 @@
 import { protectedProcedure } from '@/procedures/protected.procedure'
 import { router } from '@/trpc'
-import { PostSchema } from '@/validators'
+import { PostSchema } from '@repo/validators'
 import { myPostRouter } from './post/my'
 import { moderatorPostRouter } from './post/moderator'
 import { publicPostRouter } from './post/public'

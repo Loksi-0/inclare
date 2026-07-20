@@ -1,0 +1,45 @@
+@use '@/app/styles/helpers' as *;
+
+.numberInput {
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(10);
+  transition-duration: var(--transition-duration);
+  user-select: none;
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    column-gap: rem(10);
+    align-items: center;
+  }
+
+  &__input {
+    max-width: rem(100);
+    padding: fluid(15, 10) fluid(20, 15);
+    border: var(--border);
+    border-radius: rem(10);
+    background-color: var(--color-white);
+
+    &.invalid {
+      border-color: var(--color-red);
+      background-color: var(--color-red-10);
+    }
+  }
+
+  &__label {
+    user-select: auto;
+
+    &.required {
+      &::after {
+        content: '*';
+        color: var(--color-red);
+        padding-left: rem(5);
+      }
+    }
+  }
+
+  &__error {
+    color: var(--color-red);
+  }
+}

@@ -1,6 +1,6 @@
 import type z from 'zod'
 
-const validateImageName = (
+export const validateImageName = (
   data: Record<string, unknown>,
   ctx: z.core.$RefinementCtx<typeof data>
 ) => {
@@ -12,5 +12,3 @@ const validateImageName = (
     })
   }
 }
-
-export default validateImageName

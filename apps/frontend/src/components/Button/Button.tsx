@@ -4,23 +4,28 @@ import type { MouseEventHandler, PropsWithChildren } from 'react'
 import cx from 'clsx'
 import styles from './Button.module.scss'
 import { useRouter } from 'next/navigation'
+import Preloader from '../Preloader'
 
 type ButtonProps = PropsWithChildren<{
-  color: 'solid' | 'outlined'
+  color: 'solid' | 'outlined' | 'icon'
+  type?: 'button' | 'submit' | 'reset'
   className?: string
   disabled?: boolean
   onClick?: MouseEventHandler<HTMLButtonElement>
   navigate?: string
+  loading?: boolean
 }>
 
 const Button = (props: ButtonProps) => {
   const {
     color,
     disabled = false,
+    loading = false,
     className,
     onClick,
     children,
-    navigate
+    navigate,
+    type = 'button'
   } = props
 
   const router = useRouter()
@@ -42,8 +47,9 @@ const Button = (props: ButtonProps) => {
       ])}
       disabled={disabled}
       onClick={onClickAction}
+      type={type}
     >
-      {children}
+      {loading ? <Preloader color='light' /> : children}
     </button>
   )
 }

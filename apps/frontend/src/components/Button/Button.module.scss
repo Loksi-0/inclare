@@ -9,6 +9,7 @@
   column-gap: rem(10);
   align-items: center;
   justify-content: center;
+  caret-color: transparent;
 
   @include hover {
     filter: blur(1);

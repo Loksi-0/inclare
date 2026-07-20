@@ -1,29 +1,8 @@
-'use client'
+import { DEFAULTS } from '@/constants'
+import { redirect } from 'next/navigation'
 
-import { useTRPC } from '@/api/tanstack'
-import { useQuery } from '@tanstack/react-query'
-import { useSubscription } from '@trpc/tanstack-react-query'
-
-const TestPage = () => {
-  const trpc = useTRPC()
-
-  const { data } = useQuery(trpc.post.my.getDrafted.queryOptions())
-  const subscription = useSubscription(
-    trpc.post.public.fallingStar.subscriptionOptions()
-  )
-
-  if (!data) {
-    return <p>загрузка</p>
-  }
-
-  return (
-    <>
-      <p>{subscription.data}</p>
-      {data.map((p, i) => (
-        <p key={i}>{p.id}</p>
-      ))}
-    </>
-  )
+const Init = () => {
+  return redirect(DEFAULTS.START_PAGE)
 }
 
-export default TestPage
+export default Init

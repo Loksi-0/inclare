@@ -3,7 +3,7 @@ import apiError from '@/helpers/apiError'
 import getEnv from '@/helpers/getEnv'
 import { adminProcedure } from '@/procedures/admin.procedure'
 import { router } from '@/trpc'
-import { AdminSchema, UserSchema } from '@/validators'
+import { AdminSchema, UserSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 
 export const adminRouter = router({

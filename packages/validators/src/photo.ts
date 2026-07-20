@@ -1,4 +1,4 @@
-import { stringSchema } from '@/lib/zod-types/stringSchema'
+import { stringSchema } from '../shared/stringSchema'
 import z from 'zod'
 
 export const upload = z.instanceof(FormData)

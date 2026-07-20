@@ -4,7 +4,7 @@ import { starsEmitter, type StarsEmitterMap } from '@/helpers/starsEmitter'
 import { hybridProcedure } from '@/procedures/hybrid.procedure'
 import { PostService } from '@/services/post.service'
 import { publicProcedure, router } from '@/trpc'
-import { PostSchema } from '@/validators'
+import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { on } from 'events'
 

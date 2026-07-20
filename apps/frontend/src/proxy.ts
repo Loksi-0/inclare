@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { PAGES } from './constants'
+import { DEFAULTS, PAGES } from './constants'
 import { COOKIES } from '@repo/constants'
 
 export const proxy = async (req: NextRequest) => {
@@ -11,7 +11,7 @@ export const proxy = async (req: NextRequest) => {
   }
 
   if (pathname === '/') {
-    return NextResponse.redirect(new URL(PAGES.LOGIN, req.url))
+    return NextResponse.redirect(new URL(DEFAULTS.START_PAGE, req.url))
   }
 
   if (
@@ -21,7 +21,7 @@ export const proxy = async (req: NextRequest) => {
       pathname.startsWith(PAGES.LOGIN)
     )
   ) {
-    return NextResponse.redirect(new URL(PAGES.LOGIN, req.url))
+    return NextResponse.redirect(new URL(DEFAULTS.START_PAGE, req.url))
   }
 
   if (

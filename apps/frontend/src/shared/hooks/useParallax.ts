@@ -11,8 +11,8 @@ type Options = {
 }
 
 const animationOptions: gsap.TweenVars = {
-  duration: 0.4,
-  ease: 'power2.out'
+  duration: 0.8,
+  ease: 'power4.out'
 }
 
 export const useParallax = (options: Options = {}) => {

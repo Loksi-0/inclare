@@ -1,4 +1,4 @@
-import type { JwtSchema } from '@inclare/backend/validators'
+import type { JwtSchema } from '@repo/validators'
 import { jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 import { cache } from 'react'

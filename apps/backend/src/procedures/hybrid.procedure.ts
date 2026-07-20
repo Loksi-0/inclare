@@ -1,7 +1,7 @@
 import { parseJwtToken } from '@/helpers/parseJwtToken'
 import { unauthorized } from '@/helpers/unauthorized'
 import { publicProcedure } from '@/trpc'
-import type { JwtSchema } from '@/validators'
+import type { JwtSchema } from '@repo/validators'
 
 const getValidUserId = (
   payload: JwtSchema.Payload | null,

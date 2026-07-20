@@ -1,6 +1,6 @@
 import z from 'zod'
 
-const fileSchema = (type: 'pdf' | 'image', maxSize: number) => {
+export const fileSchema = (type: 'pdf' | 'image', maxSize: number) => {
   if (type === 'image') {
     return z
       .file('Картинка отсутствует')
@@ -22,5 +22,3 @@ const fileSchema = (type: 'pdf' | 'image', maxSize: number) => {
       `Файл слишком большой (требуется не больше ${String(Math.round(maxSize / 1_000_000))}МБ)`
     )
 }
-
-export default fileSchema

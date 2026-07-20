@@ -12,7 +12,9 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "@repo/constants": "workspace:^",
+    "@repo/validators": "workspace:^",
     "@tanstack/react-query": "^5.101.2",
     "@trpc/client": "^11.18.0",
     "@trpc/tanstack-react-query": "^11.18.0",
@@ -22,9 +24,12 @@
     "next": "16.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-hook-form": "^7.80.0",
+    "react-lottie-player": "^2.1.0",
     "sass": "^1.101.0",
     "sonner": "^2.0.7",
-    "superjson": "^2.2.6"
+    "superjson": "^2.2.6",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@inclare/backend": "workspace:*",

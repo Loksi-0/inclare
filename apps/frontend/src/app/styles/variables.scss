@@ -22,7 +22,7 @@
   --container-padding-x: #{fluid(90, 30)};
 
   --transition-duration: 0.3s;
-  --transition-cubic-beizer: cubic-bezier(0.1, 0.38, 0.44, 1.7);
+  --transition-cubic-beizer: cubic-bezier(0.1, 0.38, 0.35, 1);
 
   --scrollbar-width: 0px;
   --100vw: calc(100vw - var(--scrollbar-width));

@@ -11,6 +11,8 @@ html {
 body {
   @include fluid-text(16, 14);
 
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: var(--font-family-base);
