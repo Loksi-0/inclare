@@ -1,7 +1,7 @@
 'use client'
 
 import { forwardRef, useId, useState, type ChangeEvent } from 'react'
-import styles from './PasswordInput.module.scss'
+import styles from './Password.module.scss'
 import Button from '@/components/Button'
 import EyeOpen from '@/icons/EyeOpen'
 import EyeClosed from '@/icons/EyeClosed'
@@ -17,13 +17,7 @@ type PasswordInputProps = {
 
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (props, ref) => {
-    const {
-      placeholder,
-      label,
-      error,
-      onChange,
-      ...rest
-    } = props
+    const { placeholder, label, error, onChange, ...rest } = props
 
     const id = useId()
     const inputRef = useAutoAnimate([error], { width: false })

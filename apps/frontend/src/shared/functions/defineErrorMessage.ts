@@ -10,7 +10,7 @@ const errorMessages: Record<ErrorCode, string> = {
   USER_NOT_FOUND: 'Пользователь не найден',
 
   AUTH_USER_EXISTS: 'Такой пользователь уже существует',
-  AUTH_WRONG_PASSWORD: 'Неверный пароль',
+  AUTH_WRONG_PASSWORD: 'ERR: НЕВЕРНЫЙ_ПАРОЛЬ',
 
   CONFIG_WRONG_INTERVALS: 'Неверные интервалы в конфиге',
   CONFIG_WRONG_GRAVITY: 'Неверный gravity в конфиге',

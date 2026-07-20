@@ -49,7 +49,11 @@ const Button = (props: ButtonProps) => {
       onClick={onClickAction}
       type={type}
     >
-      {loading ? <Preloader color='light' /> : children}
+      {loading ? (
+        <Preloader color={color === 'solid' ? 'light' : 'dark'} />
+      ) : (
+        children
+      )}
     </button>
   )
 }

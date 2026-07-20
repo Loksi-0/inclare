@@ -1,15 +1,14 @@
 import { forwardRef, useId, type ChangeEvent } from 'react'
 import styles from './Textarea.module.scss'
 import cx from 'clsx'
-import useAutoAnimate from '@/shared/hooks/useAutoAnimate'
+import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
 
 type TextareaProps = {
   label?: string
   placeholder: string
   error?: string
   required?: boolean
-  // eslint-disable-next-line no-unused-vars
-  onChange?: (e: ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>) => void
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(

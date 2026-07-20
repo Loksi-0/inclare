@@ -8,6 +8,7 @@
   user-select: none;
   filter: blur(10);
   transform: scaleY(2);
+  z-index: -1000;
   animation: fade-in var(--transition-duration) var(--transition-cubic-beizer)
     forwards;
 

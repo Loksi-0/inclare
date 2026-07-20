@@ -4,7 +4,8 @@
   @include fluid-text(16, 14);
 
   font-family: var(--font-family-mono);
-  padding: fluid(10, 5) fluid(20, 15);
+  padding: rem(10) fluid(20, 15);
+  text-align: center;
 
   &.error {
     color: var(--color-red);

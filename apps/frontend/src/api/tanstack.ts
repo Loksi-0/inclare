@@ -13,12 +13,12 @@ const makeQueryClient = () => {
   return new QueryClient({
     queryCache: new QueryCache({
       onError: (e) => {
-        toast.message(defineErrorMessage(e.message))
+        toast.error(defineErrorMessage(e.message))
       }
     }),
     mutationCache: new MutationCache({
       onError: (e) => {
-        toast.message(defineErrorMessage(e.message))
+        toast.error(defineErrorMessage(e.message))
       }
     })
   })

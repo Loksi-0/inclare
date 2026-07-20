@@ -21,8 +21,8 @@ body {
   background-color: var(--color-light);
 
   &::selection {
-    background-color: var(--color-dark);
-    color: var(--color-select);
+    background-color: var(--color-gray-20);
+    color: var(--color-dark);
   }
 }
 

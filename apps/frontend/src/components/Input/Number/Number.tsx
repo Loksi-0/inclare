@@ -1,5 +1,5 @@
 import { useId } from 'react'
-import styles from './NumberInput.module.scss'
+import styles from './Number.module.scss'
 import cx from 'clsx'
 import { Controller, useFormContext } from 'react-hook-form'
 import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
