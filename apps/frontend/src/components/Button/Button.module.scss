@@ -46,3 +46,29 @@
     color: var(--color-gray-10);
   }
 }
+
+.underline {
+  position: relative;
+  overflow: hidden;
+  width: fit-content;
+
+  &::after {
+    transition-duration: var(--transition-duration);
+    transition-timing-function: var(--transition-cubic-beizer);
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: rem(1);
+    background-color: var(--color-dark);
+  }
+
+  @include hover {
+    filter: blur(0);
+
+    &::after {
+      left: 0;
+    }
+  }
+}

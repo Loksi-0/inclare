@@ -96,6 +96,10 @@
   align-self: start;
 }
 
+.align-center {
+  align-self: center;
+}
+
 .hide-scrollbar {
   &::-webkit-scrollbar {
     display: none;

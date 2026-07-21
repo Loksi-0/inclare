@@ -5,9 +5,10 @@ import cx from 'clsx'
 import styles from './Button.module.scss'
 import { useRouter } from 'next/navigation'
 import Preloader from '../Preloader'
+import { useNavigate } from '@/shared/hooks/useNavigate'
 
 type ButtonProps = PropsWithChildren<{
-  color: 'solid' | 'outlined' | 'icon'
+  color: 'solid' | 'outlined' | 'underline' | 'icon'
   type?: 'button' | 'submit' | 'reset'
   className?: string
   disabled?: boolean
@@ -29,13 +30,14 @@ const Button = (props: ButtonProps) => {
   } = props
 
   const router = useRouter()
+  const { push } = useNavigate()
 
   const onClickAction = navigate
     ? () => {
         if (navigate === 'back') {
           router.back()
         } else {
-          router.push(navigate)
+          push(navigate)
         }
       }
     : onClick

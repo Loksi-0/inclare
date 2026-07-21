@@ -7,6 +7,7 @@ import FormLayout from '@/layouts/FormLayout'
 import Input from '@/components/Input'
 import DecorationBlock from '@/components/DecorationBlock'
 import { useLoginForm } from './useLoginForm'
+import { PAGES } from '@/constants'
 
 const LoginForm = () => {
   const {
@@ -56,6 +57,13 @@ const LoginForm = () => {
             войти
           </Button>
         </form>
+        <Button
+          color='underline'
+          className='align-center'
+          navigate={PAGES.REGISTRATION}
+        >
+          регистрация
+        </Button>
       </div>
       <div
         ref={topRef}

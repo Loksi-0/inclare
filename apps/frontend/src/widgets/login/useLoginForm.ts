@@ -1,13 +1,13 @@
 'use client'
 
-import { useTRPC } from "@/api/tanstack"
-import { PAGES } from "@/constants"
-import { useParallax } from "@/shared/hooks/useParallax"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { AuthSchema } from "@repo/validators"
-import { useMutation } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
-import { useForm, useWatch } from "react-hook-form"
+import { useTRPC } from '@/api/tanstack'
+import { PAGES } from '@/constants'
+import { useNavigate } from '@/shared/hooks/useNavigate'
+import { useParallax } from '@/shared/hooks/useParallax'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { AuthSchema } from '@repo/validators'
+import { useMutation } from '@tanstack/react-query'
+import { useForm, useWatch } from 'react-hook-form'
 
 export const useLoginForm = () => {
   const {
@@ -27,7 +27,7 @@ export const useLoginForm = () => {
   const { mutate: login, isPending } = useMutation(
     trpc.auth.login.mutationOptions()
   )
-  const router = useRouter()
+  const { push } = useNavigate()
 
   const { topRef, bgRef } = useParallax({
     topCoefficient: 5,
@@ -36,7 +36,7 @@ export const useLoginForm = () => {
   const onSubmit = (data: AuthSchema.Login) => {
     login(data, {
       onSuccess: () => {
-        router.push(PAGES.PROFILE)
+        push(PAGES.PROFILE)
       }
     })
   }
