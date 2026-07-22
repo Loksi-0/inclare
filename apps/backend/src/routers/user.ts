@@ -1,6 +1,5 @@
 import { USER_PROFILE } from '@backend/constants'
 import apiError from '@backend/helpers/apiError'
-import { compressJpeg } from '@backend/helpers/compressJpeg'
 import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
 import { moderatorProcedure } from '@backend/procedures/moderator.procedure'
 import { protectedProcedure } from '@backend/procedures/protected.procedure'
@@ -9,8 +8,8 @@ import { UserSchema } from '@repo/validators'
 import type { Prisma, User } from '@db/client'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import path from 'path'
-import z from 'zod'
 import { createFolder } from '@backend/helpers/createFolder'
+import { compressWebp } from '@backend/helpers/compressWebp'
 
 export const userRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
@@ -70,18 +69,22 @@ export const userRouter = router({
     .mutation(async ({ ctx, input }) => {
       await createFolder(USER_PROFILE.PATH(ctx.user.id))
 
-      const avatarPath = path.join(USER_PROFILE.PATH(ctx.user.id), 'avatar.jpg')
-      const avatarLink = `${USER_PROFILE.URL(ctx.user.id)}/avatar.jpg`
+      const avatarPath = path.join(
+        USER_PROFILE.PATH(ctx.user.id),
+        'avatar.webp'
+      )
+      const avatarLink = `${USER_PROFILE.URL(ctx.user.id)}/avatar.webp`
 
       const bytes = await input.file.bytes()
       const imgBuffer = Buffer.from(bytes)
 
-      await compressJpeg({
-        width: 200,
-        height: 200,
+      await compressWebp({
+        width: 150,
+        height: 150,
         img: imgBuffer,
         fit: 'cover',
-        output: avatarPath
+        output: avatarPath,
+        animated: true
       })
 
       await ctx.prisma.user.update({

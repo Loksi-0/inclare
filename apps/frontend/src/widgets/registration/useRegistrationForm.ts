@@ -108,14 +108,14 @@ export const useRegistrationForm = () => {
       setIsPending(false)
 
       effectorStore.zoom(0.95)
-      fadeScreenStore.open()
+      fadeScreenStore.open(() => {
+        router.push(PAGES.PROFILE)
 
-      router.push(PAGES.PROFILE)
-
-      setTimeout(() => {
-        effectorStore.zoom(1)
-        fadeScreenStore.close()
-      }, 200)
+        setTimeout(() => {
+          effectorStore.zoom(1)
+          fadeScreenStore.close()
+        }, 200)
+      })
     }
 
     setIsPending(true)
