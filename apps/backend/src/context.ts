@@ -1,5 +1,5 @@
 import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
-import getEnv from '@/helpers/getEnv'
+import getEnv from '@backend/helpers/getEnv'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@db/client'
 import type { Context as HonoContext } from 'hono'

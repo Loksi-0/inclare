@@ -1,6 +1,6 @@
-import { savePhoto } from '@/helpers/savePhoto'
-import { protectedProcedure } from '@/procedures/protected.procedure'
-import { router } from '@/trpc'
+import { savePhoto } from '@backend/helpers/savePhoto'
+import { protectedProcedure } from '@backend/procedures/protected.procedure'
+import { router } from '@backend/trpc'
 import { PhotoSchema } from '@repo/validators'
 
 export const photoRouter = router({

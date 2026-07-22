@@ -10,11 +10,10 @@
   &__textarea {
     width: 100%;
     height: rem(180);
-    border-radius: rem(10);
     border: var(--border);
     resize: none;
     background-color: var(--color-white);
-    padding: fluid(20, 15) fluid(30, 20);
+    padding: rem(30);
 
     &.invalid {
       border-color: var(--color-red);

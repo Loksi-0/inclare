@@ -3,7 +3,7 @@
 .block {
   @include fluid-text(250, 150);
 
-  position: fixed;
+  position: absolute;
   pointer-events: none;
   user-select: none;
   filter: blur(10);

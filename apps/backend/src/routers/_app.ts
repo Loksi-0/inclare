@@ -1,4 +1,4 @@
-import { router } from '@/trpc'
+import { router } from '@backend/trpc'
 import { userRouter } from './user'
 import { authRouter } from './auth'
 import { postRouter } from './post'

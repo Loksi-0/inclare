@@ -1,6 +1,6 @@
-import apiError from '@/helpers/apiError'
-import { moderatorProcedure } from '@/procedures/moderator.procedure'
-import { router } from '@/trpc'
+import apiError from '@backend/helpers/apiError'
+import { moderatorProcedure } from '@backend/procedures/moderator.procedure'
+import { router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 

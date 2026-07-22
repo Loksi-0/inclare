@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import useWindow from './useWindow'
+import { useWindow } from './useWindow'
 import { useIsMounted } from './useIsMounted'
 
 export const useMedia = () => {

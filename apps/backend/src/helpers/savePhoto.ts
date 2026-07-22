@@ -1,7 +1,7 @@
 import fs, { constants } from 'fs/promises'
 import cuid from '@bugsnag/cuid'
 import path from 'path'
-import { OPTIMIZED_POST, RAW_POST, TEMP_POST } from '@/constants'
+import { OPTIMIZED_POST, RAW_POST, TEMP_POST } from '@backend/constants'
 import { getExif } from './getExif'
 import { exiftool } from 'exiftool-vendored'
 import apiError from './apiError'

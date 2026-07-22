@@ -1,6 +1,6 @@
-import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@/constants'
-import { prisma, redis } from '@/context'
-import { starsEmitter } from '@/helpers/starsEmitter'
+import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@backend/constants'
+import { prisma, redis } from '@backend/context'
+import { starsEmitter } from '@backend/helpers/starsEmitter'
 import { Prisma } from '@db/client'
 
 const getFallingStars = async () => {

@@ -6,8 +6,12 @@ export const register = z.object({
   email: z.email('Введите корректный email'),
   password: passwordSchema,
   name: stringSchema('Придумайте никнейм').max(100),
-  description: stringSchema('Придумайте описание').max(1000).optional(),
-  avatar: stringSchema('Добавьте аватарку').max(500).optional()
+  description: stringSchema('Придумайте описание', { optional: true })
+    .max(1000)
+    .optional(),
+  avatar: stringSchema('Добавьте аватарку', { optional: true })
+    .max(500)
+    .optional()
 })
 export type Register = z.infer<typeof register>
 

@@ -1,6 +1,6 @@
-import { parseJwtToken } from '@/helpers/parseJwtToken'
-import { unauthorized } from '@/helpers/unauthorized'
-import { publicProcedure } from '@/trpc'
+import { parseJwtToken } from '@backend/helpers/parseJwtToken'
+import { unauthorized } from '@backend/helpers/unauthorized'
+import { publicProcedure } from '@backend/trpc'
 import type { JwtSchema } from '@repo/validators'
 
 const getValidUserId = (

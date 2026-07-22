@@ -1,6 +1,6 @@
 import type { ErrorCode } from '@repo/api-error-codes'
 
-const errorMessages: Record<ErrorCode, string> = {
+export const errorMessages: Record<ErrorCode, string> = {
   SESSION_UNAUTHORIZED: 'Вы вышли из аккаунта',
 
   POST_NOT_FOUND: 'Пост не найден',

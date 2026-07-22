@@ -1,0 +1,55 @@
+@use '@/app/styles/helpers' as *;
+
+.avatar {
+  @include square(150);
+
+  background-color: var(--color-gray-20);
+  position: relative;
+  user-select: none;
+
+  &.selected {
+    background-color: transparent;
+  }
+
+  &__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  &__add,
+  &__delete {
+    @include square(35);
+
+    padding: rem(10);
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    position: absolute;
+    z-index: 1050;
+
+    &:active {
+      scale: 0.9;
+    }
+  }
+
+  &__add {
+    bottom: rem(10);
+    right: rem(10);
+  }
+
+  &__delete {
+    top: rem(10);
+    right: rem(10);
+  }
+
+  &__preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

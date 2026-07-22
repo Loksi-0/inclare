@@ -1,3 +1,4 @@
+import AvatarInput from './Avatar/Avatar'
 import NumberInput from './Number/Number'
 import PasswordInput from './Password/Password'
 import TextInput from './Text/Text'
@@ -7,7 +8,8 @@ const Input = {
   Text: TextInput,
   Number: NumberInput,
   Password: PasswordInput,
-  Textarea: Textarea
+  Textarea: Textarea,
+  Avatar: AvatarInput
 }
 
 export default Input

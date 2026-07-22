@@ -1,13 +1,13 @@
-import apiError from '@/helpers/apiError'
-import getEnv from '@/helpers/getEnv'
-import { protectedProcedure } from '@/procedures/protected.procedure'
-import { publicProcedure, router } from '@/trpc'
-import { TokenService } from '@/services/token.service'
+import apiError from '@backend/helpers/apiError'
+import getEnv from '@backend/helpers/getEnv'
+import { protectedProcedure } from '@backend/procedures/protected.procedure'
+import { publicProcedure, router } from '@backend/trpc'
+import { TokenService } from '@backend/services/token.service'
 import { AuthSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import bcrypt from 'bcryptjs'
-import { setAuthCookies } from '@/helpers/setAuthCookies'
-import { deleteTokenCookie } from '@/helpers/tokenCookie'
+import { setAuthCookies } from '@backend/helpers/setAuthCookies'
+import { deleteTokenCookie } from '@backend/helpers/tokenCookie'
 
 export const authRouter = router({
   register: publicProcedure

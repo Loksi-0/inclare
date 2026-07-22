@@ -1,4 +1,4 @@
-import apiError from '@/helpers/apiError'
+import apiError from '@backend/helpers/apiError'
 import { protectedProcedure } from './protected.procedure'
 import { ERROR_CODES } from '@repo/api-error-codes'
 

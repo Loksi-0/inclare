@@ -1,13 +1,16 @@
-import { USER_PROFILE } from '@/constants'
-import apiError from '@/helpers/apiError'
-import { compressJpeg } from '@/helpers/compressJpeg'
-import { hybridProcedure } from '@/procedures/hybrid.procedure'
-import { moderatorProcedure } from '@/procedures/moderator.procedure'
-import { protectedProcedure } from '@/procedures/protected.procedure'
-import { router } from '@/trpc'
+import { USER_PROFILE } from '@backend/constants'
+import apiError from '@backend/helpers/apiError'
+import { compressJpeg } from '@backend/helpers/compressJpeg'
+import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
+import { moderatorProcedure } from '@backend/procedures/moderator.procedure'
+import { protectedProcedure } from '@backend/procedures/protected.procedure'
+import { publicProcedure, router } from '@backend/trpc'
 import { UserSchema } from '@repo/validators'
 import type { Prisma, User } from '@db/client'
 import { ERROR_CODES } from '@repo/api-error-codes'
+import path from 'path'
+import z from 'zod'
+import { createFolder } from '@backend/helpers/createFolder'
 
 export const userRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
@@ -52,19 +55,32 @@ export const userRouter = router({
       return user
     }),
 
+  checkExists: publicProcedure
+    .input(UserSchema.checkExists)
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findUnique({
+        where: { email: input.email }
+      })
+
+      return !!user
+    }),
+
   setAvatar: protectedProcedure
     .input(UserSchema.setAvatar)
     .mutation(async ({ ctx, input }) => {
-      const avatarPath = USER_PROFILE.PATH(ctx.user.id)
-      const avatarLink = USER_PROFILE.URL(ctx.user.id)
+      await createFolder(USER_PROFILE.PATH(ctx.user.id))
 
-      const bytes = await input.bytes()
+      const avatarPath = path.join(USER_PROFILE.PATH(ctx.user.id), 'avatar.jpg')
+      const avatarLink = `${USER_PROFILE.URL(ctx.user.id)}/avatar.jpg`
+
+      const bytes = await input.file.bytes()
       const imgBuffer = Buffer.from(bytes)
 
       await compressJpeg({
         width: 200,
         height: 200,
         img: imgBuffer,
+        fit: 'cover',
         output: avatarPath
       })
 

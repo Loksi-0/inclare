@@ -1,5 +1,5 @@
-import { prisma } from '@/context'
-import getEnv from '@/helpers/getEnv'
+import { prisma } from '@backend/context'
+import getEnv from '@backend/helpers/getEnv'
 import type { JwtSchema } from '@repo/validators'
 import { sign } from 'hono/jwt'
 

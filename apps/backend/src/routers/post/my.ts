@@ -1,6 +1,6 @@
-import apiError from '@/helpers/apiError'
-import { protectedProcedure } from '@/procedures/protected.procedure'
-import { router } from '@/trpc'
+import apiError from '@backend/helpers/apiError'
+import { protectedProcedure } from '@backend/procedures/protected.procedure'
+import { router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 

@@ -1,4 +1,4 @@
-import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@/constants'
+import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@backend/constants'
 import type { RedisClientType } from 'redis'
 
 export const initRedisConfig = async (redis: RedisClientType) => {

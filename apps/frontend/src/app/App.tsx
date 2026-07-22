@@ -1,9 +1,10 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 import Providers from './Providers'
 import { Toaster } from 'sonner'
 import FadeScreen from '@/components/FadeScreen'
+import Effector from '@/components/Effector'
 
 const App = ({ children }: PropsWithChildren) => {
   return (
@@ -13,7 +14,7 @@ const App = ({ children }: PropsWithChildren) => {
         dir='auto'
       />
       <FadeScreen />
-      {children}
+      <Effector>{children}</Effector>
     </Providers>
   )
 }

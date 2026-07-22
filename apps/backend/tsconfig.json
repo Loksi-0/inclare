@@ -2,7 +2,7 @@
   "extends": "@repo/typescript-config/honojs.json",
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"],
+      "@backend/*": ["./src/*"],
       "@db/*": ["./prisma/generated/*"]
     }
   }

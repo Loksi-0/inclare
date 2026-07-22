@@ -2,11 +2,13 @@
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@backend/*": ["../backend/src/*"],
+      "@db/*": ["../backend/prisma/generated/*"]
     }
   },
   "references": [
-    { "path": "../backend" }
+    { "path": "../backend/tsconfig.json" }
   ],
   "include": [
     "src/**/*",

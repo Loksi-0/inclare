@@ -1,8 +1,8 @@
-import { REDIS_KEYS } from '@/constants'
-import apiError from '@/helpers/apiError'
-import getEnv from '@/helpers/getEnv'
-import { adminProcedure } from '@/procedures/admin.procedure'
-import { router } from '@/trpc'
+import { REDIS_KEYS } from '@backend/constants'
+import apiError from '@backend/helpers/apiError'
+import getEnv from '@backend/helpers/getEnv'
+import { adminProcedure } from '@backend/procedures/admin.procedure'
+import { router } from '@backend/trpc'
 import { AdminSchema, UserSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 

@@ -4,7 +4,7 @@ import z from 'zod'
 export const payload = z.object({
   userId: stringSchema(),
   deviceId: stringSchema(),
-  role: z.literal(['USER', 'MODERATOR']),
+  role: z.literal(['USER', 'MODERATOR', 'ADMIN']),
   exp: z.number(),
   iat: z.number()
 })

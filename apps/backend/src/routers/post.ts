@@ -1,10 +1,10 @@
-import { protectedProcedure } from '@/procedures/protected.procedure'
-import { router } from '@/trpc'
+import { protectedProcedure } from '@backend/procedures/protected.procedure'
+import { router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { myPostRouter } from './post/my'
 import { moderatorPostRouter } from './post/moderator'
 import { publicPostRouter } from './post/public'
-import { createPostFolder } from '@/helpers/createPostFolder'
+import { createPostFolder } from '@backend/helpers/createPostFolder'
 
 export const postRouter = router({
   public: publicPostRouter,

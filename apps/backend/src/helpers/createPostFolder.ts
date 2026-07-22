@@ -1,4 +1,4 @@
-import { OPTIMIZED_POST, RAW_POST, TEMP_POST } from '@/constants'
+import { OPTIMIZED_POST, RAW_POST, TEMP_POST } from '@backend/constants'
 import fs from 'fs/promises'
 
 type Options = {

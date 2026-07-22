@@ -6,7 +6,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "start": "turbo run start"
   },
   "devDependencies": {
     "@repo/prettier-config": "workspace:^",

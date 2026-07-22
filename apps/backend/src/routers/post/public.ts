@@ -1,9 +1,12 @@
-import { REDIS_KEYS } from '@/constants'
-import apiError from '@/helpers/apiError'
-import { starsEmitter, type StarsEmitterMap } from '@/helpers/starsEmitter'
-import { hybridProcedure } from '@/procedures/hybrid.procedure'
-import { PostService } from '@/services/post.service'
-import { publicProcedure, router } from '@/trpc'
+import { REDIS_KEYS } from '@backend/constants'
+import apiError from '@backend/helpers/apiError'
+import {
+  starsEmitter,
+  type StarsEmitterMap
+} from '@backend/helpers/starsEmitter'
+import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
+import { PostService } from '@backend/services/post.service'
+import { publicProcedure, router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { on } from 'events'

@@ -1,10 +1,10 @@
-import apiError from '@/helpers/apiError'
+import apiError from '@backend/helpers/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
-import { TokenService } from '@/services/token.service'
-import { setTokenCookie } from '@/helpers/tokenCookie'
-import { unauthorized } from '@/helpers/unauthorized'
+import { TokenService } from '@backend/services/token.service'
+import { setTokenCookie } from '@backend/helpers/tokenCookie'
+import { unauthorized } from '@backend/helpers/unauthorized'
 import { hybridProcedure } from './hybrid.procedure'
-import { setDeviceIdCookie } from '@/helpers/deviceIdCookie'
+import { setDeviceIdCookie } from '@backend/helpers/deviceIdCookie'
 
 export const protectedProcedure = hybridProcedure.use(async ({ ctx, next }) => {
   if (!ctx.deviceId || !ctx.token || !ctx.user || !ctx.payload) {
