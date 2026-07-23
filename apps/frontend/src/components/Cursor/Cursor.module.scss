@@ -1,0 +1,18 @@
+@use '@/app/styles/helpers' as *;
+
+.global * {
+  cursor: none !important;
+}
+
+.cursor {
+  @include square(15);
+
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  border-radius: rem(50);
+  backdrop-filter: invert(100);
+  z-index: 5000;
+  translate: -50% -50%;
+  scale: 0;
+}

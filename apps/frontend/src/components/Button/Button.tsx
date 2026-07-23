@@ -50,6 +50,7 @@ const Button = (props: ButtonProps) => {
       disabled={disabled}
       onClick={onClickAction}
       type={type}
+      data-cursor={disabled ? 'not-allowed' : 'pointer'}
     >
       {loading ? (
         <Preloader color={color === 'solid' ? 'light' : 'dark'} />
