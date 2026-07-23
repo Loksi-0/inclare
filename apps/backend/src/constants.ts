@@ -29,6 +29,13 @@ export const USER_PROFILE = {
   URL: (userId: string) => [UPLOADS.URL, userId, 'profile'].join('/')
 }
 
+export const UPLOAD_DEFAULTS = {
+  AVATAR: {
+    PATH: path.join(UPLOADS.PATH, 'defaults', 'avatars'),
+    URL: [UPLOADS.URL, 'defaults', 'avatars'].join('/')
+  }
+}
+
 export const ALGORITHM_DEFAULTS = {
   GRAVITY: '1.7',
   K: '2',

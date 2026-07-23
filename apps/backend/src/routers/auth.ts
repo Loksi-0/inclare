@@ -8,6 +8,7 @@ import { ERROR_CODES } from '@repo/api-error-codes'
 import bcrypt from 'bcryptjs'
 import { setAuthCookies } from '@backend/helpers/setAuthCookies'
 import { deleteTokenCookie } from '@backend/helpers/tokenCookie'
+import { getRandomAvatar } from '@backend/helpers/getRandomAvatar'
 
 export const authRouter = router({
   register: publicProcedure
@@ -23,6 +24,10 @@ export const authRouter = router({
 
       const SALT_ROUNDS = Number(getEnv('PASSWORD_SALT_ROUNDS')) || 12
       const hashPassword = await bcrypt.hash(input.password, SALT_ROUNDS)
+
+      if (!input.avatar) {
+        input.avatar = await getRandomAvatar()
+      }
 
       const user = await ctx.prisma.user.create({
         data: {

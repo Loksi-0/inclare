@@ -1,5 +1,5 @@
 import { OPTIMIZED_POST, RAW_POST, TEMP_POST } from '@backend/constants'
-import fs from 'fs/promises'
+import { createFolder } from './createFolder'
 
 type Options = {
   userId: string
@@ -7,11 +7,9 @@ type Options = {
 }
 
 export const createPostFolder = async ({ userId, postId }: Options) => {
-  const rawPath = RAW_POST.PATH(userId, postId)
-  const optimizedPath = OPTIMIZED_POST.PATH(userId, postId)
-  const tempPath = TEMP_POST.PATH(userId, postId)
-
-  await fs.mkdir(rawPath, { recursive: true })
-  await fs.mkdir(optimizedPath, { recursive: true })
-  await fs.mkdir(tempPath, { recursive: true })
+  await createFolder(
+    RAW_POST.PATH(userId, postId),
+    OPTIMIZED_POST.PATH(userId, postId),
+    TEMP_POST.PATH(userId, postId)
+  )
 }
