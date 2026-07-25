@@ -15,7 +15,7 @@ const linkOptions = {
   transformer: SuperJSON
 }
 
-const cookiesFetch = (
+const cookiesFetch = async (
   url: URL | RequestInfo,
   options: RequestInit | undefined
 ) => {
@@ -38,7 +38,19 @@ export const api = createTRPCClient<AppRouter>({
         }),
         false: httpBatchLink({
           ...linkOptions,
-          fetch: cookiesFetch
+          fetch: cookiesFetch,
+          headers: async () => {
+            if (!isClient) {
+              const { cookies } = await import('next/headers')
+              const cookiesStore = await cookies()
+
+              return {
+                cookie: cookiesStore.toString()
+              }
+            }
+
+            return {}
+          }
         })
       })
     })

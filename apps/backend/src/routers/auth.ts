@@ -69,8 +69,22 @@ export const authRouter = router({
       return user
     }),
 
-  me: protectedProcedure.query(({ ctx }) => {
-    return ctx.user
+  me: protectedProcedure.query(async ({ ctx }) => {
+    const photosCount = await ctx.prisma.post.findMany({
+      where: { authorId: ctx.user.id },
+      select: {
+        _count: {
+          select: {
+            photos: true
+          }
+        }
+      }
+    })
+
+    return {
+      ...ctx.user,
+      totalArchived: photosCount.reduce((acc, p) => acc + p._count.photos, 0)
+    }
   }),
 
   logoutCurrentDevice: protectedProcedure.mutation(async ({ ctx }) => {
