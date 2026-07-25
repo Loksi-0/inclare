@@ -26,8 +26,6 @@ const Cursor = () => {
   }
 
   useEffect(() => {
-    reset()
-
     const xTo = gsap.quickTo(cursorRef.current, 'x', {
       duration: 0.01,
       ease: 'power3.out'
@@ -36,6 +34,10 @@ const Cursor = () => {
       duration: 0.01,
       ease: 'power3.out'
     })
+
+    xTo(-10)
+    yTo(-10)
+    scale(0)
 
     const onMove = (e: MouseEvent) => {
       xTo(e.x)

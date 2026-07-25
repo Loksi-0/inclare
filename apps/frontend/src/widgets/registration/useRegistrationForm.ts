@@ -7,14 +7,12 @@ import { PAGES } from '@/constants'
 import { useParallax } from '@/shared/hooks/useParallax'
 import { toast } from '@/shared/functions/toast'
 import { errorMessages } from '@/shared/functions/defineErrorMessage'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
 import gsap from 'gsap'
-import { effectorStore } from '@/stores/effector.store'
-import { fadeScreenStore } from '@/stores/fadeScreen.store'
-import { useRouter } from 'next/navigation'
 import { randomCode } from '@/shared/functions/randomCode'
+import { useNavigate } from '@/shared/hooks/useNavigate'
 
 export const useRegistrationForm = () => {
   const [screen, setScreen] = useState(1)
@@ -61,7 +59,7 @@ export const useRegistrationForm = () => {
     bgCoefficient: 1
   })
 
-  const router = useRouter()
+  const { push } = useNavigate()
   const formRef = useRef<HTMLFormElement | null>(null)
 
   const next = async () => {
@@ -107,15 +105,7 @@ export const useRegistrationForm = () => {
     const end = () => {
       setIsPending(false)
 
-      effectorStore.zoom(0.95)
-      fadeScreenStore.open(() => {
-        router.push(PAGES.PROFILE)
-
-        setTimeout(() => {
-          effectorStore.zoom(1)
-          fadeScreenStore.close()
-        }, 200)
-      })
+      push(PAGES.PROFILE, { animate: true })
     }
 
     setIsPending(true)

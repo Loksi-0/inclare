@@ -1,0 +1,28 @@
+@use '@/app/styles/helpers' as *;
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: fluid(15, 10) fluid(60, 30);
+  background-color: var(--color-light);
+  border-bottom: var(--border);
+
+  &__logo {
+    height: fluid(25, 20);
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    column-gap: rem(15);
+    align-items: center;
+  }
+
+  &__splitter {
+    height: fluid(15, 10);
+    width: rem(1);
+    background-color: var(--color-gray-10);
+  }
+}

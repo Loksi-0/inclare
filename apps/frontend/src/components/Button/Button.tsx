@@ -8,7 +8,7 @@ import Preloader from '../Preloader'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 
 type ButtonProps = PropsWithChildren<{
-  color: 'solid' | 'outlined' | 'underline' | 'icon'
+  color: 'solid' | 'outlined' | 'underline' | 'underline-gray' | 'icon'
   type?: 'button' | 'submit' | 'reset'
   className?: string
   disabled?: boolean
@@ -45,7 +45,9 @@ const Button = (props: ButtonProps) => {
   return (
     <button
       className={cx(styles.button, styles[color], className, [
-        { [styles.disabled]: disabled }
+        { [styles.disabled]: disabled },
+        { [styles.gray]: color === 'underline-gray' },
+        { [styles.underline]: color === 'underline-gray' }
       ])}
       disabled={disabled}
       onClick={onClickAction}

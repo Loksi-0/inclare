@@ -52,6 +52,10 @@
   overflow: hidden;
   width: fit-content;
 
+  &.gray {
+    color: var(--color-gray-10);
+  }
+
   &::after {
     transition-duration: var(--transition-duration);
     transition-timing-function: var(--transition-cubic-beizer);
@@ -69,6 +73,10 @@
 
     &::after {
       left: 0;
+    }
+
+    &.gray {
+      color: var(--color-dark);
     }
   }
 }

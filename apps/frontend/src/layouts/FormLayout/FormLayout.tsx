@@ -5,12 +5,12 @@ import cx from 'clsx'
 const FormLayout = forwardRef<HTMLDivElement, PropsWithChildren>(
   ({ children }, ref) => {
     return (
-      <section
+      <main
         ref={ref}
         className={cx(styles.form, 'container-form')}
       >
         <div className={styles.form__inner}>{children}</div>
-      </section>
+      </main>
     )
   }
 )

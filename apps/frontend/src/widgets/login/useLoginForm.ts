@@ -36,7 +36,7 @@ export const useLoginForm = () => {
   const onSubmit = (data: AuthSchema.Login) => {
     login(data, {
       onSuccess: () => {
-        push(PAGES.PROFILE)
+        push(PAGES.PROFILE, { animate: true })
       }
     })
   }
