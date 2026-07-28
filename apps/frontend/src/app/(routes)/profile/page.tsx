@@ -1,10 +1,12 @@
-import { api } from '@/api/trpc'
 import PageLayout from '@/layouts/PageLayout'
+import Me from '@/widgets/profile/Me'
 
-const Profile = async () => {
-  const data = await api.auth.me.query()
-
-  return <PageLayout>{data.totalArchived}</PageLayout>
+const Profile = () => {
+  return (
+    <PageLayout>
+      <Me />
+    </PageLayout>
+  )
 }
 
 export default Profile

@@ -1,0 +1,15 @@
+@use '@/app/styles/helpers' as *;
+
+.section {
+  display: flex;
+  flex-direction: row;
+  gap: fluid(20, 15);
+  align-items: center;
+  justify-content: center;
+  padding: fluid(40, 30) fluid(60, 30);
+  border-block: var(--border);
+
+  @include mobile {
+    flex-direction: column;
+  }
+}

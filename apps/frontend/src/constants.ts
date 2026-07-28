@@ -2,7 +2,8 @@ export const PAGES = {
   REGISTRATION: '/registration',
   LOGIN: '/login',
   PROFILE: '/profile',
-  PLANE: '/plane'
+  PLANE: '/plane',
+  SETTINGS: '/settings'
 }
 
 export const DEFAULTS = {
