@@ -30,10 +30,10 @@ export const useMisted = ({ size, delay }: UseMistedProps) => {
       const offsetY = cursor.y - maskRect.y
 
       if (
-        offsetX > maskRect.width ||
-        offsetY > maskRect.height ||
-        offsetX < 0 ||
-        offsetY < 0
+        offsetX - size > maskRect.width ||
+        offsetY - size > maskRect.height ||
+        offsetX + size < 0 ||
+        offsetY + size < 0
       ) {
         return
       }

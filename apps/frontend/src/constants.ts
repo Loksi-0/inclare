@@ -3,7 +3,8 @@ export const PAGES = {
   LOGIN: '/login',
   PROFILE: '/profile',
   PLANE: '/plane',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  DRAFTS: '/drafts'
 }
 
 export const DEFAULTS = {

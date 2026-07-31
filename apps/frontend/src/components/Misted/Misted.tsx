@@ -1,6 +1,6 @@
 'use client'
 
-import { type PropsWithChildren } from 'react'
+import { useId, type PropsWithChildren } from 'react'
 import styles from './Misted.module.scss'
 import { useMisted } from './useMisted'
 
@@ -14,6 +14,8 @@ type MistedProps = PropsWithChildren<{
 const Misted = (props: MistedProps) => {
   const { children, className, size = 20, delay = 3, blur = 5 } = props
 
+  const maskId = useId()
+  const blurId = useId()
   const { groupRef, maskRef } = useMisted({ size, delay })
 
   return (
@@ -23,8 +25,8 @@ const Misted = (props: MistedProps) => {
         className={styles.misted__mask}
       >
         <defs>
-          <mask id='misted-mask'>
-            <filter id='misted-blur'>
+          <mask id={maskId}>
+            <filter id={blurId}>
               <feGaussianBlur stdDeviation='5' />
             </filter>
             <rect
@@ -33,7 +35,7 @@ const Misted = (props: MistedProps) => {
             />
             <g
               ref={groupRef}
-              filter='url(#misted-blur)'
+              filter={`url(#${blurId})`}
             ></g>
           </mask>
         </defs>
@@ -42,7 +44,8 @@ const Misted = (props: MistedProps) => {
         className={styles.misted__backdrop}
         style={{
           backdropFilter: `blur(${blur}px)`,
-          WebkitBackdropFilter: `blur(${blur}px)`
+          WebkitBackdropFilter: `blur(${blur}px)`,
+          maskImage: `url(#${maskId})`
         }}
       ></div>
       <div className={className}>{children}</div>

@@ -1,0 +1,14 @@
+@use '@/app/styles/helpers' as *;
+
+.actions {
+  padding-inline: var(--container-padding-x);
+  display: flex;
+  flex-direction: row;
+  column-gap: fluid(10, 5);
+
+  &__button {
+    @include mobile-s {
+      flex-grow: 1;
+    }
+  }
+}
