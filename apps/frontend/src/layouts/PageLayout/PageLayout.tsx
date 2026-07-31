@@ -1,11 +1,21 @@
 import Header from '@/components/Header'
 import type { PropsWithChildren } from 'react'
+import cx from 'clsx'
+import styles from './PageLayout.module.scss'
 
-const PageLayout = ({ children }: PropsWithChildren) => {
+type PageLayoutProps = PropsWithChildren<{
+  profile?: boolean
+}>
+
+const PageLayout = (props: PageLayoutProps) => {
+  const { children, profile = false } = props
+
   return (
     <>
       <Header />
-      <main>
+      <main
+        className={cx(styles.layout, [{ [styles.profile]: profile }])}
+      >
         {children}
       </main>
     </>

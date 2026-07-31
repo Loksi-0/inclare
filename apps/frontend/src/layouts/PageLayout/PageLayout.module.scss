@@ -1,0 +1,14 @@
+@use '@/app/styles/helpers' as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--section-padding);
+  padding-block: var(--section-padding);
+
+  &.profile {
+    height: 95vh;
+    justify-content: space-between;
+    padding-block: calc(var(--section-padding) * 1.5);
+  }
+}

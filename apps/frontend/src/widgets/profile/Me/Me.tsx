@@ -48,7 +48,7 @@ const Me = catchError(
             </li>
             <li className={styles.me__item}>
               <p>total_archived</p>
-              <p>{me.totalArchived}</p>
+              <p>{me.totalArchived} pcs</p>
             </li>
             <li className={styles.me__item}>
               <p>email</p>

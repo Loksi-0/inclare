@@ -9,3 +9,9 @@ export const PAGES = {
 export const DEFAULTS = {
   START_PAGE: PAGES.LOGIN
 }
+
+export const CURSOR = {
+  POINTER: 'pointer',
+  NOT_ALLOWED: 'not-allowed',
+  GRAB: 'grab'
+}

@@ -1,0 +1,24 @@
+@use '@/app/styles/helpers' as *;
+
+.timeline {
+  height: fluid(400, 300);
+
+  &__line {
+    width: 100%;
+    height: rem(2);
+    background-color: var(--color-gray-20);
+  }
+
+  &__body {
+    position: relative;
+    will-change: transform;
+  }
+
+  &__group {
+    position: absolute;
+    top: rem(-6);
+    display: flex;
+    flex-direction: row;
+    column-gap: rem(15);
+  }
+}

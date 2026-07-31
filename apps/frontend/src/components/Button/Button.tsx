@@ -6,6 +6,7 @@ import styles from './Button.module.scss'
 import { useRouter } from 'next/navigation'
 import Preloader from '../Preloader'
 import { useNavigate } from '@/shared/hooks/useNavigate'
+import { CURSOR } from '@/constants'
 
 type ButtonProps = PropsWithChildren<{
   color: 'solid' | 'outlined' | 'underline' | 'underline-gray' | 'icon'
@@ -52,7 +53,7 @@ const Button = (props: ButtonProps) => {
       disabled={disabled}
       onClick={onClickAction}
       type={type}
-      data-cursor={disabled ? 'not-allowed' : 'pointer'}
+      data-cursor={disabled ? CURSOR.NOT_ALLOWED : CURSOR.POINTER}
     >
       {loading ? (
         <Preloader color={color === 'solid' ? 'light' : 'dark'} />

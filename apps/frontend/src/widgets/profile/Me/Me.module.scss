@@ -1,7 +1,6 @@
 @use '@/app/styles/helpers' as *;
 
 .me {
-  padding-block: calc(var(--section-padding) * 1.5);
   padding-inline: var(--container-padding-x);
   display: flex;
   flex-direction: column;
