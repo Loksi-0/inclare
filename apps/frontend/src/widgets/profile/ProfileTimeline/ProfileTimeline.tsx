@@ -7,15 +7,7 @@ const ProfileTimeline = catchError(
   async () => {
     const data = await api.post.my.getPublished.query()
 
-    return (
-      <Timeline
-        data={data.map((d) => ({
-          ...d,
-          previewUrl: d.photos[0].optimizedUrl,
-          pcs: d.photos.length
-        }))}
-      />
-    )
+    return <Timeline data={data} />
   },
   () => <ErrorSection name='таймлайн' />
 )

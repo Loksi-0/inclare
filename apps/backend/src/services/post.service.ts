@@ -1,6 +1,5 @@
 import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@backend/constants'
 import { prisma, redis } from '@backend/context'
-import getEnv from '@backend/helpers/getEnv'
 import { Prisma } from '@db/client'
 
 type FindOpts = {

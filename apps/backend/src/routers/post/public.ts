@@ -10,6 +10,7 @@ import { publicProcedure, router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { on } from 'events'
+import { optimizedPostsDto } from '@backend/dtos/postsDto'
 
 export const publicPostRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
@@ -54,15 +55,7 @@ export const publicPostRouter = router({
 
       const posts = await PostService.find({ ids: recommendedIds, userId })
 
-      const postsDto = posts.map((p) => ({
-        id: p.id,
-        description: p.description,
-        likesCount: p.likesCount,
-        isLiked: p.isLiked,
-        previewUrl: p.photos[0].optimizedUrl
-      }))
-
-      return postsDto
+      return optimizedPostsDto(posts)
     }),
 
   fallingStar: publicProcedure.subscription(async function* ({ signal }) {

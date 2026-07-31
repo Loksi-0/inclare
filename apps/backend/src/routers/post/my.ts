@@ -3,6 +3,7 @@ import { protectedProcedure } from '@backend/procedures/protected.procedure'
 import { router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
+import { optimizedPostsDto } from '@backend/dtos/postsDto'
 
 export const myPostRouter = router({
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -18,7 +19,7 @@ export const myPostRouter = router({
       }
     })
 
-    return posts
+    return optimizedPostsDto(posts)
   }),
 
   getOne: protectedProcedure
@@ -45,7 +46,7 @@ export const myPostRouter = router({
     }),
 
   getPublished: protectedProcedure.query(async ({ ctx }) => {
-    const uploaded = ctx.prisma.post.findMany({
+    const uploaded = await ctx.prisma.post.findMany({
       where: {
         authorId: ctx.user.id,
         isDrafted: false
@@ -58,11 +59,11 @@ export const myPostRouter = router({
       }
     })
 
-    return uploaded
+    return optimizedPostsDto(uploaded)
   }),
 
   getDrafted: protectedProcedure.query(async ({ ctx }) => {
-    const uploaded = ctx.prisma.post.findMany({
+    const drafted = await ctx.prisma.post.findMany({
       where: {
         authorId: ctx.user.id,
         isDrafted: true
@@ -75,7 +76,7 @@ export const myPostRouter = router({
       }
     })
 
-    return uploaded
+    return optimizedPostsDto(drafted)
   }),
 
   toggleIsDrafted: protectedProcedure
