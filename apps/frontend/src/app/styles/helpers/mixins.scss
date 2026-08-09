@@ -83,3 +83,9 @@
     background-color: var(--color-dark-15);
   }
 }
+
+@mixin selection {
+  &::selection {
+    @content;
+  }
+}

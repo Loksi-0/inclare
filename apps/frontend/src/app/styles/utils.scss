@@ -80,6 +80,10 @@
   font-size: fluid(14, 12);
 }
 
+.mono {
+  font-family: var(--font-family-mono);
+}
+
 .link {
   color: var(--color-link);
 

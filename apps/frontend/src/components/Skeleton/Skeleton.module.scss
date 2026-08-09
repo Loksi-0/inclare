@@ -1,0 +1,16 @@
+@use '@/app/styles/helpers' as *;
+
+.skeleton {
+  background-color: var(--color-gray-20);
+  user-select: none;
+  animation: shimmer 1s alternate infinite;
+}
+
+@keyframes shimmer {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}

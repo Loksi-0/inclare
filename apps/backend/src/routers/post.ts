@@ -5,11 +5,82 @@ import { myPostRouter } from './post/my'
 import { moderatorPostRouter } from './post/moderator'
 import { publicPostRouter } from './post/public'
 import { createPostFolder } from '@backend/helpers/createPostFolder'
+import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
+import type { User } from '@db/client'
+import type { PostFindUniqueArgs, PostWhereUniqueInput } from '@db/models'
+import apiError from '@backend/helpers/apiError'
+import { ERROR_CODES } from '@repo/api-error-codes'
+import { getPrimaryColor } from '@backend/helpers/getPrimaryColor'
+import { getFilePathByUrl } from '@backend/helpers/getFilePathByUrl'
 
 export const postRouter = router({
   public: publicPostRouter,
   moderator: moderatorPostRouter,
   my: myPostRouter,
+
+  getOne: hybridProcedure
+    .input(PostSchema.getOne)
+    .query(async ({ ctx, input }) => {
+      const generalWhere: PostWhereUniqueInput = {
+        id: input.id
+      }
+
+      const filters: Record<User['role'] | 'MY', PostFindUniqueArgs> = {
+        USER: {
+          where: {
+            ...generalWhere,
+            isDrafted: false,
+            author: {
+              isPrivate: false,
+              isBanned: false
+            }
+          }
+        },
+        MY: { where: generalWhere },
+        MODERATOR: { where: generalWhere },
+        ADMIN: { where: generalWhere }
+      }
+
+      const authorPost = await ctx.prisma.post.findUnique({
+        where: { id: input.id, authorId: ctx.user?.id }
+      })
+      const post = await ctx.prisma.post.findUnique({
+        ...filters[authorPost ? 'MY' : ctx.user?.role || 'USER'],
+        include: {
+          author: {
+            omit: { password: true }
+          },
+          photos: true,
+          _count: {
+            select: { likes: true }
+          },
+          likes: ctx.user?.id
+            ? {
+                where: { userId: ctx.user.id },
+                select: { id: true }
+              }
+            : false
+        }
+      })
+
+      if (!post) {
+        return apiError(ERROR_CODES.POST.NOT_FOUND)
+      }
+
+      const previewColor = await getPrimaryColor(
+        getFilePathByUrl(post.photos[0].optimizedUrl)
+      )
+
+      const postDto = {
+        ...post,
+        primaryColor: previewColor,
+        likesCount: post._count.likes,
+        isLiked: ctx.user?.id ? post.likes.length > 0 : false,
+        isMy: Boolean(authorPost)
+      }
+
+      return postDto
+    }),
 
   toggleLike: protectedProcedure
     .input(PostSchema.getOne)
@@ -32,18 +103,31 @@ export const postRouter = router({
             }
           }
         })
-
-        return { isLiked: false }
+      } else {
+        await ctx.prisma.like.create({
+          data: {
+            userId: ctx.user.id,
+            postId: input.id
+          }
+        })
       }
 
-      await ctx.prisma.like.create({
-        data: {
-          userId: ctx.user.id,
-          postId: input.id
+      const postData = await ctx.prisma.post.findUnique({
+        where: { id: input.id },
+        select: {
+          _count: {
+            select: {
+              likes: true
+            }
+          }
         }
       })
 
-      return { isLiked: true }
+      if (!postData) {
+        return apiError(ERROR_CODES.POST.NOT_FOUND)
+      }
+
+      return { isLiked: !existingLike, likesCount: postData._count.likes }
     }),
 
   create: protectedProcedure

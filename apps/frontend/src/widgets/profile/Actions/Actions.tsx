@@ -5,6 +5,7 @@ import ErrorSection from '@/components/ErrorSection'
 import Button from '@/components/Button'
 import { decline } from '@/shared/functions/decline'
 import { PAGES } from '@/constants'
+import ClientActions from './ClientActions'
 
 const Actions = catchError(
   async () => {
@@ -19,12 +20,7 @@ const Actions = catchError(
         >
           {decline.male(drafted.length, 'черновик')}
         </Button>
-        <Button
-          className={styles.actions__button}
-          color='solid'
-        >
-          загрузить пачку
-        </Button>
+        <ClientActions />
       </div>
     )
   },

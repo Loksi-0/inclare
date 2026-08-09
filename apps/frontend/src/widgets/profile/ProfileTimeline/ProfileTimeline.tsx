@@ -14,7 +14,7 @@ const ProfileTimeline = catchError(
     if (!data[0]) {
       return (
         <section className={styles.timeline}>
-          <Misted>
+          <Misted size={10}>
             <div className={styles.timeline__logo}>
               <Logo />
             </div>

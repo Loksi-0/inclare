@@ -9,7 +9,7 @@ import { useNavigate } from '@/shared/hooks/useNavigate'
 import { CURSOR } from '@/constants'
 
 type ButtonProps = PropsWithChildren<{
-  color: 'solid' | 'outlined' | 'underline' | 'underline-gray' | 'icon'
+  color: 'solid' | 'outlined' | 'underline' | 'underline-gray' | 'icon' | 'none'
   type?: 'button' | 'submit' | 'reset'
   className?: string
   disabled?: boolean

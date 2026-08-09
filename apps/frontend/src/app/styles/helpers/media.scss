@@ -1,6 +1,7 @@
 @use '@/app/styles/helpers/functions' as *;
 
 $wide-screen: 2500.98;
+$desktop: 1920.98;
 $laptop: 1440.98;
 $laptop-s: 1150.98;
 $tablet: 1023.98;
@@ -15,6 +16,18 @@ $mobile-s: 480.98;
 
 @mixin wide-screen {
   @media (width <= rem($wide-screen)) {
+    @content;
+  }
+}
+
+@mixin desktop-above {
+  @media (width > rem($desktop)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (width <= rem($desktop)) {
     @content;
   }
 }

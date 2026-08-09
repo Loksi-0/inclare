@@ -20,7 +20,7 @@ body {
   color: var(--color-dark);
   background-color: var(--color-light);
 
-  &::selection {
+  @include selection {
     background-color: var(--color-gray-20);
     color: var(--color-dark);
   }

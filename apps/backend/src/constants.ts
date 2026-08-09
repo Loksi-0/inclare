@@ -1,7 +1,12 @@
 import path from 'path'
 
+export const ROOT = {
+  PATH: process.cwd(),
+  URL: '/'
+}
+
 export const UPLOADS = {
-  PATH: path.join(process.cwd(), 'uploads'),
+  PATH: path.join(ROOT.PATH, 'uploads'),
   URL: '/uploads'
 }
 

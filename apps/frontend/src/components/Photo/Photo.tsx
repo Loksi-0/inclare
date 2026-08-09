@@ -4,14 +4,15 @@ import styles from './Photo.module.scss'
 
 type PhotoProps = {
   src: string
+  className?: string
   mini?: boolean
 }
 
 const Photo = (props: PhotoProps) => {
-  const { src, mini = false } = props
+  const { src, className, mini = false } = props
 
   return (
-    <div className={cx(styles.photo, [{ [styles.mini]: mini }])}>
+    <div className={cx(styles.photo, className, [{ [styles.mini]: mini }])}>
       <Image
         className={styles.photo__image}
         src={src}
