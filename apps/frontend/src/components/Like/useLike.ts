@@ -87,7 +87,7 @@ export const useLike = (props: LikeProps) => {
         if (groupRef.current && groupRef.current.children.length > 0) {
           const pixels = Array.from(groupRef.current.children)
 
-          const DURATION = 0.3
+          const DURATION = 0.2
 
           gsap.set(groupRef.current, { opacity: 1 })
 
@@ -119,7 +119,7 @@ export const useLike = (props: LikeProps) => {
                 tl.kill()
               }
             },
-            DURATION / 1.5
+            DURATION / 1.2
           )
         }
       } else {

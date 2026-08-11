@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   caret-color: transparent;
+  text-wrap: nowrap;
 
   @include hover {
     filter: blur(1);

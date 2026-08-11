@@ -1,11 +1,15 @@
 @use '@/app/styles/helpers' as *;
 
 .skeleton {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 100%;
   height: 70vh;
-  overflow-y: scroll;
   border-top: var(--border);
   padding-block: fluid(60, 30);
   padding-inline: var(--container-padding-x);
+  overflow-y: scroll;
 
   &__inner {
     display: flex;

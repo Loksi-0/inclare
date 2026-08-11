@@ -11,6 +11,8 @@ import Button from '../Button'
 import Photo from '../Photo'
 import Like from '../Like'
 import { dateToString } from '@/shared/functions/dateToString'
+import ToggleDraftedButton from './ToggleDraftedButton'
+import DeleteButton from './DeleteButton'
 
 const ViewPost = observer(() => {
   const trpc = useTRPC()
@@ -24,6 +26,8 @@ const ViewPost = observer(() => {
   if (!data) {
     return <ViewPostSkeleton />
   }
+
+  const sortedPhotos = data.photos.sort((a, b) => a.order - b.order)
 
   return (
     <section className={styles.post}>
@@ -47,7 +51,7 @@ const ViewPost = observer(() => {
             <div className={styles.post__description}>{data.description}</div>
           )}
           <div className={styles.post__photos}>
-            {data.photos.map((p) => (
+            {sortedPhotos.map((p) => (
               <div key={p.id}>
                 <Photo
                   className={styles.post__photo}
@@ -66,8 +70,23 @@ const ViewPost = observer(() => {
             isLiked={data.isLiked}
           />
           <div className={styles.post__buttons}>
-            <Button color='solid'>скачать исходники</Button>
-            {data.isMy && <Button color='outlined'>удалить пачку</Button>}
+            {data.rawArchiveUrl && (
+              <a
+                href={data.rawArchiveUrl}
+                download
+              >
+                <Button color='solid'>скачать исходники</Button>
+              </a>
+            )}
+            {data.isMy && (
+              <>
+                <ToggleDraftedButton
+                  id={data.id}
+                  isDrafted={data.isDrafted}
+                />
+                <DeleteButton id={data.id} />
+              </>
+            )}
           </div>
           <div className={styles.post__info}>
             <p className='subtitle mono'>

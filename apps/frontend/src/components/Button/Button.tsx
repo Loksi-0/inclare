@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import Preloader from '../Preloader'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { CURSOR } from '@/constants'
+import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
 
 type ButtonProps = PropsWithChildren<{
   color: 'solid' | 'outlined' | 'underline' | 'underline-gray' | 'icon' | 'none'
@@ -16,6 +17,7 @@ type ButtonProps = PropsWithChildren<{
   onClick?: MouseEventHandler<HTMLButtonElement>
   navigate?: string
   loading?: boolean
+  animate?: boolean
 }>
 
 const Button = (props: ButtonProps) => {
@@ -27,31 +29,49 @@ const Button = (props: ButtonProps) => {
     onClick,
     children,
     navigate,
-    type = 'button'
+    type = 'button',
+    animate = false
   } = props
 
   const router = useRouter()
   const { push } = useNavigate()
+  const buttonRef = useAutoAnimate<HTMLButtonElement>([loading, children])
 
-  const onClickAction = navigate
-    ? () => {
-        if (navigate === 'back') {
-          router.back()
-        } else {
-          push(navigate)
-        }
-      }
-    : onClick
+  if (navigate) {
+    return (
+      <a
+        href={navigate}
+        className={cx(styles.button, styles[color], className, [
+          { [styles.disabled]: disabled },
+          { [styles.gray]: color === 'underline-gray' },
+          { [styles.underline]: color === 'underline-gray' }
+        ])}
+        data-cursor={disabled ? CURSOR.NOT_ALLOWED : CURSOR.POINTER}
+        onClick={(e) => {
+          e.preventDefault()
+
+          if (navigate === 'back') {
+            router.back()
+          } else {
+            push(navigate)
+          }
+        }}
+      >
+        {children}
+      </a>
+    )
+  }
 
   return (
     <button
+      ref={animate ? buttonRef : undefined}
       className={cx(styles.button, styles[color], className, [
         { [styles.disabled]: disabled },
         { [styles.gray]: color === 'underline-gray' },
         { [styles.underline]: color === 'underline-gray' }
       ])}
       disabled={disabled}
-      onClick={onClickAction}
+      onClick={onClick}
       type={type}
       data-cursor={disabled ? CURSOR.NOT_ALLOWED : CURSOR.POINTER}
     >

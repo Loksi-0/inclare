@@ -4,6 +4,8 @@ import { router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { optimizedPostsDto } from '@backend/dtos/postsDto'
+import { buildArchive } from '@backend/helpers/buildArchive'
+import { RAW_POST } from '@backend/constants'
 
 export const myPostRouter = router({
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -79,6 +81,17 @@ export const myPostRouter = router({
     return optimizedPostsDto(drafted)
   }),
 
+  getDraftedLength: protectedProcedure.query(async ({ ctx }) => {
+    const drafted = await ctx.prisma.post.findMany({
+      where: {
+        authorId: ctx.user.id,
+        isDrafted: true
+      }
+    })
+
+    return drafted.length
+  }),
+
   toggleIsDrafted: protectedProcedure
     .input(PostSchema.getOne)
     .mutation(async ({ ctx, input }) => {
@@ -93,11 +106,21 @@ export const myPostRouter = router({
         return apiError(ERROR_CODES.POST.NOT_FOUND)
       }
 
+      const rawArchive = candidate.isDrafted
+        ? await buildArchive(
+            RAW_POST.PATH(candidate.authorId, candidate.id),
+            RAW_POST.URL(candidate.authorId, candidate.id)
+          )
+        : undefined
+
       const post = await ctx.prisma.post.update({
         where: { id: candidate.id },
-        data: {
-          isDrafted: !candidate.isDrafted
-        }
+        data: rawArchive?.url
+          ? {
+              isDrafted: !candidate.isDrafted,
+              rawArchiveUrl: rawArchive.url
+            }
+          : { isDrafted: !candidate.isDrafted }
       })
 
       return post

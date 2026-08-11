@@ -1,8 +1,10 @@
 model Post {
   id String @id @default(cuid())
 
-  description String?
-  isDrafted   Boolean @default(true) @map("is_drafted")
+  description         String?
+  optimizedArchiveUrl String? @map("optimized_archive_url")
+  rawArchiveUrl       String? @map("raw_archive_url")
+  isDrafted           Boolean @default(true) @map("is_drafted")
 
   authorId String @map("author_id")
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
