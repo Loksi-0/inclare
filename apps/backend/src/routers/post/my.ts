@@ -24,29 +24,6 @@ export const myPostRouter = router({
     return optimizedPostsDto(posts)
   }),
 
-  getOne: protectedProcedure
-    .input(PostSchema.getOne)
-    .query(async ({ ctx, input }) => {
-      const post = await ctx.prisma.post.findUnique({
-        where: {
-          id: input.id,
-          authorId: ctx.user.id
-        },
-        include: {
-          photos: true,
-          _count: {
-            select: { likes: true }
-          }
-        }
-      })
-
-      if (!post) {
-        return apiError(ERROR_CODES.POST.NOT_FOUND)
-      }
-
-      return post
-    }),
-
   getPublished: protectedProcedure.query(async ({ ctx }) => {
     const uploaded = await ctx.prisma.post.findMany({
       where: {

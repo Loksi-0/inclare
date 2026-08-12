@@ -1,5 +1,4 @@
 import { REDIS_KEYS } from '@backend/constants'
-import apiError from '@backend/helpers/apiError'
 import {
   starsEmitter,
   type StarsEmitterMap
@@ -8,7 +7,6 @@ import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
 import { PostService } from '@backend/services/post.service'
 import { publicProcedure, router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
-import { ERROR_CODES } from '@repo/api-error-codes'
 import { on } from 'events'
 import { optimizedPostsDto } from '@backend/dtos/postsDto'
 
@@ -18,21 +16,6 @@ export const publicPostRouter = router({
 
     return posts
   }),
-
-  getOne: hybridProcedure
-    .input(PostSchema.getOne)
-    .query(async ({ ctx, input }) => {
-      const post = await PostService.findUnique({
-        id: input.id,
-        userId: ctx.user?.id
-      })
-
-      if (!post) {
-        return apiError(ERROR_CODES.POST.NOT_FOUND)
-      }
-
-      return post
-    }),
 
   getFeed: hybridProcedure
     .input(PostSchema.getFeed)

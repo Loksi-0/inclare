@@ -18,31 +18,6 @@ export const moderatorPostRouter = router({
     return posts
   }),
 
-  getOne: moderatorProcedure
-    .input(PostSchema.getOne)
-    .query(async ({ ctx, input }) => {
-      const post = await ctx.prisma.post.findUnique({
-        where: {
-          id: input.id
-        },
-        include: {
-          photos: true,
-          author: {
-            omit: { password: true }
-          },
-          _count: {
-            select: { likes: true }
-          }
-        }
-      })
-
-      if (!post) {
-        return apiError(ERROR_CODES.POST.NOT_FOUND)
-      }
-
-      return post
-    }),
-
   delete: moderatorProcedure
     .input(PostSchema.getOne)
     .mutation(async ({ ctx, input }) => {

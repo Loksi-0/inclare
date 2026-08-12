@@ -6,18 +6,11 @@ import Image from 'next/image'
 import cx from 'clsx'
 import Button from '@/components/Button'
 import { PAGES } from '@/constants'
+import { hideEmail } from '@/shared/functions/hideEmail'
 
 const Me = catchError(
   async () => {
     const me = await api.auth.me.query()
-
-    const hideEmail = (email: string) => {
-      const emailParts = email.split('@')
-      const emailBody = emailParts[0]
-      const hiddenBody = `${emailBody.slice(0, 2)}${'*'.repeat(emailBody.length - 4)}${emailBody.slice(emailBody.length - 2, emailBody.length)}`
-
-      return `${hiddenBody}@${emailParts[1]}`
-    }
 
     return (
       <section className={styles.me}>

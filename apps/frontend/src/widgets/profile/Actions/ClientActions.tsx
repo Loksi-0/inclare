@@ -33,7 +33,7 @@ const ClientActions = (props: ClientActionsProps) => {
         className={styles.actions__button}
         color='solid'
         onClick={() => {
-          postStore.open(`cms4bisen00009wi84qh0qgy4`)
+          postStore.open(`cms4bisen00009wi84qh0qgy6`)
         }}
       >
         загрузить пачку

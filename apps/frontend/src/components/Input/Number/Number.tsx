@@ -1,8 +1,7 @@
-import { useId } from 'react'
 import styles from './Number.module.scss'
 import cx from 'clsx'
-import { Controller, useFormContext } from 'react-hook-form'
-import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
+import { Controller } from 'react-hook-form'
+import { useNumber } from './useNumber'
 
 type NumberInputProps = {
   placeholder: string
@@ -12,8 +11,8 @@ type NumberInputProps = {
   error?: string
   required?: boolean
   maxWidth?: number
-  max?: number
   min?: number
+  max?: number
 }
 
 const NumberInput = (props: NumberInputProps) => {
@@ -25,13 +24,12 @@ const NumberInput = (props: NumberInputProps) => {
     name,
     required = false,
     maxWidth,
-    max,
     min,
+    max,
     ...rest
   } = props
-  const id = useId()
-  const inputRef = useAutoAnimate([error], { width: false })
-  const { control } = useFormContext()
+
+  const { inputRef, id, control, onChange } = useNumber({ min, max, error })
 
   return (
     <div
@@ -50,7 +48,9 @@ const NumberInput = (props: NumberInputProps) => {
         <Controller<Record<string, number>, string>
           name={name}
           control={control}
-          render={({ field: { onChange, value, ref: controllerRef } }) => (
+          render={({
+            field: { onChange: setValue, value, ref: controllerRef }
+          }) => (
             <input
               {...rest}
               id={id}
@@ -63,21 +63,7 @@ const NumberInput = (props: NumberInputProps) => {
               inputMode='numeric'
               type='number'
               onChange={(e) => {
-                const val = e.target.value
-
-                if (!/^-?\d*$/.test(val)) {
-                  return
-                }
-
-                const intVal = Number(val)
-                if (
-                  (typeof max === 'number' && intVal > max) ||
-                  (typeof min === 'number' && intVal < min)
-                ) {
-                  return
-                }
-
-                onChange(intVal)
+                onChange(e, setValue)
               }}
               style={maxWidth ? { maxWidth } : undefined}
             />

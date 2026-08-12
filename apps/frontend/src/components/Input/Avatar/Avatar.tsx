@@ -13,6 +13,7 @@ import Plus from '@/icons/Plus'
 import Image from 'next/image'
 import cx from 'clsx'
 import Cross from '@/icons/Cross'
+import { useAvatar } from './useAvatar'
 
 type AvatarInputProps = {
   value: File | null
@@ -23,42 +24,7 @@ type AvatarInputProps = {
 const AvatarInput = (props: AvatarInputProps) => {
   const { value, setValue, className } = props
 
-  const [imgUrl, setImgUrl] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!value) {
-      setImgUrl(null)
-      return
-    }
-
-    if (imgUrl) {
-      URL.revokeObjectURL(imgUrl)
-    }
-
-    setImgUrl(URL.createObjectURL(value))
-
-    return () => {
-      if (imgUrl) {
-        URL.revokeObjectURL(imgUrl)
-      }
-    }
-  }, [value])
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-
-    if (file) {
-      setValue(file)
-    }
-  }
-
-  const remove = () => {
-    if (imgUrl) {
-      URL.revokeObjectURL(imgUrl)
-    }
-
-    setValue(null)
-  }
+  const { imgUrl, onChange, remove } = useAvatar({ value, setValue })
 
   return (
     <div
