@@ -75,7 +75,12 @@ const ViewPost = observer(() => {
                 href={data.rawArchiveUrl}
                 download
               >
-                <Button color='solid'>скачать исходники</Button>
+                <Button
+                  tabindex={-1}
+                  color='solid'
+                >
+                  скачать исходники
+                </Button>
               </a>
             )}
             {data.isMy && (

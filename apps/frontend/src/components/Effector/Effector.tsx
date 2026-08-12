@@ -4,8 +4,10 @@ import { useEffect, useRef, type PropsWithChildren } from 'react'
 import styles from './Effector.module.scss'
 import { effectorStore } from '@/stores/effector.store'
 import { postStore } from '@/stores/post.store'
+import { inertStore } from '@/stores/inert.store'
+import { observer } from 'mobx-react-lite'
 
-const Effector = ({ children }: PropsWithChildren) => {
+const Effector = observer(({ children }: PropsWithChildren) => {
   const effectorRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -19,10 +21,11 @@ const Effector = ({ children }: PropsWithChildren) => {
     <div
       ref={effectorRef}
       className={styles.effector}
+      inert={inertStore.isInert}
     >
       {children}
     </div>
   )
-}
+})
 
 export default Effector

@@ -1,6 +1,10 @@
 'use client'
 
-import type { MouseEventHandler, PropsWithChildren } from 'react'
+import {
+  forwardRef,
+  type MouseEventHandler,
+  type PropsWithChildren
+} from 'react'
 import cx from 'clsx'
 import styles from './Button.module.scss'
 import { useRouter } from 'next/navigation'
@@ -8,6 +12,7 @@ import Preloader from '../Preloader'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { CURSOR } from '@/constants'
 import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
+import mergeRefs from 'merge-refs'
 
 type ButtonProps = PropsWithChildren<{
   color: 'solid' | 'outlined' | 'underline' | 'underline-gray' | 'icon' | 'none'
@@ -18,9 +23,10 @@ type ButtonProps = PropsWithChildren<{
   navigate?: string
   loading?: boolean
   animate?: boolean
+  tabindex?: number
 }>
 
-const Button = (props: ButtonProps) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     color,
     disabled = false,
@@ -30,7 +36,8 @@ const Button = (props: ButtonProps) => {
     children,
     navigate,
     type = 'button',
-    animate = false
+    animate = false,
+    tabindex
   } = props
 
   const router = useRouter()
@@ -64,7 +71,7 @@ const Button = (props: ButtonProps) => {
 
   return (
     <button
-      ref={animate ? buttonRef : undefined}
+      ref={animate ? mergeRefs(buttonRef, ref) : ref}
       className={cx(styles.button, styles[color], className, [
         { [styles.disabled]: disabled },
         { [styles.gray]: color === 'underline-gray' },
@@ -74,6 +81,7 @@ const Button = (props: ButtonProps) => {
       onClick={onClick}
       type={type}
       data-cursor={disabled ? CURSOR.NOT_ALLOWED : CURSOR.POINTER}
+      tabIndex={tabindex}
     >
       {loading ? (
         <Preloader color={color === 'solid' ? 'light' : 'dark'} />
@@ -82,6 +90,6 @@ const Button = (props: ButtonProps) => {
       )}
     </button>
   )
-}
+})
 
 export default Button
