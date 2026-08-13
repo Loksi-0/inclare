@@ -5,11 +5,11 @@ import { timelineStore } from '@/stores/timeline.store'
 import gsap from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import InertiaPlugin from 'gsap/InertiaPlugin'
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import { useLayoutEffect, useMemo, useRef } from 'react'
 
 export type Post = {
   id: string
-  previewUrl: string
+  previewUrl?: string
   createdAt: Date
   pcs: number
 }
@@ -67,7 +67,7 @@ export const useTimeline = (data: Post[]) => {
 
     sortedData.forEach((p, i, arr) => {
       const lastGroup = res.at(-1)
-      const prev = arr[i - 1]
+      const prev = arr.at(i - 1)
 
       const pushGroup = (el: Post) => {
         res.push([el])
@@ -123,11 +123,13 @@ export const useTimeline = (data: Post[]) => {
   }, [sortedData, BASE_STEP])
 
   const getMinX = () => {
-    if (!firstRef.current) {
+    const firstPos = groupsPos.at(0)
+
+    if (!firstPos || !firstRef.current) {
       return 0
     }
 
-    return groupsPos[0] * -1 + LEFT_PADDING
+    return firstPos * -1 + LEFT_PADDING
   }
 
   useLayoutEffect(() => {
@@ -147,10 +149,10 @@ export const useTimeline = (data: Post[]) => {
         maxX: window.innerWidth - RIGHT_PADDING
       },
       trigger: timelineRef.current
-    })[0]
+    }).at(0)
 
     return () => {
-      draggableInstance.kill()
+      draggableInstance?.kill()
     }
   }, [])
 

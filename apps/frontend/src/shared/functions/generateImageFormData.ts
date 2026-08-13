@@ -12,9 +12,8 @@ export const generateImageFormData = (options: Options) => {
   const formData = new FormData()
 
   if (image && imageName) {
-    const imageParts = image.name.split('.')
-    const imageExt = imageParts[imageParts.length - 1]
-    const safeName = `${randomCode(10)}.${imageExt}`
+    const imageExt = image.name.split('.').at(-1)
+    const safeName = `${randomCode(10)}.${imageExt || 'jpg'}`
 
     formData.append('image', image, safeName)
     formData.append('imageName', imageName)

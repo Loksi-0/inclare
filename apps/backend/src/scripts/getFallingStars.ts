@@ -38,7 +38,7 @@ const getFallingStars = async () => {
       AND u.is_private = FALSE
       AND p.created_at >= timezone('utc', NOW()) - INTERVAL '5 days'
   `
-  const activePostsCount = activePosts[0]?.count || 0
+  const activePostsCount = activePosts.at(0)?.count || 0
 
   const stars: { id: string }[] = await prisma.$queryRaw`
       WITH time_helper AS (
@@ -98,9 +98,9 @@ const getFallingStars = async () => {
       LIMIT 1;
     `
 
-  if (stars[0]) {
-    const starId = stars[0].id
+  const starId = stars.at(0)?.id
 
+  if (starId) {
     await redis.zAdd(REDIS_KEYS.STARS.VIEWED, [
       { score: NOW_TIMESTAMP, value: starId }
     ])

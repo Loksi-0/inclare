@@ -23,7 +23,7 @@ const ClientProfileTimeline = (props: ClientTimelineProps) => {
     })
   )
 
-  if (!data || !data[0]) {
+  if (!data || !data.at(0)) {
     return (
       <section className={styles.timeline}>
         <Misted size={10}>

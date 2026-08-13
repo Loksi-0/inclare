@@ -27,10 +27,9 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
   // photo paths and urls
   const photoId = cuid()
 
-  const fileParts = file.name.split('.')
-  const fileExt = fileParts[fileParts.length - 1]
+  const fileExt = file.name.split('.').at(-1)
 
-  const rawName = `${photoId}.${fileExt}`
+  const rawName = `${photoId}.${fileExt || 'jpg'}`
   const optimizedName = `${photoId}.jpg`
 
   const rawPath = path.join(RAW_POST.PATH(userId, postId), rawName)
