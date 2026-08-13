@@ -1,10 +1,11 @@
 'use client'
 
 import { useFluid } from '@/shared/hooks/useFluid'
+import { timelineStore } from '@/stores/timeline.store'
 import gsap from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import InertiaPlugin from 'gsap/InertiaPlugin'
-import { useLayoutEffect, useMemo, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 
 export type Post = {
   id: string
@@ -133,6 +134,8 @@ export const useTimeline = (data: Post[]) => {
     if (!timelineRef.current) {
       return
     }
+
+    timelineStore.timelineRef = timelineRef.current
 
     const draggableInstance = Draggable.create(bodyRef.current, {
       type: 'x',

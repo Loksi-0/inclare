@@ -1,27 +1,27 @@
 'use client'
 
 import Button from '@/components/Button'
-import { postStore } from '@/stores/post.store'
 import styles from './Actions.module.scss'
 import { decline } from '@/shared/functions/decline'
 import { PAGES } from '@/constants'
-import { useTRPC } from '@/api/tanstack'
-import { useQuery } from '@tanstack/react-query'
+import { observer } from 'mobx-react-lite'
+import { useActions } from './useActions'
 
 type ClientActionsProps = {
   draftedLength: number
 }
 
-const ClientActions = (props: ClientActionsProps) => {
+const ClientActions = observer((props: ClientActionsProps) => {
   const { draftedLength: initialData } = props
 
-  const trpc = useTRPC()
-  const { data: draftedLength } = useQuery(
-    trpc.post.my.getDraftedLength.queryOptions(undefined, { initialData })
-  )
+  const { actionsRef, draftedLength, isPostOpen } = useActions(initialData)
 
   return (
-    <div className={styles.actions}>
+    <div
+      ref={actionsRef}
+      className={styles.actions}
+      inert={isPostOpen}
+    >
       <Button
         className={styles.actions__button}
         color='solid'
@@ -32,14 +32,11 @@ const ClientActions = (props: ClientActionsProps) => {
       <Button
         className={styles.actions__button}
         color='solid'
-        onClick={() => {
-          postStore.open(`cms4bisen00009wi84qh0qgy6`)
-        }}
       >
         загрузить пачку
       </Button>
     </div>
   )
-}
+})
 
 export default ClientActions

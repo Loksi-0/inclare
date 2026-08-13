@@ -23,14 +23,23 @@ const ViewPost = observer(() => {
     )
   )
 
+  if (!postStore.postHeight) {
+    return
+  }
+
   if (!data) {
-    return <ViewPostSkeleton />
+    return <ViewPostSkeleton height={postStore.postHeight} />
   }
 
   const sortedPhotos = data.photos.sort((a, b) => a.order - b.order)
 
   return (
-    <section className={styles.post}>
+    <section
+      className={styles.post}
+      style={{
+        height: `${postStore.postHeight}px`
+      }}
+    >
       <div className={styles.post__inner}>
         <div className={styles.post__top}>
           <header className={styles.post__header}>

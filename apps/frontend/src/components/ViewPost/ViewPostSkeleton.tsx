@@ -5,9 +5,14 @@ import Button from '../Button'
 import Skeleton from '../Skeleton'
 import styles from './ViewPost.module.scss'
 
-const ViewPostSkeleton = () => {
+const ViewPostSkeleton = ({ height }: { height: number }) => {
   return (
-    <section className={styles.skeleton}>
+    <section
+      className={styles.skeleton}
+      style={{
+        height: `${height}px`
+      }}
+    >
       <div className={styles.skeleton__inner}>
         <header className={styles.skeleton__header}>
           <Skeleton

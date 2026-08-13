@@ -73,6 +73,11 @@ export const useLike = (props: LikeProps) => {
   }, [])
 
   useEffect(() => {
+    setLikes(initialLikes)
+    setIsLiked(initialIsLiked)
+  }, [postId, initialLikes, initialIsLiked])
+
+  useEffect(() => {
     const ctx = gsap.context(() => {
       if (isLiked) {
         if (!outlineRef.current || !groupRef.current) {
@@ -138,7 +143,7 @@ export const useLike = (props: LikeProps) => {
     return () => {
       ctx.revert()
     }
-  }, [isLiked])
+  }, [color, isLiked])
 
   const onClick = () => {
     setLikes((prev) =>

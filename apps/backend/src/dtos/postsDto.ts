@@ -15,7 +15,7 @@ export const optimizedPostsDto = (posts: Post[]) => {
     id: p.id,
     description: p.description,
     likesCount: p._count.likes,
-    previewUrl: p.photos[0].optimizedUrl,
+    previewUrl: p.photos.at(0)?.optimizedUrl,
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
     pcs: p.photos.length,

@@ -43,6 +43,7 @@ const Timeline = (props: TimelineProps) => {
                 src={p.previewUrl}
                 createdAt={p.createdAt}
                 pcs={p.pcs}
+                id={p.id}
                 year={
                   firstYearsPosts.has(p.id)
                     ? p.createdAt.getFullYear()

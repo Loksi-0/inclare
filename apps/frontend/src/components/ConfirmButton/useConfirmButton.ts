@@ -1,5 +1,6 @@
 'use client'
 
+import { useBlur } from '@/shared/hooks/useBlur'
 import { effectorStore } from '@/stores/effector.store'
 import gsap from 'gsap'
 import { useRef, useState } from 'react'
@@ -10,8 +11,9 @@ export const useConfirmButton = () => {
   const confirmButtonRef = useRef<HTMLButtonElement | null>(null)
   const rejectButtonRef = useRef<HTMLButtonElement | null>(null)
   const modalRef = useRef<HTMLDivElement | null>(null)
-  const openTransitionRef = useRef({ blur: 10, opacity: 0 })
-  const closeTransitionRef = useRef({ blur: 0, opacity: 1 })
+
+  const blurIn = useBlur({ from: 0, to: 10 })
+  const blurOut = useBlur({ from: 10, to: 0 })
 
   const setModalPosition = () => {
     if (!buttonRef.current || !modalRef.current || !effectorStore.effectorRef) {
@@ -44,45 +46,20 @@ export const useConfirmButton = () => {
     setIsOpen(true)
     rejectButtonRef.current?.focus()
 
-    gsap.to(openTransitionRef.current, {
-      blur: 0,
+    blurOut(modalRef.current)
+    gsap.to(modalRef.current, {
       opacity: 1,
-      duration: 0.2,
-      onUpdate: () => {
-        if (!modalRef.current) {
-          return
-        }
-
-        modalRef.current.style.filter = `blur(${openTransitionRef.current.blur}px)`
-        modalRef.current.style.opacity = String(
-          openTransitionRef.current.opacity
-        )
-      },
-      onComplete: () => {
-        openTransitionRef.current = { blur: 10, opacity: 0 }
-      }
+      duration: 0.2
     })
   }
 
   const close = () => {
     setIsOpen(false)
-    gsap.to(closeTransitionRef.current, {
-      blur: 10,
-      opacity: 0,
-      duration: 0.2,
-      onUpdate: () => {
-        if (!modalRef.current) {
-          return
-        }
 
-        modalRef.current.style.filter = `blur(${closeTransitionRef.current.blur}px)`
-        modalRef.current.style.opacity = String(
-          closeTransitionRef.current.opacity
-        )
-      },
-      onComplete: () => {
-        closeTransitionRef.current = { blur: 0, opacity: 1 }
-      }
+    blurIn(modalRef.current)
+    gsap.to(modalRef.current, {
+      opacity: 0,
+      duration: 0.2
     })
   }
 
@@ -91,6 +68,8 @@ export const useConfirmButton = () => {
     modalRef,
     buttonRef,
     confirmButtonRef,
-    rejectButtonRef
+    rejectButtonRef,
+    open,
+    close
   }
 }

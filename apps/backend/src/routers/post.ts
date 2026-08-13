@@ -67,9 +67,11 @@ export const postRouter = router({
         return apiError(ERROR_CODES.POST.NOT_FOUND)
       }
 
-      const previewColor = await getPrimaryColor(
-        getFilePathByUrl(post.photos[0].optimizedUrl)
-      )
+      const firstPhoto = post.photos.at(0)
+
+      const previewColor = firstPhoto
+        ? await getPrimaryColor(getFilePathByUrl(firstPhoto.optimizedUrl))
+        : undefined
 
       const postDto = {
         ...post,

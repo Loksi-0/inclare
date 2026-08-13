@@ -21,8 +21,15 @@ type ConfirmButtonProps = PropsWithChildren<{
 const ConfirmButton = observer((props: ConfirmButtonProps) => {
   const { children, color, content, onConfirm, loading = false } = props
 
-  const { isOpen, modalRef, buttonRef, confirmButtonRef, rejectButtonRef } =
-    useConfirmButton()
+  const {
+    isOpen,
+    modalRef,
+    buttonRef,
+    confirmButtonRef,
+    rejectButtonRef,
+    open,
+    close
+  } = useConfirmButton()
 
   return (
     <>

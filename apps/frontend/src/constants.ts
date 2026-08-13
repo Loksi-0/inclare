@@ -16,3 +16,5 @@ export const CURSOR = {
   NOT_ALLOWED: 'not-allowed',
   GRAB: 'grab'
 }
+
+export const TIMELINE_PADDING = 50
