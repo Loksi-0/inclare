@@ -32,7 +32,7 @@ const ConfirmButton = observer((props: ConfirmButtonProps) => {
   } = useConfirmButton()
 
   return (
-    <>
+    <div className={styles.modal__wrapper}>
       <div
         className={cx(styles.modal, [{ [styles.open]: isOpen }])}
         ref={modalRef}
@@ -71,7 +71,7 @@ const ConfirmButton = observer((props: ConfirmButtonProps) => {
       >
         {children}
       </Button>
-    </>
+    </div>
   )
 })
 

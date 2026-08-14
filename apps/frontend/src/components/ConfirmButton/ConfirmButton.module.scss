@@ -2,7 +2,7 @@
 
 .modal {
   z-index: 1000;
-  position: fixed;
+  position: absolute;
   opacity: 0;
   will-change: filter, opacity;
   display: flex;
@@ -12,9 +12,14 @@
   border: var(--border);
   padding: fluid(20, 10);
   pointer-events: none;
+  width: max-content;
 
   &.open {
     pointer-events: unset;
+  }
+
+  &__wrapper {
+    position: relative;
   }
 
   &__buttons {

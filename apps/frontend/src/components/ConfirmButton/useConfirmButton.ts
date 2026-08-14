@@ -1,9 +1,8 @@
 'use client'
 
 import { useBlur } from '@/shared/hooks/useBlur'
-import { effectorStore } from '@/stores/effector.store'
 import gsap from 'gsap'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const useConfirmButton = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -16,7 +15,7 @@ export const useConfirmButton = () => {
   const blurOut = useBlur({ from: 10, to: 0 })
 
   const setModalPosition = () => {
-    if (!buttonRef.current || !modalRef.current || !effectorStore.effectorRef) {
+    if (!buttonRef.current || !modalRef.current) {
       return
     }
 
@@ -24,22 +23,25 @@ export const useConfirmButton = () => {
 
     const buttonRect = buttonRef.current.getBoundingClientRect()
     const modalRect = modalRef.current.getBoundingClientRect()
-    const effectorRect = effectorStore.effectorRef.getBoundingClientRect()
 
-    let modalX = buttonRect.x
-    let modalY = buttonRect.y - effectorRect.y - modalRect.height - PADDING
+    let modalX = 0
+    let modalY = (modalRect.height + PADDING) * -1
 
-    if (modalX + modalRect.width > window.innerWidth) {
-      modalX = buttonRect.right - modalRect.width
+    if (buttonRect.x + modalRect.width > window.innerWidth) {
+      modalX = buttonRect.width - modalRect.width
     }
 
-    if (modalY + effectorRect.y < 0) {
-      modalY = buttonRect.y - effectorRect.y + buttonRect.height + PADDING
+    if (buttonRect.y < modalRect.height + PADDING) {
+      modalY = buttonRect.height + PADDING
     }
 
     modalRef.current.style.left = `${modalX}px`
     modalRef.current.style.top = `${modalY}px`
   }
+
+  useEffect(() => {
+    setModalPosition()
+  }, [])
 
   const open = () => {
     setModalPosition()
