@@ -9,6 +9,7 @@ import Cursor from '@/components/Cursor'
 import { isTouchscreen } from '@/shared/functions/isTouchscreen'
 import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import ViewPost from '@/components/ViewPost'
+import PhotoModal from '@/components/PhotoModal'
 
 const App = ({ children }: PropsWithChildren) => {
   const { isMounted } = useIsMounted()
@@ -21,6 +22,7 @@ const App = ({ children }: PropsWithChildren) => {
       />
       <FadeScreen />
       {!isTouchscreen && isMounted && <Cursor />}
+      <PhotoModal />
       <Effector>
         {children}
         <ViewPost />

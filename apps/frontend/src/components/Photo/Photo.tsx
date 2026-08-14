@@ -22,7 +22,6 @@ const Photo = (props: PhotoProps) => {
         draggable={false}
         loading='lazy'
         decoding='async'
-        unoptimized
       />
     </div>
   )

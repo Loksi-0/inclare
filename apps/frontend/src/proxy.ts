@@ -6,7 +6,7 @@ export const proxy = async (req: NextRequest) => {
   const token = req.cookies.get(COOKIES.TOKEN)?.value
   const pathname = req.nextUrl.pathname
 
-  if (pathname.startsWith('/_next')) {
+  if (pathname.startsWith('/_next') || pathname.startsWith('/uploads')) {
     return NextResponse.next()
   }
 

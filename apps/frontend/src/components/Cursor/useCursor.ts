@@ -78,6 +78,7 @@ export const useCursor = () => {
         checkClosest(CURSOR.POINTER, 'a, button, input, textarea') &&
         !isMouseDownRef.current
       ) {
+        reset(true)
         scale(1.5)
       } else {
         reset(isMouseDownRef.current)

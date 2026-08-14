@@ -24,7 +24,6 @@ const Me = catchError(
                 height={120}
                 alt=''
                 draggable={false}
-                unoptimized
               />
             ) : (
               <div className={styles.me__avatar}></div>

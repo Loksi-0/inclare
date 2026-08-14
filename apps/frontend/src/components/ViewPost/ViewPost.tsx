@@ -13,6 +13,7 @@ import Like from '../Like'
 import { dateToString } from '@/shared/functions/dateToString'
 import ToggleDraftedButton from './ToggleDraftedButton'
 import DeleteButton from './DeleteButton'
+import { photoModalStore } from '@/stores/photoModal.store'
 
 const ViewPost = observer(() => {
   const trpc = useTRPC()
@@ -61,13 +62,19 @@ const ViewPost = observer(() => {
           )}
           <div className={styles.post__photos}>
             {sortedPhotos.map((p) => (
-              <div key={p.id}>
+              <Button
+                color='icon'
+                key={p.id}
+                onClick={() => {
+                  photoModalStore.open(sortedPhotos, p.order)
+                }}
+              >
                 <Photo
                   className={styles.post__photo}
                   src={p.optimizedUrl}
                   mini
                 />
-              </div>
+              </Button>
             ))}
           </div>
         </div>

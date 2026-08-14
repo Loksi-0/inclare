@@ -20,9 +20,11 @@
     cursor: not-allowed;
   }
 
-  &:active {
-    filter: blur(0);
-    scale: 0.95;
+  &:not(.disabled) {
+    &:active {
+      filter: blur(0);
+      scale: 0.95;
+    }
   }
 }
 
@@ -79,6 +81,12 @@
     &.gray {
       color: var(--color-dark);
     }
+  }
+}
+
+.icon {
+  &.disabled {
+    opacity: 0.5;
   }
 }
 
