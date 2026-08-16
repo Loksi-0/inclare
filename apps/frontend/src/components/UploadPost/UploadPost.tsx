@@ -14,9 +14,11 @@ import { uploadStore } from '@/stores/upload.store'
 import Plus from '@/icons/Plus'
 import ProgressBar from '../ProgressBar'
 import { invalidatePost } from '@/shared/functions/invalidatePost'
+import Input from '../Input'
 
 const UploadPost = observer(() => {
   const [postId, setPostId] = useState<string | null>(null)
+  const [description, setDescription] = useState<string>()
   const [files, setFiles] = useState<File[]>([])
   const queryClient = useQueryClient()
   const trpc = useTRPC()
@@ -30,6 +32,8 @@ const UploadPost = observer(() => {
   const { mutate: toggleIsDrafted, isPending: isPublishPending } = useMutation(
     trpc.post.my.toggleIsDrafted.mutationOptions()
   )
+  const { mutateAsync: sendDescription, isPending: isDescriptionPending } =
+    useMutation(trpc.post.my.setDescription.mutationOptions())
 
   useEffect(() => {
     uploadStore.setTotal(files.length)
@@ -134,20 +138,38 @@ const UploadPost = observer(() => {
       <div className={styles.upload__bottom}>
         {postId && files.at(0) && (
           <>
+            <Input.Textarea
+              placeholder='описание'
+              onChange={(e) => {
+                setDescription(e.target.value)
+              }}
+            />
             <ProgressBar percentage={uploadPercentage} />
             <div className={styles.upload__buttons}>
               <Button
                 color='solid'
                 disabled={uploadStore.settledPhotos !== uploadStore.totalPhotos}
-                onClick={closeUpload}
+                loading={isDescriptionPending}
+                onClick={async () => {
+                  if (description) {
+                    await sendDescription({ id: postId, description })
+                  }
+
+                  closeUpload()
+                }}
+                animate
               >
                 сохранить в черновики
               </Button>
               <Button
                 color='solid'
                 disabled={uploadStore.settledPhotos !== uploadStore.totalPhotos}
-                loading={isPublishPending}
-                onClick={() => {
+                loading={isPublishPending || isDescriptionPending}
+                onClick={async () => {
+                  if (description) {
+                    await sendDescription({ id: postId, description })
+                  }
+
                   toggleIsDrafted({ id: postId }, { onSuccess: closeUpload })
                 }}
                 animate

@@ -103,6 +103,28 @@ export const myPostRouter = router({
       return post
     }),
 
+  setDescription: protectedProcedure
+    .input(PostSchema.setDescription)
+    .mutation(async ({ ctx, input }) => {
+      const post = await ctx.prisma.post.findUnique({
+        where: {
+          id: input.id,
+          authorId: ctx.user.id
+        }
+      })
+
+      if (!post) {
+        return apiError(ERROR_CODES.POST.NOT_FOUND)
+      }
+
+      const updatedPost = await ctx.prisma.post.update({
+        where: { id: input.id },
+        data: { description: input.description }
+      })
+
+      return updatedPost
+    }),
+
   delete: protectedProcedure
     .input(PostSchema.getOne)
     .mutation(async ({ ctx, input }) => {

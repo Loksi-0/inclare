@@ -14,3 +14,8 @@ export const getFeed = z
     limit: z.number().optional()
   })
   .optional()
+
+export const setDescription = z.object({
+  id: stringSchema(),
+  description: stringSchema().max(2000)
+})
