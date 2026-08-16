@@ -13,7 +13,7 @@ type PhotoData = {
 
 class PhotoModalStore {
   photos: PhotoData[] = []
-  current: number | null = null
+  current = 0
   isOpen = false
 
   constructor() {
@@ -33,19 +33,25 @@ class PhotoModalStore {
   }
 
   nextCurrent = () => {
-    if (typeof this.current !== 'number') {
+    const prevIndex = this.photos.findIndex((p) => p.order === this.current)
+    const nextOrder = prevIndex !== -1 && this.photos.at(prevIndex + 1)?.order
+
+    if (typeof nextOrder !== 'number') {
       return
     }
 
-    this.current++
+    this.current = nextOrder
   }
 
   prevCurrent = () => {
-    if (typeof this.current !== 'number') {
+    const prevIndex = this.photos.findIndex((p) => p.order === this.current)
+    const nextOrder = prevIndex !== -1 && this.photos.at(prevIndex - 1)?.order
+
+    if (typeof nextOrder !== 'number') {
       return
     }
 
-    this.current--
+    this.current = nextOrder
   }
 }
 
