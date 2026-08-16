@@ -86,6 +86,8 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
       id: photoId,
       rawUrl,
       optimizedUrl,
+      rawPath,
+      optimizedPath,
       exif: exifDto
     }
   } catch {

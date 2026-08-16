@@ -15,4 +15,5 @@
   z-index: 5000;
   translate: -50% -50%;
   scale: 0;
+  will-change: transform, scale;
 }

@@ -11,11 +11,10 @@ export const buildArchive = async (srcPath: string, srcUrl: string) => {
     const outputUrl = [srcUrl, 'archive.zip'].join('/')
     const outputStream = fs.createWriteStream(outputPath)
     const archive = new ZipArchive({
-      zlib: { level: 0 },
       store: true
     })
 
-    const excludedExt = ['.zip', '.tar', '.gz', '.tgz', 'rar', '.7z']
+    const excludedExt = ['.zip', '.tar', '.gz', '.tgz', '.rar', '.7z']
 
     archive.directory(srcPath, false, (entry) => {
       if (excludedExt.some((ext) => entry.name.toLowerCase().endsWith(ext))) {
@@ -25,14 +24,17 @@ export const buildArchive = async (srcPath: string, srcUrl: string) => {
       return entry
     })
 
+    const pipelinePromise = pipeline(archive, outputStream)
     await archive.finalize()
-    await pipeline(archive, outputStream)
+    await pipelinePromise
 
     return {
       path: outputPath,
       url: outputUrl
     }
-  } catch {
+  } catch (e) {
+    console.log('ошибка архивации: ', e)
+
     return {
       path: null,
       url: null

@@ -44,32 +44,13 @@
     flex-wrap: wrap;
     gap: fluid(10, 5);
 
-    // @include mobile-s {
-    //   flex-direction: column;
-    // }
+    @include mobile-s {
+      flex-direction: column;
+    }
   }
 }
 
 .post {
-  position: absolute;
-  top: 100vh;
-  left: 0;
-  width: 100%;
-  border-top: var(--border);
-  background-color: var(--color-light);
-  z-index: 1000;
-
-  &__inner {
-    height: 100%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    row-gap: fluid(30, 20);
-    justify-content: space-between;
-    padding-block: fluid(60, 30);
-    padding-inline: var(--container-padding-x);
-  }
-
   &__top,
   &__bottom {
     display: flex;
@@ -95,39 +76,7 @@
   }
 
   &__photos {
-    --cols: 11;
-
-    display: grid;
-    grid-template-columns: repeat(var(--cols), 1fr);
-    gap: fluid(10, 5);
-
-    @include wide-screen {
-      --cols: 10;
-    }
-
-    @include desktop {
-      --cols: 8;
-    }
-
-    @include laptop {
-      --cols: 7;
-    }
-
-    @include laptop-s {
-      --cols: 6;
-    }
-
-    @include tablet {
-      --cols: 5;
-    }
-
-    @include mobile {
-      --cols: 4;
-    }
-
-    @include mobile-s {
-      --cols: 3;
-    }
+    @include view-post-grid;
   }
 
   &__photo {

@@ -4,7 +4,7 @@ type Post = {
   _count: {
     likes: number
   }
-  photos: { optimizedUrl: string }[]
+  photos: { optimizedUrl: string; order: number }[]
   createdAt: Date
   updatedAt: Date
   isLiked?: boolean
@@ -15,7 +15,9 @@ export const optimizedPostsDto = (posts: Post[]) => {
     id: p.id,
     description: p.description,
     likesCount: p._count.likes,
-    previewUrl: p.photos.at(0)?.optimizedUrl,
+    previewUrl: p.photos.reduce((prev, current) =>
+      prev.order < current.order ? prev : current
+    ).optimizedUrl,
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
     pcs: p.photos.length,

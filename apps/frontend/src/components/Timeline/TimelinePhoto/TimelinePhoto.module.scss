@@ -7,6 +7,7 @@
   align-items: center;
   width: fit-content;
   position: relative;
+  will-change: filter, opacity;
 
   &.year {
     margin-left: fluid(120, 70);

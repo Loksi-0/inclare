@@ -6,6 +6,9 @@ import Button from '@/components/Button'
 import { postStore } from '@/stores/post.store'
 import { timelineStore } from '@/stores/timeline.store'
 import { TIMELINE_PADDING } from '@/constants'
+import { useBlur } from '@/shared/hooks/useBlur'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
 
 type TimelinePhotoProps = {
   src: string
@@ -18,8 +21,19 @@ type TimelinePhotoProps = {
 const TimelinePhoto = (props: TimelinePhotoProps) => {
   const { src, id, createdAt, pcs, year } = props
 
+  const photoRef = useRef<HTMLDivElement | null>(null)
+  const blurOut = useBlur({ from: 10, to: 0 })
+
+  useEffect(() => {
+    gsap.fromTo(photoRef.current, { opacity: 0 }, { opacity: 1 })
+    blurOut(photoRef.current)
+  }, [])
+
   return (
-    <div className={cx(styles.photo, [{ [styles.year]: year }])}>
+    <div
+      ref={photoRef}
+      className={cx(styles.photo, [{ [styles.year]: year }])}
+    >
       <div className={styles.photo__line}></div>
       {year && (
         <div className={styles.photo__year}>

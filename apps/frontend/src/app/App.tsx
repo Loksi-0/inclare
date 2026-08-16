@@ -10,6 +10,7 @@ import { isTouchscreen } from '@/shared/functions/isTouchscreen'
 import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import ViewPost from '@/components/ViewPost'
 import PhotoModal from '@/components/PhotoModal'
+import UploadPost from '@/components/UploadPost'
 
 const App = ({ children }: PropsWithChildren) => {
   const { isMounted } = useIsMounted()
@@ -26,6 +27,7 @@ const App = ({ children }: PropsWithChildren) => {
       <Effector>
         {children}
         <ViewPost />
+        <UploadPost />
       </Effector>
     </Providers>
   )

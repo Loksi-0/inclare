@@ -1,0 +1,22 @@
+@use '@/app/styles/helpers' as *;
+
+.post {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 100%;
+  border-top: var(--border);
+  background-color: var(--color-light);
+  z-index: 1000;
+
+  &__inner {
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(30, 20);
+    justify-content: space-between;
+    padding-block: fluid(60, 30);
+    padding-inline: var(--container-padding-x);
+  }
+}

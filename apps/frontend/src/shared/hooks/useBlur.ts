@@ -30,6 +30,12 @@ export const useBlur = (opts: UseBlurOptions) => {
       },
       onComplete: () => {
         transitionRef.current = { blur: opts.from }
+
+        if (!ref) {
+          return
+        }
+
+        ref.style.filter = `blur(${opts.to}px)`
       }
     })
   }

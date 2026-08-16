@@ -77,7 +77,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
         { [styles.gray]: color === 'underline-gray' },
         { [styles.underline]: color === 'underline-gray' }
       ])}
-      disabled={disabled}
+      disabled={disabled || loading}
       onClick={onClick}
       type={type}
       data-cursor={disabled ? CURSOR.NOT_ALLOWED : CURSOR.POINTER}

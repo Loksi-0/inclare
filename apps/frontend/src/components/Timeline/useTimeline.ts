@@ -125,11 +125,21 @@ export const useTimeline = (data: Post[]) => {
   const getMinX = () => {
     const firstPos = groupsPos.at(0)
 
-    if (!firstPos || !firstRef.current) {
+    if (!firstPos) {
       return 0
     }
 
     return firstPos * -1 + LEFT_PADDING
+  }
+
+  const getMaxX = () => {
+    const lastGroup = groups.at(-1)
+
+    if (!lastGroup) {
+      return 0
+    }
+
+    return lastGroup.length * POST_SIZE + RIGHT_PADDING - window.innerWidth
   }
 
   useLayoutEffect(() => {
@@ -146,7 +156,7 @@ export const useTimeline = (data: Post[]) => {
       inertia: true,
       bounds: {
         minX: getMinX(),
-        maxX: window.innerWidth - RIGHT_PADDING
+        maxX: getMaxX()
       },
       trigger: timelineRef.current
     }).at(0)

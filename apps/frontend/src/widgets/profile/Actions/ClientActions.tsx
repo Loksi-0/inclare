@@ -3,9 +3,11 @@
 import Button from '@/components/Button'
 import styles from './Actions.module.scss'
 import { decline } from '@/shared/functions/decline'
-import { PAGES } from '@/constants'
+import { PAGES, TIMELINE_PADDING } from '@/constants'
 import { observer } from 'mobx-react-lite'
 import { useActions } from './useActions'
+import { postStore } from '@/stores/post.store'
+import { timelineStore } from '@/stores/timeline.store'
 
 type ClientActionsProps = {
   draftedLength: number
@@ -32,6 +34,13 @@ const ClientActions = observer((props: ClientActionsProps) => {
       <Button
         className={styles.actions__button}
         color='solid'
+        onClick={() => {
+          postStore.openUpload(
+            timelineStore.timelineRef
+              ? timelineStore.timelineRef.offsetHeight + TIMELINE_PADDING * 2
+              : undefined
+          )
+        }}
       >
         загрузить пачку
       </Button>

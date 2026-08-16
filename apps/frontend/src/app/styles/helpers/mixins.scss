@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use '@/app/styles/helpers/functions' as *;
+@use '@/app/styles/helpers/media' as *;
 
 @mixin fluid-text($max: 48, $min: 16) {
   font-size: fluid($max, $min);
@@ -87,5 +88,41 @@
 @mixin selection {
   &::selection {
     @content;
+  }
+}
+
+@mixin view-post-grid {
+  --cols: 11;
+
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: fluid(10, 5);
+
+  @include wide-screen {
+    --cols: 10;
+  }
+
+  @include desktop {
+    --cols: 8;
+  }
+
+  @include laptop {
+    --cols: 7;
+  }
+
+  @include laptop-s {
+    --cols: 6;
+  }
+
+  @include tablet {
+    --cols: 5;
+  }
+
+  @include mobile {
+    --cols: 4;
+  }
+
+  @include mobile-s {
+    --cols: 3;
   }
 }

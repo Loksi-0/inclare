@@ -2,6 +2,7 @@ import { savePhoto } from '@backend/helpers/savePhoto'
 import { protectedProcedure } from '@backend/procedures/protected.procedure'
 import { router } from '@backend/trpc'
 import { PhotoSchema } from '@repo/validators'
+import fs from 'fs/promises'
 
 export const photoRouter = router({
   upload: protectedProcedure
@@ -17,23 +18,31 @@ export const photoRouter = router({
         order
       })
 
-      const { id, optimizedUrl, rawUrl, exif } = await savePhoto({
-        file: data.file,
-        userId: ctx.user.id,
-        postId: data.postId
-      })
+      const { id, optimizedUrl, rawUrl, optimizedPath, rawPath, exif } =
+        await savePhoto({
+          file: data.file,
+          userId: ctx.user.id,
+          postId: data.postId
+        })
 
-      const photo = await ctx.prisma.photo.create({
-        data: {
-          id,
-          optimizedUrl,
-          rawUrl,
-          order: data.order,
-          postId: data.postId,
-          ...exif
-        }
-      })
+      try {
+        const photo = await ctx.prisma.photo.create({
+          data: {
+            id,
+            optimizedUrl,
+            rawUrl,
+            order: data.order,
+            postId: data.postId,
+            ...exif
+          }
+        })
 
-      return photo
+        return photo
+      } catch (e) {
+        await fs.unlink(optimizedPath)
+        await fs.unlink(rawPath)
+
+        throw e
+      }
     })
 })

@@ -1,0 +1,22 @@
+@use '@/app/styles/helpers' as *;
+
+.progress {
+  display: flex;
+  flex-direction: row;
+  column-gap: rem(10);
+  overflow: hidden;
+
+  &__measure {
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    white-space: pre;
+  }
+
+  &__bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
+}

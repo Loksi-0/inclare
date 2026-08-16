@@ -5,13 +5,14 @@ class PostStore {
   postId: string | null = null
   postHeight: number | null = null
   isOpen = false
+  isUploading = false
   bodyRef: HTMLElement | null = null
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  open = (id: string, offset?: number) => {
+  private shiftPost = (offset?: number) => {
     if (!this.bodyRef) {
       return
     }
@@ -25,8 +26,6 @@ class PostStore {
 
     this.postHeight = offsetHeight
 
-    this.postId = id
-    this.isOpen = true
     gsap.to(this.bodyRef, {
       y: offsetHeight * -1,
       duration: 0.5,
@@ -34,17 +33,43 @@ class PostStore {
     })
   }
 
-  close = () => {
+  open = (id: string, offset?: number) => {
+    if (!this.bodyRef) {
+      return
+    }
+
+    this.postId = id
+    this.isOpen = true
+    this.setIsUploading(false)
+    this.shiftPost(offset)
+  }
+
+  openUpload = (offset?: number) => {
+    this.isOpen = true
+    this.setIsUploading(true)
+    this.shiftPost(offset)
+  }
+
+  close = (onClose?: () => void) => {
     if (!this.bodyRef) {
       return
     }
 
     this.isOpen = false
+
     gsap.to(this.bodyRef, {
       y: '0',
       duration: 0.5,
-      ease: 'power2.out'
+      ease: 'power2.out',
+      onComplete: () => {
+        this.setIsUploading(false)
+        onClose?.()
+      }
     })
+  }
+
+  setIsUploading = (bool: boolean) => {
+    this.isUploading = bool
   }
 }
 

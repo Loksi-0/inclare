@@ -67,7 +67,9 @@ export const postRouter = router({
         return apiError(ERROR_CODES.POST.NOT_FOUND)
       }
 
-      const firstPhoto = post.photos.at(0)
+      const firstPhoto = post.photos.reduce((prev, current) =>
+        prev.order < current.order ? prev : current
+      )
 
       const previewColor = firstPhoto
         ? await getPrimaryColor(getFilePathByUrl(firstPhoto.optimizedUrl))
