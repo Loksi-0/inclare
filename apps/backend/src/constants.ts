@@ -10,23 +10,30 @@ export const UPLOADS = {
   URL: '/uploads'
 }
 
+export const POST = {
+  PATH: (userId: string, postId: string) =>
+    path.join(UPLOADS.PATH, userId, postId),
+  URL: (userId: string, postId: string) =>
+    [UPLOADS.URL, userId, postId].join('/')
+}
+
 export const RAW_POST = {
   PATH: (userId: string, postId: string) =>
-    path.join(UPLOADS.PATH, userId, postId, 'raw'),
+    path.join(POST.PATH(userId, postId), 'raw'),
   URL: (userId: string, postId: string) =>
-    [UPLOADS.URL, userId, postId, 'raw'].join('/')
+    [POST.URL(userId, postId), 'raw'].join('/')
 }
 
 export const OPTIMIZED_POST = {
   PATH: (userId: string, postId: string) =>
-    path.join(UPLOADS.PATH, userId, postId, 'optimized'),
+    path.join(POST.PATH(userId, postId), 'optimized'),
   URL: (userId: string, postId: string) =>
-    [UPLOADS.URL, userId, postId, 'optimized'].join('/')
+    [POST.URL(userId, postId), 'optimized'].join('/')
 }
 
 export const TEMP_POST = {
   PATH: (userId: string, postId: string) =>
-    path.join(UPLOADS.PATH, userId, postId, 'temp')
+    path.join(POST.PATH(userId, postId), 'temp')
 }
 
 export const USER_PROFILE = {

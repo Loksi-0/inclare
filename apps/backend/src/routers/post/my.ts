@@ -5,7 +5,8 @@ import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { optimizedPostsDto } from '@backend/dtos/postsDto'
 import { buildArchive } from '@backend/helpers/buildArchive'
-import { RAW_POST } from '@backend/constants'
+import { POST, RAW_POST } from '@backend/constants'
+import fs from 'fs/promises'
 
 export const myPostRouter = router({
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -144,6 +145,11 @@ export const myPostRouter = router({
           authorId: ctx.user.id,
           id: input.id
         }
+      })
+
+      await fs.rm(POST.PATH(ctx.user.id, post.id), {
+        force: true,
+        recursive: true
       })
 
       return post
