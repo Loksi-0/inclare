@@ -8,6 +8,9 @@ import Timeline from '@/components/Timeline'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
 import type { api } from '@/api/trpc'
+import { postStore } from '@/stores/post.store'
+import { timelineStore } from '@/stores/timeline.store'
+import { TIMELINE_PADDING } from '@/constants'
 
 type ClientTimelineProps = {
   data: Awaited<ReturnType<typeof api.post.my.getPublished.query>>
@@ -24,6 +27,8 @@ const ClientProfileTimeline = (props: ClientTimelineProps) => {
   )
 
   if (!data || !data.at(0)) {
+    timelineStore.timelineRef = null
+
     return (
       <section className={styles.timeline}>
         <Misted size={10}>
@@ -33,7 +38,14 @@ const ClientProfileTimeline = (props: ClientTimelineProps) => {
         </Misted>
         <div className={styles.timeline__body}>
           <h2>У вас пока что нет постов</h2>
-          <Button color='outlined'>загрузить пачку</Button>
+          <Button
+            color='outlined'
+            onClick={() => {
+              postStore.openUpload()
+            }}
+          >
+            загрузить пачку
+          </Button>
         </div>
       </section>
     )

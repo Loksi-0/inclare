@@ -33,6 +33,10 @@ class PostStore {
     })
   }
 
+  setPostId = (id: string | null) => {
+    this.postId = id
+  }
+
   open = (id: string, offset?: number) => {
     if (!this.bodyRef) {
       return
@@ -62,6 +66,7 @@ class PostStore {
       duration: 0.5,
       ease: 'power2.out',
       onComplete: () => {
+        this.setPostId(null)
         this.setIsUploading(false)
         onClose?.()
       }

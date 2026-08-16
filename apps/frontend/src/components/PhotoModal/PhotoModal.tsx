@@ -94,24 +94,22 @@ const PhotoModal = observer(() => {
         {data && (
           <div className={styles.modal__body}>
             <div className={styles.modal__photoWrapper}>
-              <div className={styles.modal__photo}>
-                <Image
-                  ref={imgRef}
-                  className={styles.modal__photoInner}
-                  width={2000}
-                  height={1500}
-                  src={data.optimizedUrl}
-                  alt=''
-                  draggable={false}
-                  onLoad={() => {
-                    setIsImgLoaded(true)
-                    gsap.to(imgRef.current, { opacity: 1, duration: 0.2 })
-                  }}
-                />
-                {!isImgLoaded && (
-                  <Preloader className={styles.modal__preloader} />
-                )}
-              </div>
+              <Image
+                ref={imgRef}
+                className={styles.modal__photo}
+                width={2000}
+                height={1500}
+                src={data.optimizedUrl}
+                alt=''
+                draggable={false}
+                onLoad={() => {
+                  setIsImgLoaded(true)
+                  gsap.to(imgRef.current, { opacity: 1, duration: 0.2 })
+                }}
+              />
+              {!isImgLoaded && (
+                <Preloader className={styles.modal__preloader} />
+              )}
             </div>
             <aside className={styles.modal__aside}>
               <ul className={styles.modal__list}>

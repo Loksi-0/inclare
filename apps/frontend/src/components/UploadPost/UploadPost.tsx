@@ -32,7 +32,7 @@ const UploadPost = observer(() => {
   )
 
   useEffect(() => {
-    uploadStore.totalPhotos = files.length
+    uploadStore.setTotal(files.length)
   }, [files])
 
   const now = useMemo(() => {

@@ -9,6 +9,10 @@ class UploadStore {
     makeAutoObservable(this)
   }
 
+  setTotal = (amount: number) => {
+    this.totalPhotos = amount
+  }
+
   incrementSettled = () => {
     this.settledPhotos++
   }

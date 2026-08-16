@@ -5,7 +5,7 @@ import { timelineStore } from '@/stores/timeline.store'
 import gsap from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import InertiaPlugin from 'gsap/InertiaPlugin'
-import { useLayoutEffect, useMemo, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 
 export type Post = {
   id: string
@@ -17,14 +17,15 @@ export type Post = {
 export const useTimeline = (data: Post[]) => {
   gsap.registerPlugin(Draggable, InertiaPlugin)
 
-  const BASE_STEP = useFluid(1.3, 3)
+  const BASE_STEP = useFluid(0.6, 2.5)
   const LEFT_PADDING = useFluid(50, 200)
-  const RIGHT_PADDING = useFluid(300, 600)
+  const RIGHT_PADDING = useFluid(100, 300)
   const POST_SIZE = useFluid(150, 300)
+  const GROUP_THRESHOLD = useFluid(20, 100)
 
   const timelineRef = useRef<HTMLDivElement | null>(null)
   const bodyRef = useRef<HTMLDivElement | null>(null)
-  const firstRef = useRef<HTMLDivElement | null>(null)
+  const lastRef = useRef<HTMLDivElement | null>(null)
 
   const daysSinceEpoch = (date: Date) => {
     return Math.floor(date.getTime() / 86400000)
@@ -98,7 +99,7 @@ export const useTimeline = (data: Post[]) => {
         return
       }
 
-      if (dayDiff > POST_SIZE * lastGroup.length) {
+      if (dayDiff > POST_SIZE * lastGroup.length + GROUP_THRESHOLD) {
         pushGroup(p)
       } else {
         pushLast(p)
@@ -133,13 +134,14 @@ export const useTimeline = (data: Post[]) => {
   }
 
   const getMaxX = () => {
-    const lastGroup = groups.at(-1)
-
-    if (!lastGroup) {
+    if (!lastRef.current) {
       return 0
     }
 
-    return lastGroup.length * POST_SIZE + RIGHT_PADDING - window.innerWidth
+    const lastWidth = lastRef.current.getBoundingClientRect().width
+    const maxX = lastWidth - window.innerWidth + RIGHT_PADDING
+
+    return maxX * -1
   }
 
   useLayoutEffect(() => {
@@ -148,6 +150,8 @@ export const useTimeline = (data: Post[]) => {
     }
 
     timelineStore.timelineRef = timelineRef.current
+
+    gsap.set(bodyRef.current, { x: getMaxX() })
 
     const draggableInstance = Draggable.create(bodyRef.current, {
       type: 'x',
@@ -164,12 +168,12 @@ export const useTimeline = (data: Post[]) => {
     return () => {
       draggableInstance?.kill()
     }
-  }, [])
+  }, [sortedData])
 
   return {
     timelineRef,
     bodyRef,
-    firstRef,
+    lastRef,
     groups,
     lastPostDay,
     daysSinceEpoch,

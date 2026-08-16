@@ -6,10 +6,14 @@ type Options = {
   img: string | Buffer
   output: string
   fit?: keyof sharp.FitEnum
+  orientation?: number
 }
 
 export const compressJpeg = async (options: Options) => {
   await sharp(options.img)
+    .withMetadata(
+      options.orientation ? { orientation: options.orientation } : undefined
+    )
     .rotate()
     .resize(options.width, options.height, {
       fit: options.fit

@@ -43,7 +43,10 @@ const ConfirmButton = observer((props: ConfirmButtonProps) => {
             tabindex={isOpen ? 0 : -1}
             ref={confirmButtonRef}
             color='solid'
-            onClick={onConfirm}
+            onClick={() => {
+              onConfirm()
+              close()
+            }}
             loading={loading}
           >
             {content.confirm}

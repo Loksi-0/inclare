@@ -28,6 +28,7 @@ const FileInputButton = (props: FileInputButtonProps) => {
           onInput(e.target.files)
         }}
         accept={accept}
+        title=''
       />
       {children}
     </Button>

@@ -60,19 +60,10 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
       }
     }
 
-    await compressJpeg({
-      width: 1920,
-      height: null,
-      img: isRaw ? tempPath : rawBuffer,
-      output: optimizedPath
-    })
-
-    if (isRaw) {
-      await fs.unlink(tempPath)
-    }
-
     // exif
     const exif = await getExif(rawPath)
+
+    const orientation = exif?.Orientation
 
     const exifDto = {
       shutterSpeed: exif?.ShutterSpeed?.trim(),
@@ -80,6 +71,18 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
       aperture: exif?.Aperture,
       focalLength: exif?.FocalLength?.trim(),
       cameraModel: exif?.Model?.trim()
+    }
+
+    await compressJpeg({
+      width: 1920,
+      height: null,
+      img: isRaw ? tempPath : rawBuffer,
+      output: optimizedPath,
+      orientation
+    })
+
+    if (isRaw) {
+      await fs.unlink(tempPath)
     }
 
     return {

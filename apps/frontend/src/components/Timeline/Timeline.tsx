@@ -15,7 +15,7 @@ const Timeline = (props: TimelineProps) => {
   const { data } = props
 
   const { isMounted } = useIsMounted()
-  const { timelineRef, bodyRef, firstRef, groups, groupsPos, firstYearsPosts } =
+  const { timelineRef, bodyRef, lastRef, groups, groupsPos, firstYearsPosts } =
     useTimeline(data)
 
   return (
@@ -29,34 +29,35 @@ const Timeline = (props: TimelineProps) => {
         ref={bodyRef}
         className={styles.timeline__body}
       >
-        {groups.map((g, i) => (
-          <div
-            ref={i === 0 ? firstRef : undefined}
-            key={g.at(0)?.id || randomCode(6)}
-            className={styles.timeline__group}
-            style={{
-              transform: isMounted ? `translateX(${groupsPos[i]}px)` : undefined
-            }}
-          >
-            {g.map(
-              (p) =>
-                p.previewUrl && (
-                  <TimelinePhoto
-                    key={p.id}
-                    src={p.previewUrl}
-                    createdAt={p.createdAt}
-                    pcs={p.pcs}
-                    id={p.id}
-                    year={
-                      firstYearsPosts.has(p.id)
-                        ? p.createdAt.getFullYear()
-                        : undefined
-                    }
-                  />
-                )
-            )}
-          </div>
-        ))}
+        {isMounted &&
+          groups.map((g, i) => (
+            <div
+              ref={i === groups.length - 1 ? lastRef : undefined}
+              key={g.at(0)?.id || randomCode(6)}
+              className={styles.timeline__group}
+              style={{
+                transform: `translateX(${groupsPos[i]}px)`
+              }}
+            >
+              {g.map(
+                (p) =>
+                  p.previewUrl && (
+                    <TimelinePhoto
+                      key={p.id}
+                      src={p.previewUrl}
+                      createdAt={p.createdAt}
+                      pcs={p.pcs}
+                      id={p.id}
+                      year={
+                        firstYearsPosts.has(p.id)
+                          ? p.createdAt.getFullYear()
+                          : undefined
+                      }
+                    />
+                  )
+              )}
+            </div>
+          ))}
       </div>
     </section>
   )
