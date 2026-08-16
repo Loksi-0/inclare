@@ -12,9 +12,8 @@ import UploadingPhoto from './UploadingPhoto/UploadingPhoto'
 import { observer } from 'mobx-react-lite'
 import { uploadStore } from '@/stores/upload.store'
 import Plus from '@/icons/Plus'
-import { invalidatePost } from '@/shared/functions/invalidatePost'
-import Preloader from '../Preloader'
 import ProgressBar from '../ProgressBar'
+import { invalidatePost } from '@/shared/functions/invalidatePost'
 
 const UploadPost = observer(() => {
   const [postId, setPostId] = useState<string | null>(null)
@@ -57,7 +56,7 @@ const UploadPost = observer(() => {
   }
 
   const closeUpload = async () => {
-    await invalidatePost({ trpc, queryClient })
+    await invalidatePost({ queryClient, trpc })
     postStore.close(() => {
       setPostId(null)
       setFiles([])

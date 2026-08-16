@@ -1,27 +1,29 @@
-'use client'
+import type { useTRPC } from '@/api/tanstack'
+import type { QueryClient } from '@tanstack/react-query'
 
-import { useTRPC } from '@/api/tanstack'
-import { type QueryClient } from '@tanstack/react-query'
-
-type InvalidateProps = {
+type Props = {
   queryClient: QueryClient
   trpc: ReturnType<typeof useTRPC>
+  exceptGetOne?: boolean
 }
 
 export const invalidatePost = async ({
   queryClient,
-  trpc
-}: InvalidateProps) => {
+  trpc,
+  exceptGetOne = true
+}: Props) => {
   await queryClient.invalidateQueries({
-    queryKey: trpc.post.getOne.queryKey()
-  })
-  await queryClient.invalidateQueries({
-    queryKey: trpc.post.my.getPublished.queryKey()
-  })
-  await queryClient.invalidateQueries({
-    queryKey: trpc.post.my.getDrafted.queryKey()
-  })
-  await queryClient.invalidateQueries({
-    queryKey: trpc.post.my.getDraftedLength.queryKey()
+    ...trpc.post.pathFilter(),
+    predicate: exceptGetOne
+      ? (query) => {
+          const pathArray = Array.isArray(query.queryKey[0])
+            ? query.queryKey[0]
+            : []
+
+          const isGetOne = pathArray.includes('getOne')
+
+          return !isGetOne
+        }
+      : undefined
   })
 }

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import styles from './PhotoModal.module.scss'
-import { useEffect, useMemo, useRef, type MouseEventHandler } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { photoModalStore } from '@/stores/photoModal.store'
 import gsap from 'gsap'
 import { useBlur } from '@/shared/hooks/useBlur'
@@ -9,9 +9,13 @@ import Cross from '@/icons/Cross'
 import Image from 'next/image'
 import ArrowLeft from '@/icons/ArrowLeft'
 import ArrowRight from '@/icons/ArrowRight'
+import Preloader from '../Preloader'
 
 const PhotoModal = observer(() => {
+  const [isImgLoaded, setIsImgLoaded] = useState(false)
+
   const modalRef = useRef<HTMLDivElement | null>(null)
+  const imgRef = useRef<HTMLImageElement | null>(null)
   const blurIn = useBlur({ from: 0, to: 10 })
   const blurOut = useBlur({ from: 10, to: 0 })
 
@@ -38,6 +42,32 @@ const PhotoModal = observer(() => {
       )
     }
   }, [photoModalStore.isOpen])
+
+  useEffect(() => {
+    setIsImgLoaded(false)
+    gsap.to(imgRef.current, { opacity: 0, duration: 0.2 })
+  }, [data?.optimizedUrl])
+
+  const { minOrder, maxOrder } = useMemo(() => {
+    if (!photoModalStore.photos.at(0)) {
+      return {
+        minOrder: 0,
+        maxOrder: 0
+      }
+    }
+
+    const minPhoto = photoModalStore.photos.reduce((prev, current) =>
+      prev.order < current.order ? prev : current
+    )
+    const maxPhoto = photoModalStore.photos.reduce((prev, current) =>
+      prev.order > current.order ? prev : current
+    )
+
+    return {
+      minOrder: minPhoto.order,
+      maxOrder: maxPhoto.order
+    }
+  }, [photoModalStore.photos])
 
   return (
     <div
@@ -66,13 +96,21 @@ const PhotoModal = observer(() => {
             <div className={styles.modal__photoWrapper}>
               <div className={styles.modal__photo}>
                 <Image
+                  ref={imgRef}
                   className={styles.modal__photoInner}
                   width={2000}
                   height={1500}
                   src={data.optimizedUrl}
                   alt=''
                   draggable={false}
+                  onLoad={() => {
+                    setIsImgLoaded(true)
+                    gsap.to(imgRef.current, { opacity: 1, duration: 0.2 })
+                  }}
                 />
+                {!isImgLoaded && (
+                  <Preloader className={styles.modal__preloader} />
+                )}
               </div>
             </div>
             <aside className={styles.modal__aside}>
@@ -113,9 +151,7 @@ const PhotoModal = observer(() => {
                   className={styles.modal__arrow}
                   color='icon'
                   onClick={photoModalStore.prevCurrent}
-                  disabled={photoModalStore.photos.some(
-                    (p) => !(p.order <= data.order)
-                  )}
+                  disabled={minOrder === data.order}
                 >
                   <ArrowLeft />
                 </Button>
@@ -123,9 +159,7 @@ const PhotoModal = observer(() => {
                   className={styles.modal__arrow}
                   color='icon'
                   onClick={photoModalStore.nextCurrent}
-                  disabled={photoModalStore.photos.some(
-                    (p) => !(p.order >= data.order)
-                  )}
+                  disabled={maxOrder === data.order}
                 >
                   <ArrowRight />
                 </Button>

@@ -23,7 +23,7 @@ const ToggleDraftedButton = (props: ToggleDraftedButtonProps) => {
         setIsPending(true)
       },
       onSuccess: async () => {
-        await invalidatePost({ queryClient, trpc })
+        await invalidatePost({ queryClient, trpc, exceptGetOne: false })
         setIsPending(false)
       }
     })

@@ -2,10 +2,10 @@
 
 import { useTRPC } from '@/api/tanstack'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { invalidatePost } from '@/shared/functions/invalidatePost'
 import { useState } from 'react'
 import { postStore } from '@/stores/post.store'
 import ConfirmButton from '../ConfirmButton'
+import { invalidatePost } from '@/shared/functions/invalidatePost'
 
 const DeleteButton = ({ id }: { id: string }) => {
   const [isPending, setIsPending] = useState(false)

@@ -1,18 +1,20 @@
 import Lottie from 'react-lottie-player'
 import animationData from '@/shared/animations/Preloader.json'
+import cx from 'clsx'
 import styles from './Preloader.module.scss'
 
 type PreloaderProps = {
   color?: 'dark' | 'light'
   size?: number
+  className?: string
 }
 
 const Preloader = (props: PreloaderProps) => {
-  const { color = 'dark', size = 20 } = props
+  const { color = 'dark', size = 20, className } = props
 
   return (
     <Lottie
-      className={styles[color]}
+      className={cx(styles[color], className)}
       animationData={animationData}
       loop
       play
