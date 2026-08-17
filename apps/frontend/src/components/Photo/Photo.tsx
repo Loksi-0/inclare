@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import cx from 'clsx'
 import styles from './Photo.module.scss'
-import { forwardRef, type CSSProperties, type PropsWithChildren } from 'react'
+import { forwardRef, type CSSProperties } from 'react'
 import Gradient from '../Gradient/Gradient'
+import PhotoLayout from '@/layouts/PhotoLayout'
 
 type PhotoProps = {
   src?: string
@@ -16,19 +16,14 @@ type PhotoProps = {
 const Photo = forwardRef<HTMLDivElement, PhotoProps>((props, ref) => {
   const { src, isLoading, isError, className, style, mini = false } = props
 
-  const PhotoLayout = ({ children }: PropsWithChildren) => (
-    <div
-      ref={ref}
-      className={cx(styles.photo, className, [{ [styles.mini]: mini }])}
-      style={style}
-    >
-      {children}
-    </div>
-  )
-
   if (isError) {
     return (
-      <PhotoLayout>
+      <PhotoLayout
+        className={className}
+        style={style}
+        mini={mini}
+        ref={ref}
+      >
         <div className={styles.photo__error}></div>
       </PhotoLayout>
     )
@@ -36,14 +31,24 @@ const Photo = forwardRef<HTMLDivElement, PhotoProps>((props, ref) => {
 
   if (!src || isLoading) {
     return (
-      <PhotoLayout>
+      <PhotoLayout
+        className={className}
+        style={style}
+        mini={mini}
+        ref={ref}
+      >
         <Gradient />
       </PhotoLayout>
     )
   }
 
   return (
-    <PhotoLayout>
+    <PhotoLayout
+      className={className}
+      style={style}
+      mini={mini}
+      ref={ref}
+    >
       <Image
         className={styles.photo__image}
         src={src}

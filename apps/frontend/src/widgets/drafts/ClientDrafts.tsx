@@ -5,12 +5,12 @@ import styles from './DraftsList.module.scss'
 import Photo from '@/components/Photo'
 import Button from '@/components/Button'
 import { postStore } from '@/stores/post.store'
-import { PAGES } from '@/constants'
 import { randomInt } from '@/shared/functions/randomInt'
 import { useMemo } from 'react'
 import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
+import DraftsLayout from '@/layouts/DraftsLayout'
 
 type DraftsProps = {
   data: Awaited<ReturnType<typeof api.post.my.getDrafted.query>>
@@ -28,15 +28,7 @@ const ClientDrafts = ({ data: initialData }: DraftsProps) => {
   const { isMounted } = useIsMounted()
 
   return (
-    <section className={styles.drafts}>
-      <header className={styles.drafts__header}>
-        <Button
-          color='underline'
-          navigate={PAGES.PROFILE}
-        >
-          {'<-'} назад
-        </Button>
-      </header>
+    <DraftsLayout>
       <div className={styles.drafts__grid}>
         {isMounted &&
           data.map((d, i) => (
@@ -60,7 +52,7 @@ const ClientDrafts = ({ data: initialData }: DraftsProps) => {
             </Button>
           ))}
       </div>
-    </section>
+    </DraftsLayout>
   )
 }
 

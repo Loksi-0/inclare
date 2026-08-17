@@ -10,7 +10,6 @@ import { useTRPC } from '@/api/tanstack'
 import type { api } from '@/api/trpc'
 import { postStore } from '@/stores/post.store'
 import { timelineStore } from '@/stores/timeline.store'
-import { TIMELINE_PADDING } from '@/constants'
 
 type ClientTimelineProps = {
   data: Awaited<ReturnType<typeof api.post.my.getPublished.query>>

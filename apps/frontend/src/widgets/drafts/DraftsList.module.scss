@@ -1,18 +1,13 @@
 @use '@/app/styles/helpers' as *;
 
 .drafts {
-  --header-paddding: #{fluid(20, 10)};
+  &__placeholder {
+    @include abs-center;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: visible;
-  height: 100%;
-  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
-  margin-inline: auto;
-
-  &__header {
-    padding-block: var(--header-paddding);
+    color: var(--color-gray-10);
+    font-family: var(--font-family-mono);
+    text-align: center;
+    width: 100%;
   }
 
   &__grid {
@@ -23,7 +18,9 @@
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
     overflow-y: auto;
-    padding-top: calc(fluid(60, 30) - var(--header-paddding));
+    padding-top: calc(
+      fluid(60, 30) - var(--drafts-header-paddding)
+    ); // var is declared in DraftsLayout
     padding-inline: var(--container-padding-x);
     padding-bottom: fluid(200, 100);
 
