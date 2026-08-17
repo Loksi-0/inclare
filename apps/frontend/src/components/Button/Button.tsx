@@ -2,6 +2,7 @@
 
 import {
   forwardRef,
+  type CSSProperties,
   type MouseEventHandler,
   type PropsWithChildren
 } from 'react'
@@ -24,6 +25,7 @@ type ButtonProps = PropsWithChildren<{
   loading?: boolean
   animate?: boolean
   tabindex?: number
+  style?: CSSProperties
 }>
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -37,7 +39,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     navigate,
     type = 'button',
     animate = false,
-    tabindex
+    tabindex,
+    style
   } = props
 
   const router = useRouter()
@@ -54,6 +57,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           { [styles.underline]: color === 'underline-gray' }
         ])}
         data-cursor={disabled ? CURSOR.NOT_ALLOWED : CURSOR.POINTER}
+        style={style}
         onClick={(e) => {
           e.preventDefault()
 
@@ -82,6 +86,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
       type={type}
       data-cursor={disabled ? CURSOR.NOT_ALLOWED : CURSOR.POINTER}
       tabIndex={tabindex}
+      style={style}
     >
       {loading ? (
         <Preloader color={color === 'solid' ? 'light' : 'dark'} />

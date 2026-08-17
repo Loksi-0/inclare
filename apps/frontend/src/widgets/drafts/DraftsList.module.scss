@@ -1,0 +1,56 @@
+@use '@/app/styles/helpers' as *;
+
+.drafts {
+  --header-paddding: #{fluid(20, 10)};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  height: 100%;
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin-inline: auto;
+
+  &__header {
+    padding-block: var(--header-paddding);
+  }
+
+  &__grid {
+    --cols: 6;
+
+    width: 100%;
+    max-height: 90vh;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    overflow-y: auto;
+    padding-top: calc(fluid(60, 30) - var(--header-paddding));
+    padding-inline: var(--container-padding-x);
+    padding-bottom: fluid(200, 100);
+
+    @include laptop {
+      --cols: 5;
+    }
+
+    @include tablet {
+      --cols: 4;
+    }
+
+    @include mobile {
+      --cols: 3;
+    }
+
+    @include mobile-s {
+      --cols: 2;
+    }
+  }
+
+  &__item {
+    width: 100% !important;
+    transform: scale(1.02);
+    transition-duration: var(--transition-duration);
+
+    @include hover {
+      transform: scale(1.07) rotate(0) !important;
+    }
+  }
+}
