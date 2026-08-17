@@ -26,20 +26,31 @@ export const myPostRouter = router({
   }),
 
   getPublished: protectedProcedure.query(async ({ ctx }) => {
-    const uploaded = await ctx.prisma.post.findMany({
+    const published = await ctx.prisma.post.findMany({
       where: {
         authorId: ctx.user.id,
         isDrafted: false
       },
       include: {
-        photos: true,
+        photos: {
+          select: { order: true, optimizedUrl: true }
+        },
         _count: {
-          select: { likes: true }
+          select: { photos: true }
         }
       }
     })
 
-    return optimizedPostsDto(uploaded)
+    const publishedDto = published.map((p) => ({
+      id: p.id,
+      previewUrl: p.photos.reduce((prev, current) =>
+        prev.order < current.order ? prev : current
+      ).optimizedUrl,
+      createdAt: p.createdAt,
+      pcs: p._count.photos
+    }))
+
+    return publishedDto
   }),
 
   getDrafted: protectedProcedure.query(async ({ ctx }) => {
@@ -49,14 +60,20 @@ export const myPostRouter = router({
         isDrafted: true
       },
       include: {
-        photos: true,
-        _count: {
-          select: { likes: true }
+        photos: {
+          select: { order: true, optimizedUrl: true }
         }
       }
     })
 
-    return optimizedPostsDto(drafted)
+    const draftedDto = drafted.map((p) => ({
+      id: p.id,
+      previewUrl: p.photos.reduce((prev, current) =>
+        prev.order < current.order ? prev : current
+      ).optimizedUrl
+    }))
+
+    return draftedDto
   }),
 
   getDraftedLength: protectedProcedure.query(async ({ ctx }) => {
