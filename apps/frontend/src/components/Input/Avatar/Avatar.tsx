@@ -1,30 +1,18 @@
 'use client'
 
-import {
-  useEffect,
-  useState,
-  type ChangeEvent,
-  type Dispatch,
-  type SetStateAction
-} from 'react'
 import styles from './Avatar.module.scss'
 import Button from '@/components/Button'
 import Plus from '@/icons/Plus'
 import Image from 'next/image'
 import cx from 'clsx'
 import Cross from '@/icons/Cross'
-import { useAvatar } from './useAvatar'
-
-type AvatarInputProps = {
-  value: File | null
-  setValue: Dispatch<SetStateAction<File | null>>
-  className?: string
-}
+import { useAvatar, type AvatarInputProps } from './useAvatar'
+import Pencil from '@/icons/Pencil'
 
 const AvatarInput = (props: AvatarInputProps) => {
-  const { value, setValue, className } = props
+  const { className, onChange: extOnChange } = props
 
-  const { imgUrl, onChange, remove } = useAvatar({ value, setValue })
+  const { imgUrl, onChange, remove } = useAvatar(props)
 
   return (
     <div
@@ -35,7 +23,10 @@ const AvatarInput = (props: AvatarInputProps) => {
         type='file'
         accept='image/*'
         title=''
-        onChange={onChange}
+        onChange={(e) => {
+          extOnChange?.()
+          onChange(e)
+        }}
       />
       <Button
         className={styles.avatar__add}
@@ -46,15 +37,21 @@ const AvatarInput = (props: AvatarInputProps) => {
           type='file'
           accept='image/*'
           title=''
-          onChange={onChange}
+          onChange={(e) => {
+            extOnChange?.()
+            onChange(e)
+          }}
         />
-        <Plus />
+        {imgUrl ? <Pencil /> : <Plus />}
       </Button>
       {imgUrl && (
         <Button
           className={styles.avatar__delete}
           color='icon'
-          onClick={remove}
+          onClick={() => {
+            extOnChange?.()
+            remove()
+          }}
         >
           <Cross />
         </Button>

@@ -1,0 +1,13 @@
+@use '@/app/styles/helpers' as *;
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  row-gap: fluid(30, 20);
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(5);
+  }
+}

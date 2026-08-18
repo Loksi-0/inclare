@@ -156,6 +156,9 @@ importers:
       mobx:
         specifier: ^6.16.1
         version: 6.16.1
+      mobx-persist-store:
+        specifier: ^1.1.8
+        version: 1.1.8(mobx@6.16.1)
       mobx-react-lite:
         specifier: ^4.1.1
         version: 4.1.1(mobx@6.16.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -2774,6 +2777,11 @@ packages:
 
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+
+  mobx-persist-store@1.1.8:
+    resolution: {integrity: sha512-7SiLvang0POfGvfP69fzmppBKv36e0TNndKJT1UokZuLXt13CqF3PAxIcRacHqjTBe4ktmzDsh3DK+fbM6epNg==}
+    peerDependencies:
+      mobx: '*'
 
   mobx-react-lite@4.1.1:
     resolution: {integrity: sha512-iUxiMpsvNraCKXU+yPotsOncNNmyeS2B5DKL+TL6Tar/xm+wwNJAubJmtRSeAoYawdZqwv8Z/+5nPRHeQxTiXg==}
@@ -6026,6 +6034,10 @@ snapshots:
       brace-expansion: 2.1.1
 
   minimist@1.2.8: {}
+
+  mobx-persist-store@1.1.8(mobx@6.16.1):
+    dependencies:
+      mobx: 6.16.1
 
   mobx-react-lite@4.1.1(mobx@6.16.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:

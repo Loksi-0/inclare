@@ -1,0 +1,7 @@
+@use '@/app/styles/helpers' as *;
+
+.toggles {
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(5);
+}

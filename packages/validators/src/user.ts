@@ -19,12 +19,19 @@ export const setAvatar = z.instanceof(FormData).transform((fd) => {
 
   return z
     .object({
-      file: z.instanceof(File)
+      file: z.instanceof(File).optional().nullable()
     })
     .parse({ file })
 })
 
 export const update = z.object({
-  name: stringSchema().max(100).optional(),
-  description: stringSchema().max(1000).optional()
+  name: stringSchema('Введите имя')
+    .max(100, 'Максимальная длина ника - 100 символов')
+    .optional(),
+  description: z
+    .string()
+    .max(300, 'Максимальная длина описания - 300 символов')
+    .optional()
+    .nullable()
 })
+export type Update = z.infer<typeof update>

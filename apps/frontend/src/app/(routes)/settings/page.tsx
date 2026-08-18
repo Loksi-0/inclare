@@ -1,0 +1,19 @@
+import PageLayout from '@/layouts/PageLayout'
+import SettingsHeader from '@/widgets/settings/SettingsHeader'
+import UpdateProfile from '@/widgets/settings/UpdateProfile'
+import UserToggles from '@/widgets/settings/UserToggles'
+
+const Settings = () => {
+  return (
+    <PageLayout
+      className='container-small'
+      settings
+    >
+      <SettingsHeader />
+      <UpdateProfile />
+      <UserToggles />
+    </PageLayout>
+  )
+}
+
+export default Settings

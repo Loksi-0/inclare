@@ -10,6 +10,10 @@ import { ERROR_CODES } from '@repo/api-error-codes'
 import path from 'path'
 import { createFolder } from '@backend/helpers/createFolder'
 import { compressWebp } from '@backend/helpers/compressWebp'
+import { getRandomAvatar } from '@backend/helpers/getRandomAvatar'
+import cuid from '@bugsnag/cuid'
+import { getFilePathByUrl } from '@backend/helpers/getFilePathByUrl'
+import fs from 'fs/promises'
 
 export const userRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
@@ -69,11 +73,30 @@ export const userRouter = router({
     .mutation(async ({ ctx, input }) => {
       await createFolder(USER_PROFILE.PATH(ctx.user.id))
 
-      const avatarPath = path.join(
-        USER_PROFILE.PATH(ctx.user.id),
-        'avatar.webp'
-      )
-      const avatarLink = `${USER_PROFILE.URL(ctx.user.id)}/avatar.webp`
+      if (ctx.user.avatar) {
+        const prevAvatarPath = getFilePathByUrl(ctx.user.avatar)
+
+        if (!prevAvatarPath.includes(path.join('defaults', 'avatars'))) {
+          await fs.unlink(prevAvatarPath)
+        }
+      }
+
+      if (!input.file) {
+        const avatarLink = await getRandomAvatar()
+
+        await ctx.prisma.user.update({
+          where: { id: ctx.user.id },
+          data: { avatar: avatarLink }
+        })
+
+        return avatarLink
+      }
+
+      const avatarId = cuid()
+      const avatarName = `avatar_${avatarId}.webp`
+
+      const avatarPath = path.join(USER_PROFILE.PATH(ctx.user.id), avatarName)
+      const avatarLink = `${USER_PROFILE.URL(ctx.user.id)}/${avatarName}`
 
       const bytes = await input.file.bytes()
       const imgBuffer = Buffer.from(bytes)
@@ -129,5 +152,23 @@ export const userRouter = router({
       })
 
       return user
+    }),
+
+  toggleIsPrivate: protectedProcedure.mutation(async ({ ctx }) => {
+    const candidate = await ctx.prisma.user.findUnique({
+      where: { id: ctx.user.id }
     })
+
+    if (!candidate) {
+      return apiError(ERROR_CODES.USER.NOT_FOUND)
+    }
+
+    const user = await ctx.prisma.user.update({
+      where: { id: ctx.user.id },
+      data: { isPrivate: !candidate.isPrivate },
+      omit: { password: true }
+    })
+
+    return user
+  })
 })

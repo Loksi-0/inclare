@@ -2,23 +2,34 @@
 
 import {
   useEffect,
+  useRef,
   useState,
   type ChangeEvent,
   type Dispatch,
   type SetStateAction
 } from 'react'
 
-type UseAvatarProps = {
+export type AvatarInputProps = {
   value: File | null
   setValue: Dispatch<SetStateAction<File | null>>
+  initialSrc?: string | null
+  className?: string
+  onChange?: () => void
 }
 
-export const useAvatar = ({ value, setValue }: UseAvatarProps) => {
-  const [imgUrl, setImgUrl] = useState<string | null>(null)
+export const useAvatar = (props: AvatarInputProps) => {
+  const { value, setValue, initialSrc } = props
+
+  const wasChanged = useRef(false)
+  const [imgUrl, setImgUrl] = useState<string | null>(initialSrc || null)
+
+  useEffect(() => {
+    setImgUrl(initialSrc || null)
+  }, [initialSrc])
 
   useEffect(() => {
     if (!value) {
-      setImgUrl(null)
+      setImgUrl(wasChanged.current ? null : initialSrc || null)
       return
     }
 
@@ -48,7 +59,9 @@ export const useAvatar = ({ value, setValue }: UseAvatarProps) => {
       URL.revokeObjectURL(imgUrl)
     }
 
+    wasChanged.current = true
     setValue(null)
+    setImgUrl(null)
   }
 
   return {

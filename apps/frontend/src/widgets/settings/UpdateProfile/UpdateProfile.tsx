@@ -1,15 +1,15 @@
 import { catchError } from '@/shared/functions/catchError'
 import ErrorSection from '@/components/ErrorSection'
 import { api } from '@/api/trpc'
-import ClientMe from './ClientMe'
+import ClientUpdateProfile from './ClientUpdateProfile'
 
-const Me = catchError(
+const UpdateProfile = catchError(
   async () => {
     const me = await api.auth.me.query()
 
-    return <ClientMe data={me} />
+    return <ClientUpdateProfile data={me} />
   },
   () => <ErrorSection name='профиль' />
 )
 
-export default Me
+export default UpdateProfile
