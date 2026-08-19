@@ -9,16 +9,26 @@ type FileInputButtonProps = PropsWithChildren<{
   loading?: boolean
   accept?: string
   className?: string
+  animate?: boolean
 }>
 
 const FileInputButton = (props: FileInputButtonProps) => {
-  const { color, children, onInput, loading, accept, className } = props
+  const {
+    color,
+    children,
+    onInput,
+    loading,
+    accept,
+    className,
+    animate = false
+  } = props
 
   return (
     <Button
       className={cx(styles.button, className)}
       color={color}
       loading={loading}
+      animate={animate}
     >
       <input
         className={styles.button__input}

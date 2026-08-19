@@ -83,6 +83,7 @@ const UploadPost = observer(() => {
             accept='image/*, .cr2, .cr3, .crw, .nef, .nrw, .arw, .srf, .sr2, .raf, .rw2, .raw, .orf, .pef, .dng, .gpr'
             loading={isPending}
             color='solid'
+            animate
             onInput={(files) => {
               if (!files) {
                 return
