@@ -5,8 +5,16 @@ import { useTRPC } from '@/api/tanstack'
 import gsap from 'gsap'
 import { randomInt } from '@/shared/functions/randomInt'
 import { darkenColor } from '@/shared/functions/darkenColor'
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type MouseEventHandler
+} from 'react'
 import { normalizeHex } from '@/shared/functions/normalizeHex'
+import { soundStore } from '@/stores/sound.store'
 
 export type LikeProps = {
   postId: string
@@ -145,7 +153,12 @@ export const useLike = (props: LikeProps) => {
     }
   }, [color, isLiked])
 
-  const onClick = () => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (!isLiked) {
+      e.stopPropagation()
+      soundStore.onLike()
+    }
+
     setLikes((prev) =>
       typeof prev === 'number' ? (!isLiked ? prev + 1 : prev - 1) : undefined
     )

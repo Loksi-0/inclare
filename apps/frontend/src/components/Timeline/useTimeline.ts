@@ -1,6 +1,7 @@
 'use client'
 
 import { useFluid } from '@/shared/hooks/useFluid'
+import { soundStore } from '@/stores/sound.store'
 import { timelineStore } from '@/stores/timeline.store'
 import gsap from 'gsap'
 import { Draggable } from 'gsap/Draggable'
@@ -164,6 +165,14 @@ export const useTimeline = (data: Post[]) => {
       },
       trigger: timelineRef.current
     }).at(0)
+
+    draggableInstance?.addEventListener('move', () => {
+      if (!draggableInstance) {
+        return
+      }
+
+      soundStore.onScroll(draggableInstance.x, 20)
+    })
 
     return () => {
       draggableInstance?.kill()

@@ -11,9 +11,12 @@ import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import ViewPost from '@/components/ViewPost'
 import PhotoModal from '@/components/PhotoModal'
 import UploadPost from '@/components/UploadPost'
+import { soundStore } from '@/stores/sound.store'
 
 const App = ({ children }: PropsWithChildren) => {
   const { isMounted } = useIsMounted()
+
+  void soundStore.init()
 
   return (
     <Providers>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Button from '../Button'
 import cx from 'clsx'
 import styles from './ToggleSwitch.module.scss'
+import { useIsMounted } from '@/shared/hooks/useIsMounted'
 
 type ToggleSwitchProps = {
   title: string
@@ -14,7 +15,10 @@ type ToggleSwitchProps = {
 const ToggleSwitch = (props: ToggleSwitchProps) => {
   const { title, isToggled: initialIsToggled, onToggle } = props
 
-  const [isToggled, setIsToggled] = useState(initialIsToggled)
+  const { isMounted } = useIsMounted()
+  const [isToggled, setIsToggled] = useState(
+    isMounted ? initialIsToggled : false
+  )
 
   useEffect(() => {
     setIsToggled(initialIsToggled)

@@ -18,3 +18,9 @@ export const CURSOR = {
 }
 
 export const TIMELINE_PADDING = 50
+
+export const SOUNDS = {
+  TAP: '/sounds/tap.mp3',
+  RATCHET: '/sounds/ratchet.mp3',
+  LIKE: '/sounds/like.mp3'
+}

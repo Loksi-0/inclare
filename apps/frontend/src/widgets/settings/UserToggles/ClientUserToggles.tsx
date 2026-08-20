@@ -3,11 +3,10 @@
 import ToggleSwitch from '@/components/ToggleSwitch'
 import styles from './UserToggles.module.scss'
 import { useState } from 'react'
-import type { api } from '@/api/trpc'
 import { useTRPC } from '@/api/tanstack'
 import { useMutation } from '@tanstack/react-query'
 import { observer } from 'mobx-react-lite'
-import { preferencesStore } from '@/stores/preferences.store'
+import { soundStore } from '@/stores/sound.store'
 
 type UserTogglesProps = {
   isPrivate: boolean
@@ -37,9 +36,9 @@ const ClientUserToggles = observer(
         />
         <ToggleSwitch
           title='Звуковые эффекты'
-          isToggled={preferencesStore.enableSoundEffects}
+          isToggled={soundStore.isOn}
           onToggle={(t) => {
-            preferencesStore.setSoundEffects(t)
+            soundStore.setIsOn(t)
           }}
         />
       </div>
