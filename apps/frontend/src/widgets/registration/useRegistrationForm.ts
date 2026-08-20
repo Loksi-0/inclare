@@ -105,7 +105,7 @@ export const useRegistrationForm = () => {
     const end = () => {
       setIsPending(false)
 
-      push(PAGES.PROFILE, { animate: true })
+      push(PAGES.PROFILE)
     }
 
     setIsPending(true)

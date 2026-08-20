@@ -14,7 +14,7 @@ const Effector = observer(({ children }: PropsWithChildren) => {
     postStore.bodyRef = effectorRef.current
     effectorStore.effectorRef = effectorRef.current
 
-    effectorStore.zoom(1)
+    effectorStore.init()
   }, [])
 
   return (

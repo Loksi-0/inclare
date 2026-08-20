@@ -88,3 +88,42 @@ a {
     scrollbar-width: none;
   }
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-timing-function: var(--transition-cubic-beizer);
+}
+
+::view-transition-old(root) {
+  animation-duration: var(--view-transition-duration);
+  animation-name: scale-down;
+}
+
+::view-transition-new(root) {
+  animation-duration: var(--view-transition-duration);
+  animation-name: scale-up;
+  animation-delay: var(--view-transition-duration);
+  opacity: 0;
+}
+
+@keyframes scale-down {
+  from {
+    scale: 1;
+    opacity: 1;
+  }
+  to {
+    scale: 0.98;
+    opacity: 0;
+  }
+}
+
+@keyframes scale-up {
+  from {
+    scale: 0.98;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}

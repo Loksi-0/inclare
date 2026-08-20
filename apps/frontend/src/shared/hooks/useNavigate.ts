@@ -1,42 +1,31 @@
 'use client'
 
-import { effectorStore } from '@/stores/effector.store'
-import { fadeScreenStore } from '@/stores/fadeScreen.store'
 import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 
 export const useNavigate = () => {
   const router = useRouter()
+  const [, startTransition] = useTransition()
 
-  const transition = (cmd: () => void) => {
-    effectorStore.zoom(0.95)
-    fadeScreenStore.open(() => {
-      cmd()
+  const transition = (action: () => void) => {
+    if (!document.startViewTransition) {
+      action()
+      return
+    }
 
-      setTimeout(() => {
-        effectorStore.zoom(1)
-        fadeScreenStore.close()
-      }, 200)
+    document.startViewTransition(() => {
+      startTransition(() => {
+        action()
+      })
     })
   }
 
-  const push = (href: string, options?: { animate?: boolean }) => {
-    const { animate = false } = options ?? {}
-
-    if (animate) {
-      transition(() => router.push(href))
-    } else {
-      router.push(href)
-    }
+  const push = (href: string) => {
+    transition(() => router.push(href))
   }
 
-  const replace = (href: string, options?: { animate?: boolean }) => {
-    const { animate = false } = options ?? {}
-
-    if (animate) {
-      transition(() => router.replace(href))
-    } else {
-      router.replace(href)
-    }
+  const replace = (href: string) => {
+    transition(() => router.replace(href))
   }
 
   return { push, replace }

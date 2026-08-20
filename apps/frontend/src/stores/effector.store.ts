@@ -8,6 +8,15 @@ class EffectorStore {
     makeAutoObservable(this)
   }
 
+  init = () => {
+    gsap.to(this.effectorRef, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power3.out'
+    })
+  }
+
   zoom = (scale: number, onComplete?: () => void) => {
     gsap.to(this.effectorRef, {
       scale,

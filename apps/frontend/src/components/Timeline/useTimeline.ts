@@ -169,14 +169,17 @@ export const useTimeline = (data: Post[]) => {
       trigger: timelineRef.current
     }).at(0)
 
-    draggableInstance?.addEventListener('move', () => {
+    const onMove = () => {
       if (!draggableInstance) {
         return
       }
 
       wasPositionSet.current = true
       soundStore.onScroll(draggableInstance.x, 20)
-    })
+    }
+
+    draggableInstance?.addEventListener('move', onMove)
+    draggableInstance?.addEventListener('throwupdate', onMove)
 
     return () => {
       draggableInstance?.kill()

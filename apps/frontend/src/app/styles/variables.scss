@@ -22,7 +22,8 @@
   --container-padding-x: #{fluid(60, 30)};
 
   --transition-duration: 0.3s;
-  --transition-cubic-beizer: cubic-bezier(0.1, 0.38, 0.35, 1);
+  --transition-cubic-beizer: cubic-bezier(0.33, 1, 0.68, 1);
+  --view-transition-duration: 0.3s;
 
   @include tablet {
     --container-padding-x: #{rem(24)};

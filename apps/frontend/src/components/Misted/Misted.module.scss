@@ -8,6 +8,7 @@
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   pointer-events: none;
+  isolation: isolate;
 
   &__mask {
     position: absolute;

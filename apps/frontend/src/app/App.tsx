@@ -3,7 +3,6 @@
 import { type PropsWithChildren } from 'react'
 import Providers from './Providers'
 import { Toaster } from 'sonner'
-import FadeScreen from '@/components/FadeScreen'
 import Effector from '@/components/Effector'
 import Cursor from '@/components/Cursor'
 import { isTouchscreen } from '@/shared/functions/isTouchscreen'
@@ -24,7 +23,6 @@ const App = ({ children }: PropsWithChildren) => {
         position='top-center'
         dir='auto'
       />
-      <FadeScreen />
       {!isTouchscreen && isMounted && <Cursor />}
       <PhotoModal />
       <Effector>
