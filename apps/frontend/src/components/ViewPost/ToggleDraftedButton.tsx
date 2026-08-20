@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Button from '../Button'
 import { useState } from 'react'
 import { invalidatePost } from '@/shared/functions/invalidatePost'
+import { postStore } from '@/stores/post.store'
 
 type ToggleDraftedButtonProps = {
   id: string
@@ -25,6 +26,7 @@ const ToggleDraftedButton = (props: ToggleDraftedButtonProps) => {
       onSuccess: async () => {
         await invalidatePost({ queryClient, trpc, exceptGetOne: false })
         setIsPending(false)
+        postStore.close()
       }
     })
   )

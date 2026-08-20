@@ -27,6 +27,16 @@ const ClientDrafts = ({ data: initialData }: DraftsProps) => {
   }, [data])
   const { isMounted } = useIsMounted()
 
+  if (!data.at(0)) {
+    return (
+      <DraftsLayout>
+        <div className={styles.drafts__placeholder}>
+          у вас пока нет черновиков
+        </div>
+      </DraftsLayout>
+    )
+  }
+
   return (
     <DraftsLayout>
       <div className={styles.drafts__grid}>

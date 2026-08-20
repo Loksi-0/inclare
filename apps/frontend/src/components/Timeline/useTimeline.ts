@@ -27,6 +27,7 @@ export const useTimeline = (data: Post[]) => {
   const timelineRef = useRef<HTMLDivElement | null>(null)
   const bodyRef = useRef<HTMLDivElement | null>(null)
   const lastRef = useRef<HTMLDivElement | null>(null)
+  const wasPositionSet = useRef(false)
 
   const daysSinceEpoch = (date: Date) => {
     return Math.floor(date.getTime() / 86400000)
@@ -152,7 +153,9 @@ export const useTimeline = (data: Post[]) => {
 
     timelineStore.timelineRef = timelineRef.current
 
-    gsap.set(bodyRef.current, { x: getMaxX() })
+    if (!wasPositionSet.current) {
+      gsap.set(bodyRef.current, { x: getMaxX() })
+    }
 
     const draggableInstance = Draggable.create(bodyRef.current, {
       type: 'x',
@@ -171,6 +174,7 @@ export const useTimeline = (data: Post[]) => {
         return
       }
 
+      wasPositionSet.current = true
       soundStore.onScroll(draggableInstance.x, 20)
     })
 

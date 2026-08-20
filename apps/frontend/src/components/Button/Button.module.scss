@@ -12,15 +12,17 @@
   caret-color: transparent;
   text-wrap: nowrap;
 
-  @include hover {
-    filter: blur(1);
-  }
-
   &.disabled {
     cursor: not-allowed;
   }
 
-  &:not(.disabled) {
+  &:not(.none) {
+    @include hover {
+      filter: blur(1);
+    }
+  }
+
+  &:not(.disabled, .none) {
     &:active {
       filter: blur(0);
       scale: 0.95;
@@ -87,12 +89,5 @@
 .icon {
   &.disabled {
     opacity: 0.5;
-  }
-}
-
-.none {
-  &:active {
-    filter: blur(0);
-    scale: 1;
   }
 }

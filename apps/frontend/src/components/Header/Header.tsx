@@ -11,9 +11,13 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.header__logo}>
+      <Button
+        className={styles.header__logo}
+        color='none'
+        navigate={PAGES.PROFILE}
+      >
         <Logo />
-      </div>
+      </Button>
       <nav className={styles.header__nav}>
         <Button
           navigate={PAGES.PROFILE}
