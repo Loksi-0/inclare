@@ -1,6 +1,7 @@
 import PageLayout from '@/layouts/PageLayout'
 import SettingsHeader from '@/widgets/settings/SettingsHeader'
 import UpdateProfile from '@/widgets/settings/UpdateProfile'
+import UserActions from '@/widgets/settings/UserActions'
 import UserToggles from '@/widgets/settings/UserToggles'
 
 const Settings = () => {
@@ -12,6 +13,7 @@ const Settings = () => {
       <SettingsHeader />
       <UpdateProfile />
       <UserToggles />
+      <UserActions />
     </PageLayout>
   )
 }

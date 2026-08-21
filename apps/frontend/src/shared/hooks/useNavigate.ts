@@ -28,5 +28,9 @@ export const useNavigate = () => {
     transition(() => router.replace(href))
   }
 
-  return { push, replace }
+  const back = () => {
+    transition(() => router.back())
+  }
+
+  return { push, replace, back }
 }

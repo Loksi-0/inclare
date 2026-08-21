@@ -32,8 +32,8 @@ const DeleteButton = ({ id }: { id: string }) => {
         reject: 'отменить',
         confirm: 'удалить'
       }}
-      onConfirm={() => {
-        mutate({ id })
+      onConfirm={(close) => {
+        mutate({ id }, { onSuccess: close })
       }}
       loading={isPending}
     >

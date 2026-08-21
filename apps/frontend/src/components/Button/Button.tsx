@@ -8,7 +8,6 @@ import {
 } from 'react'
 import cx from 'clsx'
 import styles from './Button.module.scss'
-import { useRouter } from 'next/navigation'
 import Preloader from '../Preloader'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { CURSOR } from '@/constants'
@@ -43,8 +42,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     style
   } = props
 
-  const router = useRouter()
-  const { push } = useNavigate()
+  const { push, back } = useNavigate()
   const buttonRef = useAutoAnimate<HTMLButtonElement>([loading, children])
 
   if (navigate) {
@@ -62,7 +60,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           e.preventDefault()
 
           if (navigate === 'back') {
-            router.back()
+            back()
           } else {
             push(navigate)
           }

@@ -14,7 +14,7 @@ type ConfirmButtonProps = PropsWithChildren<{
     confirm: string
     reject: string
   }
-  onConfirm: () => void | Promise<void>
+  onConfirm: (close: () => void) => void | Promise<void>
   loading?: boolean
 }>
 
@@ -44,8 +44,9 @@ const ConfirmButton = observer((props: ConfirmButtonProps) => {
             ref={confirmButtonRef}
             color='solid'
             onClick={() => {
-              onConfirm()
-              close()
+              onConfirm(() => {
+                close()
+              })
             }}
             loading={loading}
           >
