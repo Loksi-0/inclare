@@ -58,6 +58,7 @@ const ClientDrafts = ({ data: initialData }: DraftsProps) => {
                 style={{
                   transform: `rotate(${cardsRotations[i]}deg)`
                 }}
+                unoptimized
               />
             </Button>
           ))}

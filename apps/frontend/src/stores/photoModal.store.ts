@@ -1,5 +1,5 @@
 import { closeModal, openModal } from '@/shared/functions/manageModal'
-import { makeAutoObservable, observable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
 type PhotoData = {
   order: number
@@ -11,24 +11,33 @@ type PhotoData = {
   cameraModel: string | null
 }
 
+type OpenOpts = {
+  photos: PhotoData[]
+  current: number
+  isUnoptimized?: boolean
+}
+
 class PhotoModalStore {
   photos: PhotoData[] = []
   current = 0
   isOpen = false
+  isUnoptimized = false
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  open = (photos: PhotoData[], current: number) => {
+  open = ({ photos, current, isUnoptimized }: OpenOpts) => {
     this.isOpen = true
     this.photos = photos
     this.current = current
+    this.isUnoptimized = isUnoptimized ?? false
     openModal()
   }
 
   close = () => {
     this.isOpen = false
+    this.isUnoptimized = false
     closeModal()
   }
 

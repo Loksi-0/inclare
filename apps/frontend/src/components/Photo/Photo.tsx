@@ -11,10 +11,19 @@ type PhotoProps = {
   className?: string
   mini?: boolean
   style?: CSSProperties
+  unoptimized?: boolean
 }
 
 const Photo = forwardRef<HTMLDivElement, PhotoProps>((props, ref) => {
-  const { src, isLoading, isError, className, style, mini = false } = props
+  const {
+    src,
+    isLoading,
+    isError,
+    className,
+    style,
+    mini = false,
+    unoptimized = false
+  } = props
 
   if (isError) {
     return (
@@ -58,6 +67,7 @@ const Photo = forwardRef<HTMLDivElement, PhotoProps>((props, ref) => {
         draggable={false}
         loading='lazy'
         decoding='async'
+        unoptimized={unoptimized}
       />
     </PhotoLayout>
   )

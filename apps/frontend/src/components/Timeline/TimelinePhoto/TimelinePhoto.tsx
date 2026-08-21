@@ -16,10 +16,11 @@ type TimelinePhotoProps = {
   pcs: number
   id: string
   year?: number
+  unoptimized?: boolean
 }
 
 const TimelinePhoto = (props: TimelinePhotoProps) => {
-  const { src, id, createdAt, pcs, year } = props
+  const { src, id, createdAt, pcs, year, unoptimized = false } = props
 
   const photoRef = useRef<HTMLDivElement | null>(null)
   const blurOut = useBlur({ from: 10, to: 0 })
@@ -55,7 +56,10 @@ const TimelinePhoto = (props: TimelinePhotoProps) => {
           )
         }}
       >
-        <Photo src={src} />
+        <Photo
+          src={src}
+          unoptimized={unoptimized}
+        />
       </Button>
     </div>
   )

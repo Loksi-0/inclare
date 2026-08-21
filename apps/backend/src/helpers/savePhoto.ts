@@ -6,7 +6,7 @@ import { getExif } from './getExif'
 import { exiftool } from 'exiftool-vendored'
 import apiError from './apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
-import { compressJpeg } from './compressJpeg'
+import { compressAvif } from './compressAvif'
 
 type Options = {
   file: File
@@ -30,7 +30,7 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
   const fileExt = file.name.split('.').at(-1)
 
   const rawName = `${photoId}.${fileExt || 'jpg'}`
-  const optimizedName = `${photoId}.jpg`
+  const optimizedName = `${photoId}.avif`
 
   const rawPath = path.join(RAW_POST.PATH(userId, postId), rawName)
   const optimizedPath = path.join(
@@ -73,7 +73,7 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
       cameraModel: exif?.Model?.trim()
     }
 
-    await compressJpeg({
+    await compressAvif({
       width: 1920,
       height: null,
       img: isRaw ? tempPath : rawBuffer,

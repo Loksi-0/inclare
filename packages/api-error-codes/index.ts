@@ -15,6 +15,10 @@ export const ERROR_CODES = {
     UNSUPPORTED_FORMAT: {
       status: 415,
       code: 'PHOTO_UNSUPPORTED_FORMAT'
+    },
+    NOT_FOUND: {
+      status: 404,
+      code: 'PHOTO_NOT_FOUND'
     }
   },
   USER: {

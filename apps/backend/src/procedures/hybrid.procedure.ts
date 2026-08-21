@@ -1,3 +1,4 @@
+import { checkUser } from '@backend/helpers/checkUser'
 import { parseJwtToken } from '@backend/helpers/parseJwtToken'
 import { unauthorized } from '@backend/helpers/unauthorized'
 import { publicProcedure } from '@backend/trpc'
@@ -19,20 +20,13 @@ export const hybridProcedure = publicProcedure.use(async ({ ctx, next }) => {
   let payload = null
 
   if (ctx.deviceId && ctx.token) {
-    const dbToken = await ctx.prisma.token.findUnique({
-      where: { token: ctx.token }
+    const { payload: checkedPayload, userId } = await checkUser({
+      token: ctx.token,
+      deviceId: ctx.deviceId,
+      honoContext: ctx.honoContext
     })
 
-    if (!dbToken) {
-      return unauthorized(ctx.honoContext)
-    }
-
-    payload = await parseJwtToken(ctx.token)
-    const userId = getValidUserId(payload, ctx.deviceId)
-
-    if (!payload || !userId) {
-      return unauthorized(ctx.honoContext)
-    }
+    payload = checkedPayload
 
     user = await ctx.prisma.user.findUnique({
       where: { id: userId },

@@ -30,6 +30,7 @@ const UploadingPhoto = (props: UploadingPhotoProps) => {
         src={src}
         isError={isError}
         mini
+        unoptimized
       />
     </div>
   )

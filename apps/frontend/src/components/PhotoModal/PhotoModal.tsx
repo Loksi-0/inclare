@@ -56,6 +56,7 @@ const PhotoModal = observer(() => {
                 src={data.optimizedUrl}
                 alt=''
                 draggable={false}
+                unoptimized={photoModalStore.isUnoptimized}
                 onLoad={() => {
                   setIsImgLoaded(true)
                   gsap.to(imgRef.current, { opacity: 1, duration: 0.2 })

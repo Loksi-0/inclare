@@ -9,10 +9,11 @@ import { randomCode } from '@/shared/functions/randomCode'
 
 type TimelineProps = {
   data: Post[]
+  unoptimized?: boolean
 }
 
 const Timeline = (props: TimelineProps) => {
-  const { data } = props
+  const { data, unoptimized = false } = props
 
   const { isMounted } = useIsMounted()
   const { timelineRef, bodyRef, lastRef, groups, groupsPos, firstYearsPosts } =
@@ -53,6 +54,7 @@ const Timeline = (props: TimelineProps) => {
                           ? p.createdAt.getFullYear()
                           : undefined
                       }
+                      unoptimized={unoptimized}
                     />
                   )
               )}

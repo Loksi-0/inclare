@@ -13,16 +13,20 @@ import { timelineStore } from '@/stores/timeline.store'
 
 type ClientTimelineProps = {
   data: Awaited<ReturnType<typeof api.post.my.getPublished.query>>
+  me: Awaited<ReturnType<typeof api.auth.me.query>>
 }
 
 const ClientProfileTimeline = (props: ClientTimelineProps) => {
-  const { data: initialData } = props
+  const { data: initialData, me: initialMe } = props
 
   const trpc = useTRPC()
   const { data } = useQuery(
     trpc.post.my.getPublished.queryOptions(undefined, {
       initialData
     })
+  )
+  const { data: me } = useQuery(
+    trpc.auth.me.queryOptions(undefined, { initialData: initialMe })
   )
 
   if (!data || !data.at(0)) {
@@ -50,7 +54,12 @@ const ClientProfileTimeline = (props: ClientTimelineProps) => {
     )
   }
 
-  return <Timeline data={data} />
+  return (
+    <Timeline
+      unoptimized={me.isPrivate}
+      data={data}
+    />
+  )
 }
 
 export default ClientProfileTimeline
