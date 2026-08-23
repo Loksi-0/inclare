@@ -1,0 +1,27 @@
+@use '@/app/styles/helpers' as *;
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  row-gap: fluid(30, 20);
+  align-items: center;
+  padding-inline: var(--container-padding-x);
+
+  &__avatar {
+    @include square(fluid(120, 100));
+
+    object-fit: cover;
+
+    &.skeleton {
+      background-color: var(--color-gray-20);
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(10, 5);
+    text-align: center;
+    max-width: rem(500);
+  }
+}

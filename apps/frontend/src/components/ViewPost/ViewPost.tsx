@@ -15,8 +15,10 @@ import ToggleDraftedButton from './ToggleDraftedButton'
 import DeleteButton from './DeleteButton'
 import { photoModalStore } from '@/stores/photoModal.store'
 import ViewPostLayout from '@/layouts/ViewPostLayout/ViewPostLayout'
-import { DEFAULTS } from '@/constants'
+import { DEFAULTS, PAGES } from '@/constants'
 import Image from 'next/image'
+import AuthorButton from './AuthorButton'
+import { usePathname } from 'next/navigation'
 
 const ViewPost = observer(() => {
   const trpc = useTRPC()
@@ -26,6 +28,7 @@ const ViewPost = observer(() => {
       { enabled: !!postStore.postId }
     )
   )
+  const pathname = usePathname()
 
   if (!postStore.postHeight) {
     return
@@ -42,7 +45,10 @@ const ViewPost = observer(() => {
     <ViewPostLayout height={postStore.postHeight}>
       <div className={styles.post__top}>
         <header className={styles.post__header}>
-          <div className={styles.post__author}>
+          <AuthorButton
+            authorId={data.authorId}
+            clickable={!data.isMy && pathname !== PAGES.USER(data.authorId)}
+          >
             {!data.isMy && data.author.avatar && (
               <Image
                 className={styles.post__avatar}
@@ -56,7 +62,7 @@ const ViewPost = observer(() => {
               {data.isMy ? 'me' : data.author.name} /{' '}
               {dateToMonth(data.createdAt)} {data.createdAt.getDate()}
             </div>
-          </div>
+          </AuthorButton>
           <Button
             color='underline'
             onClick={() => {

@@ -37,7 +37,7 @@ const ClientMe = (props: ClientMeProps) => {
               draggable={false}
             />
           ) : (
-            <div className={styles.me__avatar}></div>
+            <div className={cx(styles.me__avatar, styles.skeleton)}></div>
           )}
           <div className={styles.me__content}>
             <h1>{me.name}</h1>

@@ -68,6 +68,16 @@ class PostStore {
     })
   }
 
+  closeInstantly = () => {
+    if (!this.bodyRef) {
+      return
+    }
+
+    this.isOpen = false
+    this.isUploading = false
+    gsap.set(this.bodyRef, { y: '0' })
+  }
+
   setIsUploading = (bool: boolean) => {
     this.isUploading = bool
   }

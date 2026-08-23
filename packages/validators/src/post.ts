@@ -5,6 +5,10 @@ export const getOne = z.object({
   id: stringSchema()
 })
 
+export const getUsers = z.object({
+  userId: stringSchema()
+})
+
 export const create = z.object({
   description: stringSchema().optional()
 })

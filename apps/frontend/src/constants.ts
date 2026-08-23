@@ -4,7 +4,8 @@ export const PAGES = {
   PROFILE: '/profile',
   PLANE: '/plane',
   SETTINGS: '/settings',
-  DRAFTS: '/drafts'
+  DRAFTS: '/drafts',
+  USER: (id: string) => `/${id}`
 }
 
 export const DEFAULTS = {

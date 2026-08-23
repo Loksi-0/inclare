@@ -7,7 +7,12 @@ import { publicPostRouter } from './post/public'
 import { createPostFolder } from '@backend/helpers/createPostFolder'
 import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
 import type { User } from '@db/client'
-import type { PostFindUniqueArgs, PostWhereUniqueInput } from '@db/models'
+import type {
+  PostFindManyArgs,
+  PostFindUniqueArgs,
+  PostWhereInput,
+  PostWhereUniqueInput
+} from '@db/models'
 import apiError from '@backend/helpers/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
 
@@ -15,6 +20,52 @@ export const postRouter = router({
   public: publicPostRouter,
   moderator: moderatorPostRouter,
   my: myPostRouter,
+
+  getUserPosts: hybridProcedure
+    .input(PostSchema.getUsers)
+    .query(async ({ ctx, input }) => {
+      const generalWhere: PostWhereInput = {
+        authorId: input.userId
+      }
+
+      const filters: Record<User['role'], PostFindManyArgs> = {
+        USER: {
+          where: {
+            ...generalWhere,
+            isDrafted: false,
+            author: {
+              isPrivate: false,
+              isBanned: false
+            }
+          }
+        },
+        MODERATOR: { where: generalWhere },
+        ADMIN: { where: generalWhere }
+      }
+
+      const posts = await ctx.prisma.post.findMany({
+        ...filters[ctx.user?.role || 'USER'],
+        include: {
+          photos: {
+            select: {
+              optimizedUrl: true,
+              order: true
+            }
+          }
+        }
+      })
+
+      const postsDto = posts.map((p) => ({
+        id: p.id,
+        previewUrl: p.photos.reduce((prev, current) =>
+          prev.order < current.order ? prev : current
+        ).optimizedUrl,
+        createdAt: p.createdAt,
+        pcs: p.photos.length
+      }))
+
+      return postsDto
+    }),
 
   getOne: hybridProcedure
     .input(PostSchema.getOne)
