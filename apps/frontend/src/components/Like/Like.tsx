@@ -2,6 +2,8 @@ import Button from '../Button'
 import { useLike, type LikeProps } from './useLike'
 
 const Like = (props: LikeProps) => {
+  const { className } = props
+
   const {
     VIEW_BOX_X,
     PIXEL_SIZE,
@@ -16,7 +18,7 @@ const Like = (props: LikeProps) => {
 
   return (
     <Button
-      className='align-start'
+      className={className}
       color='icon'
       onClick={onClick}
     >

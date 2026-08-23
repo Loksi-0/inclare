@@ -7,10 +7,14 @@ type Options = {
   output: string
   fit?: keyof sharp.FitEnum
   animated?: boolean
+  orientation?: number
 }
 
 export const compressWebp = async (options: Options) => {
   await sharp(options.img, { animated: options.animated })
+    .withMetadata(
+      options.orientation ? { orientation: options.orientation } : undefined
+    )
     .rotate()
     .resize(options.width, options.height, {
       fit: options.fit

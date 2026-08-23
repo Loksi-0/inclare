@@ -11,9 +11,10 @@ import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
 import DraftsLayout from '@/layouts/DraftsLayout'
+import type { ApiReturnType } from '@/types/globals'
 
 type DraftsProps = {
-  data: Awaited<ReturnType<typeof api.post.my.getDrafted.query>>
+  data: ApiReturnType<typeof api.post.my.getDrafted.query>
 }
 
 const ClientDrafts = ({ data: initialData }: DraftsProps) => {

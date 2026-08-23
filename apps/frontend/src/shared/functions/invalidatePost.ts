@@ -26,4 +26,5 @@ export const invalidatePost = async ({
         }
       : undefined
   })
+  await queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() })
 }

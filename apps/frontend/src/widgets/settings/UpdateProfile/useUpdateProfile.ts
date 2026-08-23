@@ -8,9 +8,10 @@ import { useTRPC } from '@/api/tanstack'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { randomCode } from '@/shared/functions/randomCode'
 import type { api } from '@/api/trpc'
+import type { ApiReturnType } from '@/types/globals'
 
 export type UpdateProfileProps = {
-  data: Awaited<ReturnType<typeof api.auth.me.query>>
+  data: ApiReturnType<typeof api.auth.me.query>
 }
 
 export const useUpdateProfile = ({ data: initialData }: UpdateProfileProps) => {

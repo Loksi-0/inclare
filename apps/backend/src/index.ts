@@ -27,7 +27,7 @@ app.use(
   })
 )
 
-app.use(rateLimit(1, 90))
+app.use(rateLimit(1, 600))
 app.use('*', compress())
 
 app.get(`${UPLOADS.URL}/:userId/:postId/*`, async (c) => {

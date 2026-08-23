@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { useWindow } from './useWindow'
 
 export const useFluid = (min: number, max: number) => {
@@ -12,14 +13,18 @@ export const useFluid = (min: number, max: number) => {
   const minWidth = 360
   const maxWidth = 1920
 
-  const width =
-    screenSize < minWidth
-      ? minWidth
-      : screenSize > maxWidth
-        ? maxWidth
-        : screenSize
+  const result = useMemo(() => {
+    const width =
+      screenSize < minWidth
+        ? minWidth
+        : screenSize > maxWidth
+          ? maxWidth
+          : screenSize
 
-  const coef = (width - minWidth) / (maxWidth - minWidth)
+    const coef = (width - minWidth) / (maxWidth - minWidth)
 
-  return (max - min) * coef + min
+    return (max - min) * coef + min
+  }, [screenSize])
+
+  return result
 }

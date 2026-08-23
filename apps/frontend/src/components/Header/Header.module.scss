@@ -8,6 +8,7 @@
   padding: fluid(15, 10) fluid(60, 30);
   background-color: var(--color-light);
   border-bottom: var(--border);
+  z-index: 1000;
 
   &__logo {
     height: fluid(25, 20);

@@ -9,9 +9,10 @@ import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
 import Image from 'next/image'
 import { hideEmail } from '@/shared/functions/hideEmail'
+import type { ApiReturnType } from '@/types/globals'
 
 type ClientMeProps = {
-  data: Awaited<ReturnType<typeof api.auth.me.query>>
+  data: ApiReturnType<typeof api.auth.me.query>
 }
 
 const ClientMe = (props: ClientMeProps) => {

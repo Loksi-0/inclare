@@ -1,0 +1,87 @@
+@use '@/app/styles/helpers' as *;
+
+.plane {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  --padding: #{fluid(60, 30)};
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+    z-index: -500;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  }
+
+  &__content {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  &__chunk {
+    position: absolute;
+    will-change: transform;
+
+    &Content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__post {
+    position: absolute;
+    opacity: 0;
+    animation: fade-in var(--transition-duration) forwards;
+    content-visibility: auto;
+    contain-intrinsic-size: rem(220) rem(280);
+  }
+
+  &__zoom {
+    position: absolute;
+    bottom: var(--padding);
+    left: var(--padding);
+    z-index: 1000;
+    user-select: none;
+  }
+
+  &__pos {
+    position: absolute;
+    top: var(--padding);
+    right: var(--padding);
+  }
+
+  &__controls {
+    position: absolute;
+    bottom: var(--padding);
+    right: var(--padding);
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(10, 5);
+    z-index: 1000;
+  }
+
+  &__button {
+    @include square(fluid(55, 40));
+
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    padding: fluid(15, 10);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

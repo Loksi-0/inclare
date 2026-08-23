@@ -7,6 +7,8 @@ import { optimizedPostsDto } from '@backend/dtos/postsDto'
 import { buildArchive } from '@backend/helpers/buildArchive'
 import { POST, RAW_POST } from '@backend/constants'
 import fs from 'fs/promises'
+import { getPrimaryColor } from '@backend/helpers/getPrimaryColor'
+import { getFilePathByUrl } from '@backend/helpers/getFilePathByUrl'
 
 export const myPostRouter = router({
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -94,6 +96,13 @@ export const myPostRouter = router({
         where: {
           authorId: ctx.user.id,
           id: input.id
+        },
+        include: {
+          photos: {
+            select: {
+              optimizedUrl: true
+            }
+          }
         }
       })
 
@@ -108,12 +117,19 @@ export const myPostRouter = router({
           )
         : undefined
 
+      const firstPhotoUrl = candidate.photos.at(0)?.optimizedUrl
+      const primaryColor =
+        candidate.isDrafted && firstPhotoUrl
+          ? await getPrimaryColor(getFilePathByUrl(firstPhotoUrl))
+          : undefined
+
       const post = await ctx.prisma.post.update({
         where: { id: candidate.id },
-        data: rawArchive?.url
+        data: candidate.isDrafted
           ? {
               isDrafted: !candidate.isDrafted,
-              rawArchiveUrl: rawArchive.url
+              rawArchiveUrl: rawArchive?.url,
+              primaryColor
             }
           : { isDrafted: !candidate.isDrafted }
       })

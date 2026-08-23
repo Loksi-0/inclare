@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from './Photo.module.scss'
-import { forwardRef, type CSSProperties } from 'react'
+import { forwardRef, memo, useEffect, type CSSProperties } from 'react'
 import Gradient from '../Gradient/Gradient'
 import PhotoLayout from '@/layouts/PhotoLayout'
 
@@ -14,18 +14,44 @@ type PhotoProps = {
   unoptimized?: boolean
 }
 
-const Photo = forwardRef<HTMLDivElement, PhotoProps>((props, ref) => {
-  const {
-    src,
-    isLoading,
-    isError,
-    className,
-    style,
-    mini = false,
-    unoptimized = false
-  } = props
+const Photo = memo(
+  forwardRef<HTMLDivElement, PhotoProps>((props, ref) => {
+    const {
+      src,
+      isLoading,
+      isError,
+      className,
+      style,
+      mini = false,
+      unoptimized = false
+    } = props
 
-  if (isError) {
+    if (isError) {
+      return (
+        <PhotoLayout
+          className={className}
+          style={style}
+          mini={mini}
+          ref={ref}
+        >
+          <div className={styles.photo__error}></div>
+        </PhotoLayout>
+      )
+    }
+
+    if (!src || isLoading) {
+      return (
+        <PhotoLayout
+          className={className}
+          style={style}
+          mini={mini}
+          ref={ref}
+        >
+          <Gradient />
+        </PhotoLayout>
+      )
+    }
+
     return (
       <PhotoLayout
         className={className}
@@ -33,44 +59,20 @@ const Photo = forwardRef<HTMLDivElement, PhotoProps>((props, ref) => {
         mini={mini}
         ref={ref}
       >
-        <div className={styles.photo__error}></div>
+        <Image
+          className={styles.photo__image}
+          src={src}
+          alt=''
+          width={200}
+          height={250}
+          draggable={false}
+          loading='lazy'
+          decoding='async'
+          unoptimized={unoptimized}
+        />
       </PhotoLayout>
     )
-  }
-
-  if (!src || isLoading) {
-    return (
-      <PhotoLayout
-        className={className}
-        style={style}
-        mini={mini}
-        ref={ref}
-      >
-        <Gradient />
-      </PhotoLayout>
-    )
-  }
-
-  return (
-    <PhotoLayout
-      className={className}
-      style={style}
-      mini={mini}
-      ref={ref}
-    >
-      <Image
-        className={styles.photo__image}
-        src={src}
-        alt=''
-        width={200}
-        height={250}
-        draggable={false}
-        loading='lazy'
-        decoding='async'
-        unoptimized={unoptimized}
-      />
-    </PhotoLayout>
-  )
-})
+  })
+)
 
 export default Photo

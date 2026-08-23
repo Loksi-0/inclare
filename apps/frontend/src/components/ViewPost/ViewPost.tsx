@@ -15,6 +15,7 @@ import ToggleDraftedButton from './ToggleDraftedButton'
 import DeleteButton from './DeleteButton'
 import { photoModalStore } from '@/stores/photoModal.store'
 import ViewPostLayout from '@/layouts/ViewPostLayout/ViewPostLayout'
+import { DEFAULTS } from '@/constants'
 
 const ViewPost = observer(() => {
   const trpc = useTRPC()
@@ -81,8 +82,9 @@ const ViewPost = observer(() => {
       </div>
       <div className={styles.post__bottom}>
         <Like
+          className='align-start'
           postId={data.id}
-          color={data.primaryColor || '#DD2E2E'}
+          color={data.primaryColor || DEFAULTS.LIKE_COLOR}
           likes={data.likesCount}
           isLiked={data.isLiked}
         />

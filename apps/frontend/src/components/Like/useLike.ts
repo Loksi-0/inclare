@@ -21,6 +21,7 @@ export type LikeProps = {
   color: string
   likes?: number
   isLiked?: boolean
+  className?: string
 }
 
 export const useLike = (props: LikeProps) => {

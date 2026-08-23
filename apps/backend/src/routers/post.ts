@@ -10,8 +10,6 @@ import type { User } from '@db/client'
 import type { PostFindUniqueArgs, PostWhereUniqueInput } from '@db/models'
 import apiError from '@backend/helpers/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
-import { getPrimaryColor } from '@backend/helpers/getPrimaryColor'
-import { getFilePathByUrl } from '@backend/helpers/getFilePathByUrl'
 
 export const postRouter = router({
   public: publicPostRouter,
@@ -67,17 +65,8 @@ export const postRouter = router({
         return apiError(ERROR_CODES.POST.NOT_FOUND)
       }
 
-      const firstPhoto = post.photos.reduce((prev, current) =>
-        prev.order < current.order ? prev : current
-      )
-
-      const previewColor = firstPhoto
-        ? await getPrimaryColor(getFilePathByUrl(firstPhoto.optimizedUrl))
-        : undefined
-
       const postDto = {
         ...post,
-        primaryColor: previewColor,
         likesCount: post._count.likes,
         isLiked: ctx.user?.id ? post.likes.length > 0 : false,
         isMy: Boolean(authorPost)

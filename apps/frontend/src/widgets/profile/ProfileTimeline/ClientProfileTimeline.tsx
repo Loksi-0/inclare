@@ -10,10 +10,11 @@ import { useTRPC } from '@/api/tanstack'
 import type { api } from '@/api/trpc'
 import { postStore } from '@/stores/post.store'
 import { timelineStore } from '@/stores/timeline.store'
+import type { ApiReturnType } from '@/types/globals'
 
 type ClientTimelineProps = {
-  data: Awaited<ReturnType<typeof api.post.my.getPublished.query>>
-  me: Awaited<ReturnType<typeof api.auth.me.query>>
+  data: ApiReturnType<typeof api.post.my.getPublished.query>
+  me: ApiReturnType<typeof api.auth.me.query>
 }
 
 const ClientProfileTimeline = (props: ClientTimelineProps) => {

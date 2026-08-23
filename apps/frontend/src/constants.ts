@@ -8,7 +8,8 @@ export const PAGES = {
 }
 
 export const DEFAULTS = {
-  START_PAGE: PAGES.LOGIN
+  START_PAGE: PAGES.LOGIN,
+  LIKE_COLOR: '#DD2E2E'
 }
 
 export const CURSOR = {
@@ -24,9 +25,3 @@ export const SOUNDS = {
   RATCHET: '/sounds/ratchet.mp3',
   LIKE: '/sounds/like.mp3'
 }
-
-// TODO
-
-// защита приватных постов прямо в uploads физически!!
-// не забываем про админку и модерскую
-// также хоть какое то уведомление о бане аккаунта
