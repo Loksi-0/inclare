@@ -1,8 +1,30 @@
+import { api } from '@/api/trpc'
 import UserPage from '@/widgets/user'
+import type { Metadata } from 'next'
 
-type Params = Promise<{ uuid: string }>
+type Props = {
+  params: Promise<{ uuid: string }>
+}
 
-const User = async ({ params }: { params: Params }) => {
+export const generateMetadata = async ({
+  params
+}: Props): Promise<Metadata> => {
+  const { uuid } = await params
+
+  const user = await api.user.getOne.query({ id: uuid })
+
+  return {
+    title: `Профиль / ${user.name}`,
+    description: user.description,
+    openGraph: {
+      title: user.name,
+      description: user.description || undefined,
+      images: user.avatar ? [user.avatar] : []
+    }
+  }
+}
+
+const User = async ({ params }: Props) => {
   const { uuid } = await params
 
   return <UserPage uuid={uuid} />

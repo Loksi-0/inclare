@@ -1,7 +1,23 @@
+import { api } from '@/api/trpc'
 import PageLayout from '@/layouts/PageLayout'
 import Actions from '@/widgets/profile/Actions'
 import Me from '@/widgets/profile/Me'
 import ProfileTimeline from '@/widgets/profile/ProfileTimeline'
+import type { Metadata } from 'next'
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const me = await api.auth.me.query()
+
+  return {
+    title: `Профиль / ${me.name}`,
+    description: me.description,
+    openGraph: {
+      title: me.name,
+      description: me.description || undefined,
+      images: me.avatar ? [me.avatar] : []
+    }
+  }
+}
 
 const Profile = () => {
   return (

@@ -2,6 +2,8 @@ import { catchError } from '@/shared/functions/catchError'
 import ErrorSection from '@/components/ErrorSection'
 import { api } from '@/api/trpc'
 import Timeline from '@/components/Timeline'
+import cx from 'clsx'
+import styles from './User.module.scss'
 
 type UserTimelineProps = {
   uuid: string
@@ -12,7 +14,11 @@ const UserTimeline = catchError(
     const posts = await api.post.getUserPosts.query({ userId: uuid })
 
     if (!posts.at(0)) {
-      return <div className='mono'>у этого пользователя нет постов</div>
+      return (
+        <div className={cx(styles.timeline__empty, 'mono')}>
+          у этого пользователя нет постов
+        </div>
+      )
     }
 
     return <Timeline data={posts} />

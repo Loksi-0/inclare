@@ -1,0 +1,9 @@
+@use '@/app/styles/helpers' as *;
+
+.timeline__empty {
+  color: var(--color-gray-10);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
