@@ -16,6 +16,7 @@ import DeleteButton from './DeleteButton'
 import { photoModalStore } from '@/stores/photoModal.store'
 import ViewPostLayout from '@/layouts/ViewPostLayout/ViewPostLayout'
 import { DEFAULTS } from '@/constants'
+import Image from 'next/image'
 
 const ViewPost = observer(() => {
   const trpc = useTRPC()
@@ -41,9 +42,20 @@ const ViewPost = observer(() => {
     <ViewPostLayout height={postStore.postHeight}>
       <div className={styles.post__top}>
         <header className={styles.post__header}>
-          <div className='mono subtitle'>
-            {data.isMy ? 'me' : data.author.name} /{' '}
-            {dateToMonth(data.createdAt)} {data.createdAt.getDate()}
+          <div className={styles.post__author}>
+            {!data.isMy && data.author.avatar && (
+              <Image
+                className={styles.post__avatar}
+                width={30}
+                height={30}
+                src={data.author.avatar}
+                alt=''
+              />
+            )}
+            <div className='mono subtitle'>
+              {data.isMy ? 'me' : data.author.name} /{' '}
+              {dateToMonth(data.createdAt)} {data.createdAt.getDate()}
+            </div>
           </div>
           <Button
             color='underline'

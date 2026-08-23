@@ -66,6 +66,17 @@
     align-items: center;
   }
 
+  &__author {
+    display: flex;
+    flex-direction: row;
+    column-gap: rem(10);
+    align-items: center;
+  }
+
+  &__avatar {
+    @include square(fluid(30, 25));
+  }
+
   &__description {
     background-color: var(--color-gray-20);
     padding: rem(15) fluid(30, 20);

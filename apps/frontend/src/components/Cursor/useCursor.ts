@@ -42,22 +42,16 @@ export const useCursor = () => {
   }
 
   useEffect(() => {
-    const xTo = gsap.quickTo(cursorRef.current, 'x', {
-      duration: 0.01,
-      ease: 'power3.out'
-    })
-    const yTo = gsap.quickTo(cursorRef.current, 'y', {
-      duration: 0.01,
-      ease: 'power3.out'
-    })
+    const setX = gsap.quickSetter(cursorRef.current, 'x', 'px')
+    const setY = gsap.quickSetter(cursorRef.current, 'y', 'px')
 
-    xTo(-10)
-    yTo(-10)
+    setX(-10)
+    setY(-10)
     scale(0)
 
     const onMove = (e: MouseEvent) => {
-      xTo(e.x)
-      yTo(e.y)
+      setX(e.x)
+      setY(e.y)
 
       targetRef.current = e.target
 

@@ -36,7 +36,7 @@ export const usePlaneContext = (props: PlaneProps) => {
 
   const CHUNKS_LIMIT = 5
   const POSTS_LIMIT = limit
-  const ZOOM_MULTIPLIER = 1.5
+  const ZOOM_STEP = 0.25
   const GRID_SCALE = 50
   const CHUNK_WIDTH = useFluid(800, 1500)
   const CHUNK_HEIGHT = useFluid(800, 1500)
@@ -111,7 +111,10 @@ export const usePlaneContext = (props: PlaneProps) => {
       minZoom: 0.75,
       maxZoom: 1.5,
       zoomSpeed: 0.05,
-      zoomDoubleClickSpeed: 1
+      zoomDoubleClickSpeed: 1,
+      onTouch: () => {
+        return false
+      }
     })
 
     panzoomInstance.current = instance
@@ -204,10 +207,12 @@ export const usePlaneContext = (props: PlaneProps) => {
       return
     }
 
-    panzoomInstance.current.smoothZoom(
+    const prevZoom = panzoomInstance.current.getTransform().scale
+
+    panzoomInstance.current.smoothZoomAbs(
       window.innerWidth / 2,
       window.innerHeight / 2,
-      ZOOM_MULTIPLIER
+      prevZoom + ZOOM_STEP
     )
   }, [])
 
@@ -216,10 +221,12 @@ export const usePlaneContext = (props: PlaneProps) => {
       return
     }
 
-    panzoomInstance.current.smoothZoom(
+    const prevZoom = panzoomInstance.current.getTransform().scale
+
+    panzoomInstance.current.smoothZoomAbs(
       window.innerWidth / 2,
       window.innerHeight / 2,
-      2 - ZOOM_MULTIPLIER
+      prevZoom - ZOOM_STEP
     )
   }, [])
 
