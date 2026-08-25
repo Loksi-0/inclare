@@ -1,12 +1,13 @@
 'use client'
 
 import { useFluid } from '@/shared/hooks/useFluid'
+import { onboardingStore } from '@/stores/onboarding.store'
 import { soundStore } from '@/stores/sound.store'
 import { timelineStore } from '@/stores/timeline.store'
 import gsap from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import InertiaPlugin from 'gsap/InertiaPlugin'
-import { useLayoutEffect, useMemo, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 
 export type Post = {
   id: string
@@ -145,6 +146,12 @@ export const useTimeline = (data: Post[]) => {
 
     return maxX * -1
   }
+
+  useEffect(() => {
+    if (sortedData.at(0)) {
+      onboardingStore.openTimeline()
+    }
+  }, [sortedData])
 
   useLayoutEffect(() => {
     if (!timelineRef.current) {

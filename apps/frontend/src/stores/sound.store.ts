@@ -15,6 +15,7 @@ class SoundStore {
   clickBuffer: AudioBuffer | null = null
   likeBuffer: AudioBuffer | null = null
   pixelBuffer: AudioBuffer | null = null
+  popupBuffer: AudioBuffer | null = null
 
   constructor() {
     if (!isClient) {
@@ -49,6 +50,10 @@ class SoundStore {
 
   playPixel = () => {
     this.playSound(this.pixelBuffer)
+  }
+
+  playPopup = () => {
+    this.playSound(this.popupBuffer)
   }
 
   onScroll = (pos: number, step: number) => {
@@ -101,16 +106,19 @@ class SoundStore {
       const like = await fetch(SOUNDS.LIKE)
       // SFX sampled from "library" by corn wave
       const pixel = await fetch(SOUNDS.PIXEL)
+      const popup = await fetch(SOUNDS.POPUP)
 
       const ratchetArrBuffer = await ratchet.arrayBuffer()
       const clickArrBuffer = await click.arrayBuffer()
       const likeArrBuffer = await like.arrayBuffer()
       const pixelArrBuffer = await pixel.arrayBuffer()
+      const popupArrBuffer = await popup.arrayBuffer()
 
       this.scrollBuffer = await this.audioCtx.decodeAudioData(ratchetArrBuffer)
       this.clickBuffer = await this.audioCtx.decodeAudioData(clickArrBuffer)
       this.likeBuffer = await this.audioCtx.decodeAudioData(likeArrBuffer)
       this.pixelBuffer = await this.audioCtx.decodeAudioData(pixelArrBuffer)
+      this.popupBuffer = await this.audioCtx.decodeAudioData(popupArrBuffer)
 
       this.setIsLoaded(true)
     } catch {}

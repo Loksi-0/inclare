@@ -28,5 +28,6 @@ export const SOUNDS = {
   TAP: '/sounds/tap.mp3',
   RATCHET: '/sounds/ratchet.mp3',
   LIKE: '/sounds/like.mp3',
-  PIXEL: '/sounds/pixel.mp3'
+  PIXEL: '/sounds/pixel.mp3',
+  POPUP: '/sounds/popup.mp3'
 }

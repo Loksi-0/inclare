@@ -14,6 +14,7 @@ import { planeStore } from '@/stores/plane.store'
 import { postStore } from '@/stores/post.store'
 import { useFluid } from '@/shared/hooks/useFluid'
 import { UI } from '@/constants'
+import { onboardingStore } from '@/stores/onboarding.store'
 
 type ApiPosts = ApiReturnType<typeof api.post.public.getFeed.query>
 
@@ -106,6 +107,8 @@ export const usePlaneContext = (props: PlaneProps) => {
     if (!canvasRef.current) {
       return
     }
+
+    onboardingStore.openPlane()
 
     const instance = panzoom(canvasRef.current, {
       minZoom: 0.75,

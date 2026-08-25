@@ -11,6 +11,7 @@ import ViewPost from '@/components/ViewPost'
 import PhotoModal from '@/components/PhotoModal'
 import UploadPost from '@/components/UploadPost'
 import { soundStore } from '@/stores/sound.store'
+import Onboarding from '@/components/Onboarding'
 
 const App = ({ children }: PropsWithChildren) => {
   const { isMounted } = useIsMounted()
@@ -27,6 +28,7 @@ const App = ({ children }: PropsWithChildren) => {
       <PhotoModal />
       <Effector>
         {children}
+        <Onboarding />
         <ViewPost />
         <UploadPost />
       </Effector>

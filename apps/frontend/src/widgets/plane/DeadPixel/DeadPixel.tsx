@@ -5,6 +5,7 @@ import Button from '@/components/Button'
 import { UI } from '@/constants'
 import { postStore } from '@/stores/post.store'
 import { useDeadPixel } from './useDeadPixel'
+import { onboardingStore } from '@/stores/onboarding.store'
 
 const DeadPixel = () => {
   const { postId, pixelRef } = useDeadPixel()
@@ -24,6 +25,7 @@ const DeadPixel = () => {
           }}
           onClick={() => {
             postStore.open(postId)
+            onboardingStore.openPixel()
           }}
         ></Button>
       )}
