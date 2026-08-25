@@ -5,6 +5,7 @@ export const errorMessages: Record<ErrorCode, string> = {
 
   POST_NOT_FOUND: 'Пост не найден',
 
+  PHOTO_NOT_FOUND: 'Фотография не найдена',
   PHOTO_UNSUPPORTED_FORMAT: 'Неподдерживаемый формат фотографии',
 
   USER_NOT_FOUND: 'Пользователь не найден',

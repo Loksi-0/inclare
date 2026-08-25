@@ -5,7 +5,7 @@ import cx from 'clsx'
 import Button from '@/components/Button'
 import { postStore } from '@/stores/post.store'
 import { timelineStore } from '@/stores/timeline.store'
-import { TIMELINE_PADDING } from '@/constants'
+import { UI } from '@/constants'
 import { useBlur } from '@/shared/hooks/useBlur'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
@@ -51,7 +51,7 @@ const TimelinePhoto = (props: TimelinePhotoProps) => {
           postStore.open(
             id,
             timelineStore.timelineRef
-              ? timelineStore.timelineRef.offsetHeight + TIMELINE_PADDING * 2
+              ? timelineStore.timelineRef.offsetHeight + UI.TIMELINE_PADDING * 2
               : undefined
           )
         }}

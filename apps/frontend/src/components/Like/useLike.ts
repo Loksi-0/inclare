@@ -157,7 +157,7 @@ export const useLike = (props: LikeProps) => {
   const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     if (!isLiked) {
       e.stopPropagation()
-      soundStore.onLike()
+      soundStore.playLike()
     }
 
     setLikes((prev) =>

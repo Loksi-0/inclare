@@ -14,6 +14,7 @@ class SoundStore {
   scrollBuffer: AudioBuffer | null = null
   clickBuffer: AudioBuffer | null = null
   likeBuffer: AudioBuffer | null = null
+  pixelBuffer: AudioBuffer | null = null
 
   constructor() {
     if (!isClient) {
@@ -35,15 +36,19 @@ class SoundStore {
       return
     }
 
-    document.addEventListener('click', this.onClick)
+    document.addEventListener('click', this.playClick)
   }
 
-  onClick = () => {
+  playClick = () => {
     this.playSound(this.clickBuffer)
   }
 
-  onLike = () => {
+  playLike = () => {
     this.playSound(this.likeBuffer)
+  }
+
+  playPixel = () => {
+    this.playSound(this.pixelBuffer)
   }
 
   onScroll = (pos: number, step: number) => {
@@ -94,14 +99,18 @@ class SoundStore {
       const ratchet = await fetch(SOUNDS.RATCHET)
       const click = await fetch(SOUNDS.TAP)
       const like = await fetch(SOUNDS.LIKE)
+      // SFX sampled from "library" by corn wave
+      const pixel = await fetch(SOUNDS.PIXEL)
 
       const ratchetArrBuffer = await ratchet.arrayBuffer()
       const clickArrBuffer = await click.arrayBuffer()
       const likeArrBuffer = await like.arrayBuffer()
+      const pixelArrBuffer = await pixel.arrayBuffer()
 
       this.scrollBuffer = await this.audioCtx.decodeAudioData(ratchetArrBuffer)
       this.clickBuffer = await this.audioCtx.decodeAudioData(clickArrBuffer)
       this.likeBuffer = await this.audioCtx.decodeAudioData(likeArrBuffer)
+      this.pixelBuffer = await this.audioCtx.decodeAudioData(pixelArrBuffer)
 
       this.setIsLoaded(true)
     } catch {}

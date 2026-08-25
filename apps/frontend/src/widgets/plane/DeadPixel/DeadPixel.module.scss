@@ -1,0 +1,45 @@
+@use '@/app/styles/helpers' as *;
+
+.pixel {
+  z-index: 500;
+  width: fit-content;
+  height: fit-content;
+
+  &__button {
+    animation: dead-pixel 2s infinite;
+
+    &:active {
+      scale: 0.9;
+    }
+  }
+}
+
+@keyframes dead-pixel {
+  0% {
+    background-color: #ff0044;
+  }
+  24.99% {
+    background-color: #ff0044;
+  }
+  25% {
+    background-color: #00ff99;
+  }
+  49.99% {
+    background-color: #00ff99;
+  }
+  50% {
+    background-color: #0099ff;
+  }
+  74.99% {
+    background-color: #0099ff;
+  }
+  75% {
+    background-color: #e100ff;
+  }
+  99.99% {
+    background-color: #e100ff;
+  }
+  100% {
+    background-color: #ff0044;
+  }
+}

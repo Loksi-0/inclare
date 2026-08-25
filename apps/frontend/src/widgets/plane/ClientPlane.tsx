@@ -8,6 +8,7 @@ import PlaneInfo from './PlaneInfo'
 import PlaneContent from './PlaneContent'
 import { useCustomContext } from '@/shared/hooks/useCustomContext'
 import { PlaneContext } from '@/contexts/PlaneContext'
+import DeadPixel from '@/widgets/plane/DeadPixel'
 
 const ClientPlane = () => {
   const { gridRef, canvasRef, zoomIn, zoomOut } = useCustomContext(PlaneContext)
@@ -23,6 +24,7 @@ const ClientPlane = () => {
         ref={canvasRef}
       >
         <PlaneContent />
+        <DeadPixel />
       </div>
       <PlaneInfo />
       <div className={styles.plane__controls}>

@@ -13,6 +13,7 @@ import { randomInt } from '@/shared/functions/randomInt'
 import { planeStore } from '@/stores/plane.store'
 import { postStore } from '@/stores/post.store'
 import { useFluid } from '@/shared/hooks/useFluid'
+import { UI } from '@/constants'
 
 type ApiPosts = ApiReturnType<typeof api.post.public.getFeed.query>
 
@@ -37,7 +38,6 @@ export const usePlaneContext = (props: PlaneProps) => {
   const CHUNKS_LIMIT = 5
   const POSTS_LIMIT = limit
   const ZOOM_STEP = 0.25
-  const GRID_SCALE = 50
   const CHUNK_WIDTH = useFluid(800, 1500)
   const CHUNK_HEIGHT = useFluid(800, 1500)
   const COLUMN_PADDING = useFluid(150, 250)
@@ -141,7 +141,7 @@ export const usePlaneContext = (props: PlaneProps) => {
       const transform = instance.getTransform()
 
       gridRef.current.style.backgroundPosition = `${transform.x}px ${transform.y}px`
-      gridRef.current.style.backgroundSize = `${GRID_SCALE * transform.scale}px ${GRID_SCALE * transform.scale}px`
+      gridRef.current.style.backgroundSize = `${UI.PLANE_GRID_SCALE * transform.scale}px ${UI.PLANE_GRID_SCALE * transform.scale}px`
       planeStore.setScale(transform.scale)
     })
 
@@ -249,7 +249,8 @@ export const usePlaneContext = (props: PlaneProps) => {
     isDragging,
     zoomIn,
     zoomOut,
-    onClick
+    onClick,
+    panzoom: panzoomInstance.current
   }
 }
 

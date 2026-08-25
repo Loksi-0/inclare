@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { useBlur } from './useBlur'
 import { timelineStore } from '@/stores/timeline.store'
-import { TIMELINE_PADDING } from '@/constants'
+import { UI } from '@/constants'
 import { postStore } from '@/stores/post.store'
 import gsap from 'gsap'
 
@@ -22,7 +22,7 @@ export const useOpenPost = () => {
     const offset =
       window.innerHeight -
       (timelineRect.y + timelineRect.height) -
-      TIMELINE_PADDING
+      UI.TIMELINE_PADDING
 
     if (postStore.isOpen) {
       const animationOptions: gsap.TweenVars = {

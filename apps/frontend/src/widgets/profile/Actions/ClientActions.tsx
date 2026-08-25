@@ -3,7 +3,7 @@
 import Button from '@/components/Button'
 import styles from './Actions.module.scss'
 import { decline } from '@/shared/functions/decline'
-import { PAGES, TIMELINE_PADDING } from '@/constants'
+import { PAGES, UI } from '@/constants'
 import { observer } from 'mobx-react-lite'
 import { useActions } from './useActions'
 import { postStore } from '@/stores/post.store'
@@ -37,7 +37,7 @@ const ClientActions = observer((props: ClientActionsProps) => {
         onClick={() => {
           postStore.openUpload(
             timelineStore.timelineRef
-              ? timelineStore.timelineRef.offsetHeight + TIMELINE_PADDING * 2
+              ? timelineStore.timelineRef.offsetHeight + UI.TIMELINE_PADDING * 2
               : undefined
           )
         }}
