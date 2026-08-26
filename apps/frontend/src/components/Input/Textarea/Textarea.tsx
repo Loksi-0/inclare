@@ -1,7 +1,7 @@
 import { forwardRef, useId, type ChangeEvent } from 'react'
-import styles from './Textarea.module.scss'
 import cx from 'clsx'
 import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
+import styles from './Textarea.module.scss'
 
 type TextareaProps = {
   label?: string

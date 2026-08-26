@@ -1,7 +1,6 @@
 'use client'
 
 import { useTRPC } from '@/api/tanstack'
-import styles from './ModeratingPosts.module.scss'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import Preloader from '@/components/Preloader'
 import Image from 'next/image'
@@ -11,6 +10,7 @@ import ConfirmButton from '@/components/ConfirmButton'
 import { useState } from 'react'
 import AuthorHeader from '@/components/AuthorHeader'
 import Retry from '@/icons/Retry'
+import styles from './ModeratingPosts.module.scss'
 
 const ModeratingPosts = () => {
   const [isRemoveAndBanPending, setIsRemoveAndBanPending] = useState(false)

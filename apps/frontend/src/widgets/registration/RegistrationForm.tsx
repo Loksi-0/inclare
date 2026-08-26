@@ -1,6 +1,5 @@
 'use client'
 
-import styles from './RegistrationForm.module.scss'
 import Logo from '@/icons/Logo'
 import Input from '@/components/Input'
 import Button from '@/components/Button'
@@ -8,6 +7,7 @@ import { PAGES } from '@/constants'
 import DecorationBlock from '@/components/DecorationBlock'
 import cx from 'clsx'
 import { useRegistrationForm } from './useRegistrationForm'
+import styles from './RegistrationForm.module.scss'
 
 const RegistrationForm = () => {
   const {

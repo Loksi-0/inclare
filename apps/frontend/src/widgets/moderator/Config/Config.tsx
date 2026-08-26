@@ -1,9 +1,9 @@
 'use client'
 
 import { useTRPC } from '@/api/tanstack'
-import styles from './Config.module.scss'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import Preloader from '@/components/Preloader'
+import styles from './Config.module.scss'
 
 const Config = () => {
   const trpc = useTRPC()

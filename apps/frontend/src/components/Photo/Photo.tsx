@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import styles from './Photo.module.scss'
-import { forwardRef, memo, useEffect, type CSSProperties } from 'react'
+import { forwardRef, memo, type CSSProperties } from 'react'
 import Gradient from '../Gradient/Gradient'
 import PhotoLayout from '@/layouts/PhotoLayout'
+import styles from './Photo.module.scss'
 
 type PhotoProps = {
   src?: string

@@ -1,6 +1,10 @@
 'use client'
 
-import { usePlaneContext, type PlaneProps, type PlaneContextValue } from './usePlaneContext'
+import {
+  usePlaneContext,
+  type PlaneProps,
+  type PlaneContextValue
+} from './usePlaneContext'
 import { createContext, PropsWithChildren } from 'react'
 
 export const PlaneContext = createContext<PlaneContextValue | null>(null)

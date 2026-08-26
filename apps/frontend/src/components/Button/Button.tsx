@@ -7,12 +7,12 @@ import {
   type PropsWithChildren
 } from 'react'
 import cx from 'clsx'
-import styles from './Button.module.scss'
 import Preloader from '../Preloader'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { CURSOR } from '@/constants'
 import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
 import mergeRefs from 'merge-refs'
+import styles from './Button.module.scss'
 
 type ButtonProps = PropsWithChildren<{
   color: 'solid' | 'outlined' | 'underline' | 'underline-gray' | 'icon' | 'none'

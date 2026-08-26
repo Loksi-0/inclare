@@ -1,7 +1,7 @@
 import Button from '@/components/Button'
-import styles from './DraftsLayout.module.scss'
 import { PAGES } from '@/constants'
 import type { PropsWithChildren } from 'react'
+import styles from './DraftsLayout.module.scss'
 
 const DraftsLayout = ({ children }: PropsWithChildren) => {
   return (

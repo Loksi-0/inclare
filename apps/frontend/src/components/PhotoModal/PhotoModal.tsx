@@ -1,7 +1,6 @@
 'use client'
 
 import { observer } from 'mobx-react-lite'
-import styles from './PhotoModal.module.scss'
 import { photoModalStore } from '@/stores/photoModal.store'
 import gsap from 'gsap'
 import Button from '../Button'
@@ -11,6 +10,7 @@ import ArrowLeft from '@/icons/ArrowLeft'
 import ArrowRight from '@/icons/ArrowRight'
 import Preloader from '../Preloader'
 import { usePhotoModal } from './usePhotoModal'
+import styles from './PhotoModal.module.scss'
 
 const PhotoModal = observer(() => {
   const {

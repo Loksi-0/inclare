@@ -1,9 +1,9 @@
 import { api } from '@/api/trpc'
 import ClientDrafts from './ClientDrafts'
 import DraftsLayout from '@/layouts/DraftsLayout'
-import styles from './DraftsList.module.scss'
 import { catchError } from '@/shared/functions/catchError'
 import ErrorSection from '@/components/ErrorSection'
+import styles from './DraftsList.module.scss'
 
 const DraftsList = catchError(
   async () => {

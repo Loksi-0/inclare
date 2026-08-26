@@ -1,12 +1,12 @@
 'use client'
 
 import { forwardRef, useId, useState, type ChangeEvent } from 'react'
-import styles from './Password.module.scss'
 import Button from '@/components/Button'
 import EyeOpen from '@/icons/EyeOpen'
 import EyeClosed from '@/icons/EyeClosed'
 import cx from 'clsx'
 import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
+import styles from './Password.module.scss'
 
 type PasswordInputProps = {
   placeholder: string

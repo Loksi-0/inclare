@@ -4,9 +4,8 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import styles from './Moderators.module.scss'
 import { useTRPC } from '@/api/tanstack'
 import Preloader from '@/components/Preloader'
-import Avatar from '@/components/Avatar'
 import Button from '@/components/Button'
-import UserCard from '../UserCard/UserCard'
+import UserCard from '@/components/UserCard/UserCard'
 
 const Moderators = () => {
   const trpc = useTRPC()

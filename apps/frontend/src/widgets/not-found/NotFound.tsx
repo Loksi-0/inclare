@@ -2,9 +2,9 @@
 
 import Logo from '@/icons/Logo'
 import Button from '@/components/Button'
-import styles from './NotFound.module.scss'
 import { useParallax } from '@/shared/hooks/useParallax'
 import Misted from '@/components/Misted'
+import styles from './NotFound.module.scss'
 
 const NotFound = ({ user = false }: { user?: boolean }) => {
   const { bgRef, topRef } = useParallax({

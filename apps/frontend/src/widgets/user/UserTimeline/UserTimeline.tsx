@@ -3,7 +3,7 @@ import ErrorSection from '@/components/ErrorSection'
 import { api } from '@/api/trpc'
 import Timeline from '@/components/Timeline'
 import cx from 'clsx'
-import styles from './User.module.scss'
+import styles from './UserTimeline.module.scss'
 
 type UserTimelineProps = {
   uuid: string

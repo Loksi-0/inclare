@@ -1,9 +1,9 @@
 'use client'
 
 import Input from '@/components/Input'
-import styles from './UpdateProfile.module.scss'
 import Button from '@/components/Button'
 import { useUpdateProfile, type UpdateProfileProps } from './useUpdateProfile'
+import styles from './UpdateProfile.module.scss'
 
 const ClientUpdateProfile = (props: UpdateProfileProps) => {
   const {

@@ -1,12 +1,12 @@
 'use client'
 
 import ToggleSwitch from '@/components/ToggleSwitch'
-import styles from './UserToggles.module.scss'
 import { useState } from 'react'
 import { useTRPC } from '@/api/tanstack'
 import { useMutation } from '@tanstack/react-query'
 import { observer } from 'mobx-react-lite'
 import { soundStore } from '@/stores/sound.store'
+import styles from './UserToggles.module.scss'
 
 type UserTogglesProps = {
   isPrivate: boolean

@@ -2,10 +2,10 @@
 
 import { type ComponentProps, type PropsWithChildren } from 'react'
 import Button from '../Button'
-import styles from './ConfirmButton.module.scss'
 import cx from 'clsx'
 import { observer } from 'mobx-react-lite'
 import { useConfirmButton } from './useConfirmButton'
+import styles from './ConfirmButton.module.scss'
 
 type ConfirmButtonProps = PropsWithChildren<{
   color: ComponentProps<typeof Button>['color']

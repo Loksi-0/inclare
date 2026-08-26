@@ -1,5 +1,10 @@
 import { api } from '@/api/trpc'
-import UserPage from '@/widgets/user'
+import PageLayout from '@/layouts/PageLayout'
+import { catchError } from '@/shared/functions/catchError'
+import NotFound from '@/widgets/not-found'
+import Actions from '@/widgets/user/Actions'
+import Bio from '@/widgets/user/Bio'
+import UserTimeline from '@/widgets/user/UserTimeline'
 import type { Metadata } from 'next'
 
 type Props = {
@@ -30,10 +35,24 @@ export const generateMetadata = async ({
   }
 }
 
-const User = async ({ params }: Props) => {
-  const { uuid } = await params
+const User = catchError(
+  async ({ params }: Props) => {
+    const { uuid } = await params
+    const user = await api.user.getOne.query({ id: uuid })
 
-  return <UserPage uuid={uuid} />
-}
+    return (
+      <PageLayout profile>
+        <Bio
+          avatar={user.avatar}
+          name={user.name}
+          description={user.description}
+        />
+        <UserTimeline uuid={uuid} />
+        <Actions />
+      </PageLayout>
+    )
+  },
+  () => <NotFound user />
+)
 
 export default User

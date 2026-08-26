@@ -1,16 +1,15 @@
 'use client'
 
-import styles from './Me.module.scss'
 import cx from 'clsx'
 import Button from '@/components/Button'
 import { PAGES } from '@/constants'
 import type { api } from '@/api/trpc'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
-import Image from 'next/image'
 import { hideEmail } from '@/shared/functions/hideEmail'
 import type { ApiReturnType } from '@/types/globals'
 import Avatar from '@/components/Avatar'
+import styles from './Me.module.scss'
 
 type ClientMeProps = {
   data: ApiReturnType<typeof api.auth.me.query>

@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import Button from '../Button'
 import cx from 'clsx'
-import styles from './ToggleSwitch.module.scss'
 import { useIsMounted } from '@/shared/hooks/useIsMounted'
+import styles from './ToggleSwitch.module.scss'
 
 type ToggleSwitchProps = {
   title: string

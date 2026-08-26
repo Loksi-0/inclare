@@ -1,5 +1,4 @@
 import Button from '@/components/Button'
-import styles from './UploadPost.module.scss'
 import { postStore } from '@/stores/post.store'
 import { dateToMonth } from '@/shared/functions/dateToMonth'
 import ViewPostLayout from '@/layouts/ViewPostLayout/ViewPostLayout'
@@ -12,6 +11,7 @@ import Plus from '@/icons/Plus'
 import ProgressBar from '../ProgressBar'
 import Input from '../Input'
 import { useUploadPost } from './useUploadPost'
+import styles from './UploadPost.module.scss'
 
 const UploadPost = observer(() => {
   const {

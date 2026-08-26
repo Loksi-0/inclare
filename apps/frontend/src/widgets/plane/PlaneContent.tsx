@@ -1,8 +1,8 @@
-import styles from './Plane.module.scss'
 import { DEFAULTS } from '@/constants'
 import { useCustomContext } from '@/shared/hooks/useCustomContext'
 import { PlaneContext } from '@/contexts/PlaneContext'
 import PlanePhoto from './PlanePhoto/PlanePhoto'
+import styles from './Plane.module.scss'
 
 const PlaneContent = () => {
   const { isMounted, chunks, CHUNK_WIDTH, CHUNK_HEIGHT, onClick } =

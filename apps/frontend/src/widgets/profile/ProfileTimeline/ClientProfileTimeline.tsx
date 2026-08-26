@@ -1,7 +1,6 @@
 'use client'
 
 import Misted from '@/components/Misted'
-import styles from './ProfileTimeline.module.scss'
 import Logo from '@/icons/Logo'
 import Button from '@/components/Button'
 import Timeline from '@/components/Timeline'
@@ -11,6 +10,7 @@ import type { api } from '@/api/trpc'
 import { postStore } from '@/stores/post.store'
 import { timelineStore } from '@/stores/timeline.store'
 import type { ApiReturnType } from '@/types/globals'
+import styles from './ProfileTimeline.module.scss'
 
 type ClientTimelineProps = {
   data: ApiReturnType<typeof api.post.my.getPublished.query>

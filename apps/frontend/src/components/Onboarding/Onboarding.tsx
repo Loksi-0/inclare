@@ -1,7 +1,6 @@
 'use client'
 
 import { observer } from 'mobx-react-lite'
-import styles from './Onboarding.module.scss'
 import Button from '../Button'
 import { useEffect, useRef, useState } from 'react'
 import { onboardingStore } from '@/stores/onboarding.store'
@@ -9,6 +8,7 @@ import { useBlur } from '@/shared/hooks/useBlur'
 import gsap from 'gsap'
 import { soundStore } from '@/stores/sound.store'
 import { randomInt } from '@/shared/functions/randomInt'
+import styles from './Onboarding.module.scss'
 
 const Onboarding = observer(() => {
   const BUTTON_TEXTS = ['ясно', 'ясно понятно', 'хорошо']

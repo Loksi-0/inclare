@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
-import styles from './Plane.module.scss'
 import cx from 'clsx'
 import { planeStore } from '@/stores/plane.store'
+import styles from './Plane.module.scss'
 
 const PlaneInfo = observer(() => {
   return (

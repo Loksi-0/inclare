@@ -1,8 +1,8 @@
 import { dateToMonth } from '@/shared/functions/dateToMonth'
 import Avatar from '../Avatar'
 import AuthorButton from './AuthorButton'
-import styles from './AuthorHeader.module.scss'
 import cx from 'clsx'
+import styles from './AuthorHeader.module.scss'
 
 type AuthorHeaderProps = {
   isMy: boolean

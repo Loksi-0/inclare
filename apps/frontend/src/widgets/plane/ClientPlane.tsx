@@ -1,6 +1,5 @@
 'use client'
 
-import styles from './Plane.module.scss'
 import Button from '@/components/Button'
 import Plus from '@/icons/Plus'
 import Minus from '@/icons/Minus'
@@ -9,6 +8,7 @@ import PlaneContent from './PlaneContent'
 import { useCustomContext } from '@/shared/hooks/useCustomContext'
 import { PlaneContext } from '@/contexts/PlaneContext'
 import DeadPixel from '@/widgets/plane/DeadPixel'
+import styles from './Plane.module.scss'
 
 const ClientPlane = () => {
   const { gridRef, canvasRef, zoomIn, zoomOut } = useCustomContext(PlaneContext)

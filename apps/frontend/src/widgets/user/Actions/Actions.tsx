@@ -2,9 +2,9 @@
 
 import Button from '@/components/Button'
 import { useNavigate } from '@/shared/hooks/useNavigate'
-import styles from './Actions.module.scss'
 import { useOpenPost } from '@/shared/hooks/useOpenPost'
 import { observer } from 'mobx-react-lite'
+import styles from './Actions.module.scss'
 
 const Actions = observer(() => {
   const { back } = useNavigate()

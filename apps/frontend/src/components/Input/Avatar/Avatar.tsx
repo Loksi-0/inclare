@@ -1,6 +1,5 @@
 'use client'
 
-import styles from './Avatar.module.scss'
 import Button from '@/components/Button'
 import Plus from '@/icons/Plus'
 import Image from 'next/image'
@@ -8,6 +7,7 @@ import cx from 'clsx'
 import Cross from '@/icons/Cross'
 import { useAvatar, type AvatarInputProps } from './useAvatar'
 import Pencil from '@/icons/Pencil'
+import styles from './Avatar.module.scss'
 
 const AvatarInput = (props: AvatarInputProps) => {
   const { className, onChange: extOnChange } = props

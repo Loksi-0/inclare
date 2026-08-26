@@ -1,7 +1,7 @@
-import styles from './Number.module.scss'
 import cx from 'clsx'
 import { Controller } from 'react-hook-form'
 import { useNumber } from './useNumber'
+import styles from './Number.module.scss'
 
 type NumberInputProps = {
   placeholder: string

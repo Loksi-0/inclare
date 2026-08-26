@@ -1,7 +1,6 @@
 'use client'
 
 import Button from '../Button'
-import styles from './ViewPost.module.scss'
 import { postStore } from '@/stores/post.store'
 import type { PropsWithChildren } from 'react'
 import { PAGES } from '@/constants'

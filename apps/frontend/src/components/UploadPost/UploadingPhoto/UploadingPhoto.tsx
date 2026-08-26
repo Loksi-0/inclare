@@ -1,6 +1,5 @@
 'use client'
 
-import styles from './UploadingPhoto.module.scss'
 import Photo from '@/components/Photo'
 import Button from '@/components/Button'
 import Retry from '@/icons/Retry'
@@ -8,6 +7,7 @@ import {
   useUploadingPhoto,
   type UploadingPhotoProps
 } from './useUploadingPhoto'
+import styles from './UploadingPhoto.module.scss'
 
 const UploadingPhoto = (props: UploadingPhotoProps) => {
   const { isError, createPhoto, createFormData, src } = useUploadingPhoto(props)

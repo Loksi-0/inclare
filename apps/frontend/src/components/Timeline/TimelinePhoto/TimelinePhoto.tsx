@@ -1,5 +1,4 @@
 import Photo from '@/components/Photo'
-import styles from './TimelinePhoto.module.scss'
 import { dateToMonth } from '@/shared/functions/dateToMonth'
 import cx from 'clsx'
 import Button from '@/components/Button'
@@ -9,6 +8,7 @@ import { UI } from '@/constants'
 import { useBlur } from '@/shared/hooks/useBlur'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import styles from './TimelinePhoto.module.scss'
 
 type TimelinePhotoProps = {
   src: string

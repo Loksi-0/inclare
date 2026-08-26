@@ -1,7 +1,7 @@
 'use client'
 
-import styles from './Cursor.module.scss'
 import { useCursor } from './useCursor'
+import styles from './Cursor.module.scss'
 
 const Cursor = () => {
   const { cursorRef } = useCursor()

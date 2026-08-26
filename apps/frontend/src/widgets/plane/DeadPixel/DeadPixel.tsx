@@ -1,11 +1,11 @@
 'use client'
 
-import styles from './DeadPixel.module.scss'
 import Button from '@/components/Button'
 import { UI } from '@/constants'
 import { postStore } from '@/stores/post.store'
 import { useDeadPixel } from './useDeadPixel'
 import { onboardingStore } from '@/stores/onboarding.store'
+import styles from './DeadPixel.module.scss'
 
 const DeadPixel = () => {
   const { postId, pixelRef } = useDeadPixel()

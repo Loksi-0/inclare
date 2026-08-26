@@ -2,7 +2,6 @@
 
 import Misted from '@/components/Misted'
 import { ERROR_CODES } from '@repo/api-error-codes'
-import styles from './Error.module.scss'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
 import cx from 'clsx'
@@ -10,6 +9,7 @@ import { useTRPC } from '@/api/tanstack'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { DEFAULTS } from '@/constants'
+import styles from './Error.module.scss'
 
 type ErrorProps = {
   error: Error

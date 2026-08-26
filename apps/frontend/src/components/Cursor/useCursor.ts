@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import styles from './Cursor.module.scss'
 import gsap from 'gsap'
 import { CURSOR } from '@/constants'
+import styles from './Cursor.module.scss'
 
 export const useCursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null)

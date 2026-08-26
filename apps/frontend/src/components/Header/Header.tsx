@@ -1,10 +1,10 @@
 'use client'
 
 import Logo from '@/icons/Logo'
-import styles from './Header.module.scss'
 import Button from '../Button'
 import { PAGES } from '@/constants'
 import { usePathname } from 'next/navigation'
+import styles from './Header.module.scss'
 
 const Header = () => {
   const pathname = usePathname()

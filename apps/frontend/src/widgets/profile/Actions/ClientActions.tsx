@@ -1,13 +1,13 @@
 'use client'
 
 import Button from '@/components/Button'
-import styles from './Actions.module.scss'
 import { decline } from '@/shared/functions/decline'
 import { PAGES, UI } from '@/constants'
 import { observer } from 'mobx-react-lite'
 import { useActions } from './useActions'
 import { postStore } from '@/stores/post.store'
 import { timelineStore } from '@/stores/timeline.store'
+import styles from './Actions.module.scss'
 
 type ClientActionsProps = {
   draftedLength: number

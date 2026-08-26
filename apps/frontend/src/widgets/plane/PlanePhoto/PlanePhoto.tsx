@@ -1,10 +1,10 @@
 import PhotoLayout from '@/layouts/PhotoLayout'
-import styles from './PlanePhoto.module.scss'
 import Image from 'next/image'
 import Like from '@/components/Like'
 import Button from '@/components/Button'
 import { memo, type CSSProperties } from 'react'
 import cx from 'clsx'
+import styles from './PlanePhoto.module.scss'
 
 type PlanePhotoProps = {
   postId: string

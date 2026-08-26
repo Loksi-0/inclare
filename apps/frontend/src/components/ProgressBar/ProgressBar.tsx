@@ -1,9 +1,9 @@
 'use client'
 
 import Preloader from '../Preloader'
-import styles from './ProgressBar.module.scss'
 import cx from 'clsx'
 import { useProgressBar } from './useProgressBar'
+import styles from './ProgressBar.module.scss'
 
 const ProgressBar = ({ percentage }: { percentage: number }) => {
   const { containerRef, measureRef, dots } = useProgressBar(percentage)

@@ -1,7 +1,6 @@
 'use client'
 
 import type { api } from '@/api/trpc'
-import styles from './DraftsList.module.scss'
 import Photo from '@/components/Photo'
 import Button from '@/components/Button'
 import { postStore } from '@/stores/post.store'
@@ -12,6 +11,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
 import DraftsLayout from '@/layouts/DraftsLayout'
 import type { ApiReturnType } from '@/types/globals'
+import styles from './DraftsList.module.scss'
 
 type DraftsProps = {
   data: ApiReturnType<typeof api.post.my.getDrafted.query>

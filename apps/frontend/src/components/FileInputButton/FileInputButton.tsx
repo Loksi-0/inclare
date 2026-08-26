@@ -1,7 +1,7 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
-import styles from './FileInputButton.module.scss'
 import Button from '../Button'
 import cx from 'clsx'
+import styles from './FileInputButton.module.scss'
 
 type FileInputButtonProps = PropsWithChildren<{
   color: ComponentProps<typeof Button>['color']

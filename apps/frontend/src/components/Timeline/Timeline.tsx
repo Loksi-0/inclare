@@ -1,10 +1,10 @@
 'use client'
 
 import { CURSOR } from '@/constants'
-import styles from './Timeline.module.scss'
 import TimelinePhoto from './TimelinePhoto/TimelinePhoto'
 import { useTimeline, type Post } from './useTimeline'
 import { randomCode } from '@/shared/functions/randomCode'
+import styles from './Timeline.module.scss'
 
 type TimelineProps = {
   data: Post[]

@@ -1,7 +1,6 @@
 'use client'
 
 import { postStore } from '@/stores/post.store'
-import styles from './ViewPost.module.scss'
 import { observer } from 'mobx-react-lite'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
@@ -17,6 +16,7 @@ import ViewPostLayout from '@/layouts/ViewPostLayout/ViewPostLayout'
 import { DEFAULTS, PAGES } from '@/constants'
 import { usePathname } from 'next/navigation'
 import AuthorHeader from '../AuthorHeader'
+import styles from './ViewPost.module.scss'
 
 const ViewPost = observer(() => {
   const trpc = useTRPC()

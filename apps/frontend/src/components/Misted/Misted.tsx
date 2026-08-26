@@ -1,8 +1,8 @@
 'use client'
 
 import { useId, type PropsWithChildren } from 'react'
-import styles from './Misted.module.scss'
 import { useMisted } from './useMisted'
+import styles from './Misted.module.scss'
 
 type MistedProps = PropsWithChildren<{
   size?: number

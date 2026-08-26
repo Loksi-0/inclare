@@ -1,10 +1,10 @@
 'use client'
 
 import { forwardRef, useId, type ChangeEvent } from 'react'
-import styles from './Text.module.scss'
 import cx from 'clsx'
 import { useAutoAnimate } from '@/shared/hooks/useAutoAnimate'
 import type { InputMode } from '@/types/globals'
+import styles from './Text.module.scss'
 
 type TextInputProps = {
   placeholder: string

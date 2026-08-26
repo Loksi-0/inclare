@@ -1,7 +1,6 @@
 'use client'
 
 import Avatar from '@/components/Avatar'
-import styles from './Me.module.scss'
 import OptionsButton from '@/components/OptionsButton'
 import cx from 'clsx'
 import { useTRPC } from '@/api/tanstack'
@@ -9,6 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { DEFAULTS, PAGES } from '@/constants'
 import Button from '@/components/Button'
+import styles from './Me.module.scss'
 
 type MeProps = {
   avatar: string | null

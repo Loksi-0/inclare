@@ -1,13 +1,13 @@
 'use client'
 
 import Logo from '@/icons/Logo'
-import styles from './LoginForm.module.scss'
 import Button from '@/components/Button'
 import FormLayout from '@/layouts/FormLayout'
 import Input from '@/components/Input'
 import DecorationBlock from '@/components/DecorationBlock'
 import { useLoginForm } from './useLoginForm'
 import { PAGES } from '@/constants'
+import styles from './LoginForm.module.scss'
 
 const LoginForm = () => {
   const {
