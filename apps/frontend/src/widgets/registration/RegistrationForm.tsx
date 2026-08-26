@@ -50,6 +50,7 @@ const RegistrationForm = () => {
               <Input.Text
                 placeholder='email'
                 error={errors.email?.message}
+                inputMode='email'
                 {...register('email')}
               />
               <Input.Password

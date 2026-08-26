@@ -1,0 +1,29 @@
+@use '@/app/styles/helpers' as *;
+
+.tabs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: fluid(30, 20);
+  align-items: center;
+
+  &__header {
+    width: 100%;
+    background-color: var(--color-white);
+    border: var(--border);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: scroll;
+  }
+
+  &__button {
+    padding: fluid(10, 5) fluid(20, 15);
+    width: 100%;
+
+    &.selected {
+      background-color: var(--color-dark);
+      color: var(--color-white);
+    }
+  }
+}

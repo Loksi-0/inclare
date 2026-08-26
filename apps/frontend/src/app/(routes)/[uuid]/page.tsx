@@ -9,17 +9,23 @@ type Props = {
 export const generateMetadata = async ({
   params
 }: Props): Promise<Metadata> => {
-  const { uuid } = await params
+  try {
+    const { uuid } = await params
 
-  const user = await api.user.getOne.query({ id: uuid })
+    const user = await api.user.getOne.query({ id: uuid })
 
-  return {
-    title: `Профиль / ${user.name}`,
-    description: user.description,
-    openGraph: {
-      title: user.name,
-      description: user.description || undefined,
-      images: user.avatar ? [user.avatar] : []
+    return {
+      title: `Профиль / ${user.name}`,
+      description: user.description,
+      openGraph: {
+        title: user.name,
+        description: user.description || undefined,
+        images: user.avatar ? [user.avatar] : []
+      }
+    }
+  } catch {
+    return {
+      robots: { index: false, follow: false }
     }
   }
 }

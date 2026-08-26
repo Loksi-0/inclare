@@ -1,0 +1,14 @@
+@use '@/app/styles/helpers' as *;
+
+.header {
+  &__author {
+    display: flex;
+    flex-direction: row;
+    column-gap: rem(10);
+    align-items: center;
+  }
+
+  &__avatar {
+    @include square(fluid(30, 25));
+  }
+}

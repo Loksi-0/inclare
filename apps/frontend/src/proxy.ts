@@ -1,10 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { DEFAULTS, PAGES } from './constants'
 import { COOKIES } from '@repo/constants'
+import { getPayload } from './shared/functions/getPayload'
 
 export const proxy = async (req: NextRequest) => {
   const token = req.cookies.get(COOKIES.TOKEN)?.value
   const pathname = req.nextUrl.pathname
+
+  const payload = await getPayload(token)
+  const role = payload?.role
 
   if (pathname.startsWith('/_next') || pathname.startsWith('/uploads')) {
     return NextResponse.next()
@@ -15,7 +19,7 @@ export const proxy = async (req: NextRequest) => {
   }
 
   if (
-    !token &&
+    (!token || !payload) &&
     !(
       pathname.startsWith(PAGES.REGISTRATION) ||
       pathname.startsWith(PAGES.LOGIN)
@@ -29,6 +33,17 @@ export const proxy = async (req: NextRequest) => {
     (pathname.startsWith(PAGES.LOGIN) ||
       pathname.startsWith(PAGES.REGISTRATION))
   ) {
+    return NextResponse.redirect(new URL(PAGES.PROFILE, req.url))
+  }
+
+  if (
+    (role === 'MODERATOR' || role === 'ADMIN') &&
+    pathname.startsWith(PAGES.PROFILE)
+  ) {
+    return NextResponse.redirect(new URL(PAGES.MODERATOR, req.url))
+  }
+
+  if ((role === 'USER' || !role) && pathname.startsWith(PAGES.MODERATOR)) {
     return NextResponse.redirect(new URL(PAGES.PROFILE, req.url))
   }
 }

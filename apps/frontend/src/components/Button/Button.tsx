@@ -19,7 +19,7 @@ type ButtonProps = PropsWithChildren<{
   type?: 'button' | 'submit' | 'reset'
   className?: string
   disabled?: boolean
-  onClick?: MouseEventHandler<HTMLButtonElement>
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
   navigate?: string
   loading?: boolean
   animate?: boolean
@@ -58,6 +58,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
         style={style}
         onClick={(e) => {
           e.preventDefault()
+          onClick?.(e)
 
           if (navigate === 'back') {
             back()

@@ -39,6 +39,7 @@ const LoginForm = () => {
           <div className={styles.login__body}>
             <Input.Text
               placeholder='email'
+              inputMode='email'
               preventSpaces
               error={errors.email?.message}
               {...register('email')}

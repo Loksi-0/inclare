@@ -1,0 +1,9 @@
+@use '@/app/styles/helpers' as *;
+
+.skeleton {
+  background-color: var(--color-gray-20);
+}
+
+.avatar {
+  object-fit: cover;
+}

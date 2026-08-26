@@ -32,12 +32,6 @@
 
   &__avatar {
     @include square(fluid(120, 90));
-
-    object-fit: cover;
-
-    &.skeleton {
-      background-color: var(--color-gray-20);
-    }
   }
 
   &__info {

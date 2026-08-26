@@ -1,6 +1,7 @@
 'use client'
 
 import { useFluid } from '@/shared/hooks/useFluid'
+import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import { onboardingStore } from '@/stores/onboarding.store'
 import { soundStore } from '@/stores/sound.store'
 import { timelineStore } from '@/stores/timeline.store'
@@ -25,6 +26,7 @@ export const useTimeline = (data: Post[]) => {
   const POST_SIZE = useFluid(150, 300)
   const GROUP_THRESHOLD = useFluid(20, 100)
 
+  const { isMounted } = useIsMounted()
   const timelineRef = useRef<HTMLDivElement | null>(null)
   const bodyRef = useRef<HTMLDivElement | null>(null)
   const lastRef = useRef<HTMLDivElement | null>(null)
@@ -190,8 +192,10 @@ export const useTimeline = (data: Post[]) => {
 
     return () => {
       draggableInstance?.kill()
+      draggableInstance?.removeEventListener('move', onMove)
+      draggableInstance?.removeEventListener('throwupdate', onMove)
     }
-  }, [sortedData])
+  }, [sortedData, isMounted])
 
   return {
     timelineRef,
@@ -202,6 +206,7 @@ export const useTimeline = (data: Post[]) => {
     daysSinceEpoch,
     groupsPos,
     sortedData,
-    firstYearsPosts
+    firstYearsPosts,
+    isMounted
   }
 }

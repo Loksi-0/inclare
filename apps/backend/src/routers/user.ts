@@ -38,9 +38,9 @@ export const userRouter = router({
         User['role'],
         Omit<Prisma.UserWhereUniqueInput, 'id'>
       > = {
-        USER: { isPrivate: false, isBanned: false, role: 'USER' },
-        MODERATOR: { role: 'USER' },
-        ADMIN: {}
+        USER: { isPrivate: false, isBanned: false },
+        MODERATOR: { isPrivate: false },
+        ADMIN: { isPrivate: false }
       }
 
       const user = await ctx.prisma.user.findUnique({
@@ -56,6 +56,37 @@ export const userRouter = router({
       }
 
       return user
+    }),
+
+  findMany: hybridProcedure
+    .input(UserSchema.findMany)
+    .query(async ({ ctx, input }) => {
+      const filters: Record<User['role'], Omit<Prisma.UserWhereInput, 'id'>> = {
+        USER: { isPrivate: false, isBanned: false },
+        MODERATOR: { isPrivate: false },
+        ADMIN: { isPrivate: false }
+      }
+
+      const users = await ctx.prisma.user.findMany({
+        where: {
+          ...filters[ctx.user?.role || 'USER'],
+          OR: [
+            { id: { startsWith: input.query } },
+            { name: { startsWith: input.query } },
+            { email: { startsWith: input.query } }
+          ]
+        },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+          avatar: true,
+          isBanned: true
+        }
+      })
+
+      return users
     }),
 
   checkExists: publicProcedure

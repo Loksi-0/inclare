@@ -10,6 +10,7 @@ import { useTRPC } from '@/api/tanstack'
 import Image from 'next/image'
 import { hideEmail } from '@/shared/functions/hideEmail'
 import type { ApiReturnType } from '@/types/globals'
+import Avatar from '@/components/Avatar'
 
 type ClientMeProps = {
   data: ApiReturnType<typeof api.auth.me.query>
@@ -27,18 +28,12 @@ const ClientMe = (props: ClientMeProps) => {
     <section className={styles.me}>
       <div className={styles.me__body}>
         <div className={styles.me__profile}>
-          {me.avatar ? (
-            <Image
-              className={styles.me__avatar}
-              src={me.avatar}
-              width={120}
-              height={120}
-              alt=''
-              draggable={false}
-            />
-          ) : (
-            <div className={cx(styles.me__avatar, styles.skeleton)}></div>
-          )}
+          <Avatar
+            className={styles.me__avatar}
+            src={me.avatar}
+            width={120}
+            height={120}
+          />
           <div className={styles.me__content}>
             <h1>{me.name}</h1>
             {me.description && <p>{me.description}</p>}

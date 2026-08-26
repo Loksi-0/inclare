@@ -1,6 +1,5 @@
 'use client'
 
-import { useNavigate } from '@/shared/hooks/useNavigate'
 import Button from '../Button'
 import styles from './ViewPost.module.scss'
 import { postStore } from '@/stores/post.store'
@@ -10,23 +9,22 @@ import { PAGES } from '@/constants'
 type AuthorButtonProps = PropsWithChildren<{
   authorId: string
   clickable: boolean
+  className?: string
 }>
 
 const AuthorButton = (props: AuthorButtonProps) => {
-  const { authorId, clickable, children } = props
-
-  const { push } = useNavigate()
+  const { authorId, clickable, className, children } = props
 
   if (!clickable) {
-    return <div className={styles.post__author}>{children}</div>
+    return <div className={className}>{children}</div>
   }
 
   return (
     <Button
-      className={styles.post__author}
+      className={className}
       color='icon'
+      navigate={PAGES.USER(authorId)}
       onClick={() => {
-        push(PAGES.USER(authorId))
         postStore.closeInstantly()
       }}
     >

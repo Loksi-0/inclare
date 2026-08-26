@@ -1,4 +1,10 @@
 import z from 'zod'
+import { stringSchema } from '../shared/stringSchema'
+
+export const setIsModerator = z.object({
+  id: stringSchema(),
+  isModerator: z.boolean()
+})
 
 export const setGravity = z.object({
   gravity: z.number().positive().min(1)

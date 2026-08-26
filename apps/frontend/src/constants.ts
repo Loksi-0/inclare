@@ -5,6 +5,7 @@ export const PAGES = {
   PLANE: '/plane',
   SETTINGS: '/settings',
   DRAFTS: '/drafts',
+  MODERATOR: '/mod',
   USER: (id: string) => `/${id}`
 }
 

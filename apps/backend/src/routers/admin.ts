@@ -1,6 +1,5 @@
-import { REDIS_KEYS } from '@backend/constants'
+import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@backend/constants'
 import apiError from '@backend/helpers/apiError'
-import getEnv from '@backend/helpers/getEnv'
 import { adminProcedure } from '@backend/procedures/admin.procedure'
 import { router } from '@backend/trpc'
 import { AdminSchema, UserSchema } from '@repo/validators'
@@ -29,6 +28,27 @@ export const adminRouter = router({
       }
 
       return moderator
+    }),
+
+  setIsModerator: adminProcedure
+    .input(AdminSchema.setIsModerator)
+    .mutation(async ({ ctx, input }) => {
+      const candidate = await ctx.prisma.user.findUnique({
+        where: { id: input.id }
+      })
+
+      if (!candidate) {
+        return apiError(ERROR_CODES.USER.NOT_FOUND)
+      }
+
+      const user = await ctx.prisma.user.update({
+        where: { id: input.id },
+        data: {
+          role: input.isModerator ? 'MODERATOR' : 'USER'
+        }
+      })
+
+      return user
     }),
 
   setAlgorithmGravity: adminProcedure
@@ -106,10 +126,16 @@ export const adminRouter = router({
     const config = await ctx.redis.hGetAll(REDIS_KEYS.CONFIG.ALGORITHM)
 
     return {
-      fallingStarK: config.k_coefficient,
-      alogrithmGravity: config.gravity,
-      pastInterval: config.past_interval,
-      nowInterval: config.now_interval
+      fallingStarK: parseFloat(config.k_coefficient || ALGORITHM_DEFAULTS.K),
+      alogrithmGravity: parseFloat(
+        config.gravity || ALGORITHM_DEFAULTS.GRAVITY
+      ),
+      pastInterval: parseFloat(
+        config.past_interval || ALGORITHM_DEFAULTS.PAST_INTERVAL
+      ),
+      nowInterval: parseFloat(
+        config.now_interval || ALGORITHM_DEFAULTS.NOW_INTERVAL
+      )
     }
   })
 })

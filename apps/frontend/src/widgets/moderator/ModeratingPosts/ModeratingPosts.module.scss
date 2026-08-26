@@ -1,0 +1,87 @@
+@use '@/app/styles/helpers' as *;
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  row-gap: fluid(20, 10);
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+  padding-bottom: calc(var(--section-padding) * 2);
+  align-items: center;
+
+  &__preloader,
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__empty {
+    flex-direction: column;
+    row-gap: fluid(30, 20);
+  }
+
+  &__retry {
+    @include square(fluid(60, 40));
+
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    padding: fluid(15, 10);
+  }
+
+  &__post {
+    padding: fluid(20, 10);
+    border: var(--border);
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(30, 20);
+  }
+
+  &__header {
+    align-self: start;
+  }
+
+  &__image {
+    @include square(fluid(600, 300));
+
+    object-fit: cover;
+  }
+
+  &__description {
+    background-color: var(--color-gray-20);
+    padding: fluid(10, 5) fluid(20, 10);
+
+    @include selection {
+      background-color: var(--color-white);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+    justify-content: space-between;
+    align-items: end;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: start;
+      row-gap: rem(5);
+    }
+  }
+
+  &__delete {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(5);
+    align-items: end;
+
+    @include mobile {
+      align-items: start;
+    }
+  }
+}

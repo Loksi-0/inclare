@@ -21,7 +21,11 @@ const Header = () => {
       <nav className={styles.header__nav}>
         <Button
           navigate={PAGES.PROFILE}
-          color={pathname === PAGES.PROFILE ? 'underline' : 'underline-gray'}
+          color={
+            pathname === PAGES.PROFILE || pathname === PAGES.MODERATOR
+              ? 'underline'
+              : 'underline-gray'
+          }
         >
           профиль
         </Button>

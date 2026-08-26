@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/api/tanstack'
 import ViewPostSkeleton from './ViewPostSkeleton'
-import { dateToMonth } from '@/shared/functions/dateToMonth'
 import Button from '../Button'
 import Photo from '../Photo'
 import Like from '../Like'
@@ -16,9 +15,8 @@ import DeleteButton from './DeleteButton'
 import { photoModalStore } from '@/stores/photoModal.store'
 import ViewPostLayout from '@/layouts/ViewPostLayout/ViewPostLayout'
 import { DEFAULTS, PAGES } from '@/constants'
-import Image from 'next/image'
-import AuthorButton from './AuthorButton'
 import { usePathname } from 'next/navigation'
+import AuthorHeader from '../AuthorHeader'
 
 const ViewPost = observer(() => {
   const trpc = useTRPC()
@@ -45,24 +43,14 @@ const ViewPost = observer(() => {
     <ViewPostLayout height={postStore.postHeight}>
       <div className={styles.post__top}>
         <header className={styles.post__header}>
-          <AuthorButton
-            authorId={data.authorId}
+          <AuthorHeader
             clickable={!data.isMy && pathname !== PAGES.USER(data.authorId)}
-          >
-            {!data.isMy && data.author.avatar && (
-              <Image
-                className={styles.post__avatar}
-                width={30}
-                height={30}
-                src={data.author.avatar}
-                alt=''
-              />
-            )}
-            <div className='mono subtitle'>
-              {data.isMy ? 'me' : data.author.name} /{' '}
-              {dateToMonth(data.createdAt)} {data.createdAt.getDate()}
-            </div>
-          </AuthorButton>
+            authorId={data.authorId}
+            authorName={data.author.name}
+            isMy={data.isMy}
+            avatar={data.author.avatar}
+            createdAt={data.createdAt}
+          />
           <Button
             color='underline'
             onClick={() => {

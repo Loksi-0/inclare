@@ -24,6 +24,10 @@ export const setAvatar = z.instanceof(FormData).transform((fd) => {
     .parse({ file })
 })
 
+export const findMany = z.object({
+  query: z.string()
+})
+
 export const update = z.object({
   name: stringSchema('Введите имя')
     .max(100, 'Максимальная длина ника - 100 символов')

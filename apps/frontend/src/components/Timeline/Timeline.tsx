@@ -4,7 +4,6 @@ import { CURSOR } from '@/constants'
 import styles from './Timeline.module.scss'
 import TimelinePhoto from './TimelinePhoto/TimelinePhoto'
 import { useTimeline, type Post } from './useTimeline'
-import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import { randomCode } from '@/shared/functions/randomCode'
 
 type TimelineProps = {
@@ -15,9 +14,15 @@ type TimelineProps = {
 const Timeline = (props: TimelineProps) => {
   const { data, unoptimized = false } = props
 
-  const { isMounted } = useIsMounted()
-  const { timelineRef, bodyRef, lastRef, groups, groupsPos, firstYearsPosts } =
-    useTimeline(data)
+  const {
+    timelineRef,
+    bodyRef,
+    lastRef,
+    groups,
+    groupsPos,
+    firstYearsPosts,
+    isMounted
+  } = useTimeline(data)
 
   return (
     <section

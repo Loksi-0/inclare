@@ -59,6 +59,9 @@ export const REDIS_KEYS = {
   STARS: {
     VIEWED: 'stars:viewed'
   },
+  MODERATOR: {
+    VIEWED: 'moderator:viewed'
+  },
   USER: {
     VIEWED: (userId: string) => `user:${userId}:viewed`
   },

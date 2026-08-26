@@ -20,6 +20,7 @@ export const useConfirmButton = () => {
     }
 
     const PADDING = 10
+    const MARGIN = 50
 
     const buttonRect = buttonRef.current.getBoundingClientRect()
     const modalRect = modalRef.current.getBoundingClientRect()
@@ -27,11 +28,11 @@ export const useConfirmButton = () => {
     let modalX = 0
     let modalY = (modalRect.height + PADDING) * -1
 
-    if (buttonRect.x + modalRect.width > window.innerWidth) {
+    if (buttonRect.x + modalRect.width + MARGIN > window.innerWidth) {
       modalX = buttonRect.width - modalRect.width
     }
 
-    if (buttonRect.y < modalRect.height + PADDING) {
+    if (buttonRect.y < modalRect.height + MARGIN + PADDING) {
       modalY = buttonRect.height + PADDING
     }
 

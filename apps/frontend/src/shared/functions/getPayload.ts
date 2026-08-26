@@ -1,20 +1,19 @@
 import type { JwtSchema } from '@repo/validators'
 import { jwtVerify } from 'jose'
-import { cookies } from 'next/headers'
 import { cache } from 'react'
-import { COOKIES } from '@repo/constants'
 
-const SECRET = new TextEncoder().encode(process.env.ACCESS_SECRET)
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET)
 
-export const getPayload = cache(async () => {
-  const cookieStore = await cookies()
-  const token = cookieStore.get(COOKIES.TOKEN)?.value
+export const getPayload = cache(async (token: string | undefined) => {
+  try {
+    if (!token) {
+      return null
+    }
 
-  if (!token) {
+    const { payload } = await jwtVerify<JwtSchema.Payload>(token, SECRET)
+
+    return payload
+  } catch {
     return null
   }
-
-  const { payload } = await jwtVerify<JwtSchema.Payload>(token, SECRET)
-
-  return payload
 })
