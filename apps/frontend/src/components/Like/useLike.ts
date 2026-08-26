@@ -171,6 +171,10 @@ export const useLike = (props: LikeProps) => {
         onSuccess: (d) => {
           setLikes(d.likesCount)
           setIsLiked(d.isLiked)
+        },
+        onError: () => {
+          setLikes(initialLikes)
+          setIsLiked(initialIsLiked)
         }
       }
     )

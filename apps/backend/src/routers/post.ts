@@ -91,7 +91,7 @@ export const postRouter = router({
       }
 
       const authorPost = await ctx.prisma.post.findUnique({
-        where: { id: input.id, authorId: ctx.user?.id }
+        where: { id: input.id, authorId: ctx.user?.id || 'NONE' }
       })
       const post = await ctx.prisma.post.findUnique({
         ...filters[authorPost ? 'MY' : ctx.user?.role || 'USER'],

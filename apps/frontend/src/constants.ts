@@ -6,7 +6,7 @@ export const PAGES = {
   SETTINGS: '/settings',
   DRAFTS: '/drafts',
   MODERATOR: '/mod',
-  USER: (id: string) => `/${id}`
+  USER: (id: string) => `/u/${id}`
 }
 
 export const DEFAULTS = {

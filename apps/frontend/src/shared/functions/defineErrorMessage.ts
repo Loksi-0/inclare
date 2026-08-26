@@ -1,7 +1,7 @@
 import type { ErrorCode } from '@repo/api-error-codes'
 
 export const errorMessages: Record<ErrorCode, string> = {
-  SESSION_UNAUTHORIZED: 'Вы вышли из аккаунта',
+  SESSION_UNAUTHORIZED: 'Войдите, чтобы выполнить это действие',
 
   POST_NOT_FOUND: 'Пост не найден',
 
@@ -11,7 +11,7 @@ export const errorMessages: Record<ErrorCode, string> = {
   USER_NOT_FOUND: 'Пользователь не найден',
 
   AUTH_USER_EXISTS: 'Такой пользователь уже существует',
-  AUTH_WRONG_PASSWORD: 'ERR: НЕВЕРНЫЙ_ПАРОЛЬ',
+  AUTH_WRONG_PASSWORD: 'Неверный пароль',
 
   CONFIG_WRONG_INTERVALS: 'Неверные интервалы в конфиге',
   CONFIG_WRONG_GRAVITY: 'Неверный gravity в конфиге',

@@ -26,7 +26,7 @@ const User = catchError(
       </PageLayout>
     )
   },
-  () => <NotFound />
+  () => <NotFound user />
 )
 
 export default User

@@ -6,7 +6,7 @@ import styles from './NotFound.module.scss'
 import { useParallax } from '@/shared/hooks/useParallax'
 import Misted from '@/components/Misted'
 
-const NotFound = () => {
+const NotFound = ({ user = false }: { user?: boolean }) => {
   const { bgRef, topRef } = useParallax({
     topCoefficient: 4,
     bgCoefficient: 2
@@ -25,7 +25,9 @@ const NotFound = () => {
       >
         <div className={styles.notFound__content}>
           <h1 className={styles.notFound__title}>404</h1>
-          <p className={styles.notFound__description}>PAGE_NOT_FOUND</p>
+          <p className={styles.notFound__description}>
+            {user ? 'USER_NOT_FOUND' : 'PAGE_NOT_FOUND'}
+          </p>
         </div>
         <Button
           color='solid'

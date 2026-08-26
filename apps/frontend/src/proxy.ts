@@ -22,7 +22,9 @@ export const proxy = async (req: NextRequest) => {
     (!token || !payload) &&
     !(
       pathname.startsWith(PAGES.REGISTRATION) ||
-      pathname.startsWith(PAGES.LOGIN)
+      pathname.startsWith(PAGES.LOGIN) ||
+      pathname.startsWith(PAGES.USER('')) ||
+      pathname.startsWith(PAGES.PLANE)
     )
   ) {
     return NextResponse.redirect(new URL(DEFAULTS.START_PAGE, req.url))
