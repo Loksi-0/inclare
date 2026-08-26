@@ -9,6 +9,8 @@ import bcrypt from 'bcryptjs'
 import { setAuthCookies } from '@backend/helpers/setAuthCookies'
 import { deleteTokenCookie } from '@backend/helpers/tokenCookie'
 import { getRandomAvatar } from '@backend/helpers/getRandomAvatar'
+import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
+import { unauthorized } from '@backend/helpers/unauthorized'
 
 export const authRouter = router({
   register: publicProcedure
@@ -87,17 +89,29 @@ export const authRouter = router({
     }
   }),
 
-  logoutCurrentDevice: protectedProcedure.mutation(async ({ ctx }) => {
+  logoutCurrentDevice: hybridProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.token) {
+      return unauthorized(ctx.honoContext)
+    }
+
     await TokenService.deleteToken(ctx.token)
     deleteTokenCookie(ctx.honoContext)
   }),
 
-  logoutAll: protectedProcedure.mutation(async ({ ctx }) => {
+  logoutAll: hybridProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.user) {
+      return unauthorized(ctx.honoContext)
+    }
+
     await TokenService.deleteAllUserTokens(ctx.user.id)
     deleteTokenCookie(ctx.honoContext)
   }),
 
-  logoutAllExceptCurrent: protectedProcedure.mutation(async ({ ctx }) => {
+  logoutAllExceptCurrent: hybridProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.user || !ctx.token) {
+      return unauthorized(ctx.honoContext)
+    }
+
     await TokenService.deleteAllExceptCurrent(ctx.user.id, ctx.token)
   })
 })
