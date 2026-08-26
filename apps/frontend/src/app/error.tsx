@@ -1,12 +1,11 @@
 'use client'
 
 import Misted from '@/components/Misted'
-import { ERROR_CODES } from '@repo/api-error-codes'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
 import cx from 'clsx'
 import { useTRPC } from '@/api/tanstack'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { DEFAULTS } from '@/constants'
 import styles from './Error.module.scss'
@@ -26,8 +25,7 @@ const Error = ({ error }: ErrorProps) => {
       }
     })
   )
-
-  const isBanned = error.message === ERROR_CODES.REQUEST.FORBIDDEN.code
+  const { data: isBanned } = useQuery(trpc.user.checkMeIsBanned.queryOptions())
 
   return (
     <div className={styles.error}>

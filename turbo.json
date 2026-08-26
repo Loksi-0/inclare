@@ -30,7 +30,8 @@
       "persistent": true
     },
     "start": {
-      "dependsOn": ["^start"]
+      "dependsOn": ["build"],
+      "persistent": true
     }
   }
 }

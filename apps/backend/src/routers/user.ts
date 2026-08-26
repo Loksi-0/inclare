@@ -5,7 +5,7 @@ import { moderatorProcedure } from '@backend/procedures/moderator.procedure'
 import { protectedProcedure } from '@backend/procedures/protected.procedure'
 import { publicProcedure, router } from '@backend/trpc'
 import { UserSchema } from '@repo/validators'
-import type { Prisma, User } from '@db/client'
+import type { Prisma, Role, User } from '@db/client'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import path from 'path'
 import { createFolder } from '@backend/helpers/createFolder'
@@ -62,9 +62,9 @@ export const userRouter = router({
     .input(UserSchema.findMany)
     .query(async ({ ctx, input }) => {
       const filters: Record<User['role'], Omit<Prisma.UserWhereInput, 'id'>> = {
-        USER: { isPrivate: false, isBanned: false },
-        MODERATOR: { isPrivate: false },
-        ADMIN: { isPrivate: false }
+        USER: { isPrivate: false, isBanned: false, role: 'USER' },
+        MODERATOR: { isPrivate: false, role: 'USER' },
+        ADMIN: { isPrivate: false, role: 'USER' }
       }
 
       const users = await ctx.prisma.user.findMany({
@@ -98,6 +98,14 @@ export const userRouter = router({
 
       return !!user
     }),
+
+  checkMeIsBanned: hybridProcedure.query(({ ctx }) => {
+    if (!ctx.user) {
+      return false
+    }
+
+    return ctx.user.isBanned
+  }),
 
   setAvatar: protectedProcedure
     .input(UserSchema.setAvatar)
@@ -168,8 +176,16 @@ export const userRouter = router({
   setBan: moderatorProcedure
     .input(UserSchema.setBan)
     .mutation(async ({ ctx, input }) => {
+      const allowedRoles: Role[] =
+        ctx.user.role === 'ADMIN' ? ['USER', 'MODERATOR'] : ['USER']
+
       const candidate = await ctx.prisma.user.findUnique({
-        where: { id: input.id }
+        where: {
+          id: input.id,
+          role: {
+            in: allowedRoles
+          }
+        }
       })
 
       if (!candidate) {

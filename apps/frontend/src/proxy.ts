@@ -10,7 +10,11 @@ export const proxy = async (req: NextRequest) => {
   const payload = await getPayload(token)
   const role = payload?.role
 
-  if (pathname.startsWith('/_next') || pathname.startsWith('/uploads')) {
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/uploads') ||
+    pathname.match(/\.(html|css|js|mp3|wav|ogg|png|jpg|jpeg|svg|webp|ico)$/)
+  ) {
     return NextResponse.next()
   }
 

@@ -23,5 +23,7 @@
     row-gap: fluid(10, 5);
     text-align: center;
     max-width: rem(500);
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 }

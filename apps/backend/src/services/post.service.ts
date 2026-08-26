@@ -32,6 +32,9 @@ export const PostService = {
         },
         id: {
           in: ids
+        },
+        photos: {
+          some: {}
         }
       },
       include: {
@@ -69,7 +72,10 @@ export const PostService = {
           isPrivate: false,
           isBanned: false
         },
-        id
+        id,
+        photos: {
+          some: {}
+        }
       },
       include: {
         author: {

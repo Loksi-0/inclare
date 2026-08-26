@@ -1,10 +1,10 @@
 import '@backend/helpers/env'
 import '@backend/scripts/clearExpiredTokens'
 import '@backend/scripts/getFallingStars'
+import '@backend/scripts/clearEmptyPosts'
 import { serve } from '@hono/node-server'
 import getEnv from '@backend/helpers/getEnv'
 import rateLimit from '@backend/helpers/rateLimit'
-import { compress } from 'hono/compress'
 import { cors } from 'hono/cors'
 import { Hono } from 'hono'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
@@ -28,7 +28,6 @@ app.use(
 )
 
 app.use(rateLimit(1, 600))
-app.use('*', compress())
 
 app.get(`${UPLOADS.URL}/:userId/:postId/*`, async (c) => {
   const { userId, postId } = c.req.param()

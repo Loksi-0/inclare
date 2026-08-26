@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build&& node -e \"fs.cpSync('public', '.next/standalone/apps/frontend/public', {recursive: true}); fs.cpSync('.next/static', '.next/standalone/apps/frontend/.next/static', {recursive: true})\"",
+    "start": "node .next/standalone/apps/frontend/server.js",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\"",
     "check-types": "next typegen && tsc --noEmit"

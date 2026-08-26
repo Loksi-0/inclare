@@ -7,6 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-inline: var(--container-padding-x);
 
   &__inner {
     display: flex;

@@ -10,8 +10,10 @@ import {
 } from '@trpc/client'
 import SuperJSON from 'superjson'
 
+const apiUrl = `${String(isClient ? process.env.NEXT_PUBLIC_API_URL : process.env.API_URL)}/trpc`
+
 const linkOptions = {
-  url: `${String(isClient ? process.env.NEXT_PUBLIC_API_URL : process.env.API_URL)}/trpc`,
+  url: apiUrl,
   transformer: SuperJSON
 }
 
@@ -33,7 +35,11 @@ export const api = createTRPCClient<AppRouter>({
       false: splitLink({
         condition: (op) => isNonJsonSerializable(op.input),
         true: httpLink({
-          ...linkOptions,
+          url: apiUrl,
+          transformer: {
+            serialize: (data) => data,
+            deserialize: (data) => SuperJSON.deserialize(data)
+          },
           fetch: cookiesFetch
         }),
         false: httpBatchLink({

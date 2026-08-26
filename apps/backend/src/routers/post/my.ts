@@ -32,7 +32,10 @@ export const myPostRouter = router({
     const published = await ctx.prisma.post.findMany({
       where: {
         authorId: ctx.user.id,
-        isDrafted: false
+        isDrafted: false,
+        photos: {
+          some: {}
+        }
       },
       include: {
         photos: {
@@ -58,7 +61,10 @@ export const myPostRouter = router({
     const drafted = await ctx.prisma.post.findMany({
       where: {
         authorId: ctx.user.id,
-        isDrafted: true
+        isDrafted: true,
+        photos: {
+          some: {}
+        }
       },
       include: {
         photos: {
@@ -79,7 +85,10 @@ export const myPostRouter = router({
     const drafted = await ctx.prisma.post.findMany({
       where: {
         authorId: ctx.user.id,
-        isDrafted: true
+        isDrafted: true,
+        photos: {
+          some: {}
+        }
       }
     })
 

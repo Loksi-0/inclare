@@ -28,6 +28,8 @@
     display: flex;
     flex-direction: column;
     row-gap: fluid(15, 5);
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   &__avatar {

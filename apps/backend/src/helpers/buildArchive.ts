@@ -33,7 +33,7 @@ export const buildArchive = async (srcPath: string, srcUrl: string) => {
       url: outputUrl
     }
   } catch (e) {
-    console.log('ошибка архивации: ', e)
+    console.log('ошибка архивации:', e)
 
     return {
       path: null,
