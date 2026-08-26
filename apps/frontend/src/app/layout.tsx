@@ -23,6 +23,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.CLIENT_URL || 'https://inclare.ru'),
   title: 'Inclare',
   description:
     'Минималистичная платформа для архивации фотографий с поддержкой RAW. Опубликовывайте свои и изучайте чужие снимки на бесконечной 2D плоскости без лишнего соцсетевого шума',

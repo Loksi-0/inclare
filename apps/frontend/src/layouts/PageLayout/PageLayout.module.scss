@@ -19,6 +19,9 @@
     &.profile {
       height: 95vh;
       justify-content: space-between;
+    }
+
+    &.padding {
       padding-block: calc(var(--section-padding) * 1.5);
     }
 

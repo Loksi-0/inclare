@@ -20,7 +20,6 @@ export const generateMetadata = async ({
     const user = await api.user.getOne.query({ id: uuid })
 
     return {
-      metadataBase: new URL(process.env.CLIENT_URL || 'https://inclare.ru'),
       title: `Профиль / ${user.name}`,
       description: user.description,
       openGraph: {

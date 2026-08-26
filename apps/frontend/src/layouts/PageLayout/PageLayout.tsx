@@ -5,6 +5,7 @@ import styles from './PageLayout.module.scss'
 
 type PageLayoutProps = PropsWithChildren<{
   profile?: boolean
+  padding?: boolean
   plane?: boolean
   settings?: boolean
   className?: string
@@ -16,6 +17,7 @@ const PageLayout = (props: PageLayoutProps) => {
     className,
     settings = false,
     profile = false,
+    padding = false,
     plane = false
   } = props
 
@@ -25,6 +27,7 @@ const PageLayout = (props: PageLayoutProps) => {
       <main
         className={cx(styles.layout__main, className, [
           { [styles.profile]: profile },
+          { [styles.padding]: padding },
           { [styles.plane]: plane },
           { [styles.settings]: settings }
         ])}

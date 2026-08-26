@@ -14,7 +14,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: process.env.IGNORE_BUILD_TYPE_ERRORS === 'true'
   },
   images: {
-    formats: ['image/avif', 'image/webp'],
+    formats:
+      process.env.IMAGE_COMPRESSION === 'avif'
+        ? ['image/avif', 'image/webp']
+        : ['image/webp'],
     unoptimized: process.env.UNOPTIMIZE_IMAGES === 'true',
     remotePatterns: [
       {
