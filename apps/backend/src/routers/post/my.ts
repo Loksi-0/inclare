@@ -9,6 +9,7 @@ import { POST, RAW_POST } from '@backend/constants'
 import fs from 'fs/promises'
 import { getPrimaryColor } from '@backend/helpers/getPrimaryColor'
 import { getFilePathByUrl } from '@backend/helpers/getFilePathByUrl'
+import { getPreviewUrl } from '@backend/helpers/getPreviewUrl'
 
 export const myPostRouter = router({
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -45,9 +46,7 @@ export const myPostRouter = router({
 
     const publishedDto = published.map((p) => ({
       id: p.id,
-      previewUrl: p.photos.reduce((prev, current) =>
-        prev.order < current.order ? prev : current
-      ).optimizedUrl,
+      previewUrl: getPreviewUrl(p.photos),
       createdAt: p.createdAt,
       pcs: p._count.photos
     }))
@@ -70,9 +69,7 @@ export const myPostRouter = router({
 
     const draftedDto = drafted.map((p) => ({
       id: p.id,
-      previewUrl: p.photos.reduce((prev, current) =>
-        prev.order < current.order ? prev : current
-      ).optimizedUrl
+      previewUrl: getPreviewUrl(p.photos)
     }))
 
     return draftedDto
@@ -100,6 +97,7 @@ export const myPostRouter = router({
         include: {
           photos: {
             select: {
+              order: true,
               optimizedUrl: true
             }
           }
@@ -117,7 +115,7 @@ export const myPostRouter = router({
           )
         : undefined
 
-      const firstPhotoUrl = candidate.photos.at(0)?.optimizedUrl
+      const firstPhotoUrl = getPreviewUrl(candidate.photos)
       const primaryColor =
         candidate.isDrafted && firstPhotoUrl
           ? await getPrimaryColor(getFilePathByUrl(firstPhotoUrl))

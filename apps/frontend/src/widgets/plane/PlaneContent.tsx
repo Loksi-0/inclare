@@ -22,22 +22,25 @@ const PlaneContent = () => {
       >
         <div className={styles.plane__chunkContent}>
           {c.data &&
-            c.data.map((p) => (
-              <PlanePhoto
-                className={styles.plane__post}
-                key={p.id}
-                postId={p.id}
-                src={p.previewUrl}
-                likes={p.likesCount}
-                isLiked={p.isLiked}
-                color={p.primaryColor || DEFAULTS.LIKE_COLOR}
-                onClick={onClick}
-                style={{
-                  left: p.pos.x,
-                  top: p.pos.y
-                }}
-              />
-            ))}
+            c.data.map(
+              (p) =>
+                p.previewUrl && (
+                  <PlanePhoto
+                    className={styles.plane__post}
+                    key={p.id}
+                    postId={p.id}
+                    src={p.previewUrl}
+                    likes={p.likesCount}
+                    isLiked={p.isLiked}
+                    color={p.primaryColor || DEFAULTS.LIKE_COLOR}
+                    onClick={onClick}
+                    style={{
+                      left: p.pos.x,
+                      top: p.pos.y
+                    }}
+                  />
+                )
+            )}
         </div>
       </div>
     ))

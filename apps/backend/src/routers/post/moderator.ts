@@ -4,6 +4,7 @@ import { router } from '@backend/trpc'
 import { PostSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { REDIS_KEYS } from '@backend/constants'
+import { getPreviewUrl } from '@backend/helpers/getPreviewUrl'
 
 export const moderatorPostRouter = router({
   getAll: moderatorProcedure.query(async ({ ctx }) => {
@@ -58,9 +59,7 @@ export const moderatorPostRouter = router({
 
     const postsDto = moderatingPosts.map((p) => ({
       ...p,
-      previewUrl: p.photos.reduce((prev, current) =>
-        prev.order < current.order ? prev : current
-      ).optimizedUrl
+      previewUrl: getPreviewUrl(p.photos)
     }))
 
     return postsDto

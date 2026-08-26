@@ -15,6 +15,7 @@ import type {
 } from '@db/models'
 import apiError from '@backend/helpers/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
+import { getPreviewUrl } from '@backend/helpers/getPreviewUrl'
 
 export const postRouter = router({
   public: publicPostRouter,
@@ -57,9 +58,7 @@ export const postRouter = router({
 
       const postsDto = posts.map((p) => ({
         id: p.id,
-        previewUrl: p.photos.reduce((prev, current) =>
-          prev.order < current.order ? prev : current
-        ).optimizedUrl,
+        previewUrl: getPreviewUrl(p.photos),
         createdAt: p.createdAt,
         pcs: p.photos.length
       }))

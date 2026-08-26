@@ -9,6 +9,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   const me = await api.auth.me.query()
 
   return {
+    metadataBase: new URL(process.env.CLIENT_URL || 'https://inclare.ru'),
     title: `Профиль / ${me.name}`,
     description: me.description,
     openGraph: {
@@ -18,6 +19,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
     }
   }
 }
+
+export const dynamic = 'force-dynamic'
 
 const Profile = () => {
   return (

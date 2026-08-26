@@ -9,8 +9,11 @@ export const metadata: Metadata = {
   title: 'Настройки',
   openGraph: {
     title: 'Настройки'
-  }
+  },
+  robots: { index: false, follow: true }
 }
+
+export const dynamic = 'force-dynamic'
 
 const Settings = () => {
   return (

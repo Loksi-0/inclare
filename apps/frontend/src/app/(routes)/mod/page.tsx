@@ -9,6 +9,13 @@ import Moderators from '@/widgets/moderator/Moderators'
 import Users from '@/widgets/moderator/Users'
 import Config from '@/widgets/moderator/Config'
 import styles from './Moderator.module.scss'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false }
+}
+
+export const dynamic = 'force-dynamic'
 
 const Moderator = catchError(
   async () => {

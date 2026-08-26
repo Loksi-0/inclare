@@ -42,27 +42,30 @@ const ClientDrafts = ({ data: initialData }: DraftsProps) => {
     <DraftsLayout>
       <div className={styles.drafts__grid}>
         {isMounted &&
-          data.map((d, i) => (
-            <Button
-              key={d.id}
-              color='icon'
-              onClick={() => {
-                postStore.open(d.id)
-              }}
-              style={{
-                zIndex: i * 10
-              }}
-            >
-              <Photo
-                className={styles.drafts__item}
-                src={d.previewUrl}
-                style={{
-                  transform: `rotate(${cardsRotations[i]}deg)`
-                }}
-                unoptimized
-              />
-            </Button>
-          ))}
+          data.map(
+            (d, i) =>
+              d.previewUrl && (
+                <Button
+                  key={d.id}
+                  color='icon'
+                  onClick={() => {
+                    postStore.open(d.id)
+                  }}
+                  style={{
+                    zIndex: i * 10
+                  }}
+                >
+                  <Photo
+                    className={styles.drafts__item}
+                    src={d.previewUrl}
+                    style={{
+                      transform: `rotate(${cardsRotations[i]}deg)`
+                    }}
+                    unoptimized
+                  />
+                </Button>
+              )
+          )}
       </div>
     </DraftsLayout>
   )

@@ -1,3 +1,5 @@
+import { getPreviewUrl } from '@backend/helpers/getPreviewUrl'
+
 type Post = {
   id: string
   description: string | null
@@ -16,9 +18,7 @@ export const optimizedPostsDto = (posts: Post[]) => {
     id: p.id,
     description: p.description,
     likesCount: p._count.likes,
-    previewUrl: p.photos.reduce((prev, current) =>
-      prev.order < current.order ? prev : current
-    ).optimizedUrl,
+    previewUrl: getPreviewUrl(p.photos),
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
     pcs: p.photos.length,

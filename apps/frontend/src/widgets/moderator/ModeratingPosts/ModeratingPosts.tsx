@@ -82,81 +82,84 @@ const ModeratingPosts = () => {
 
   return (
     <div className={styles.posts}>
-      {data.map((p) => (
-        <div
-          key={p.id}
-          className={styles.posts__post}
-        >
-          <AuthorHeader
-            className={styles.posts__header}
-            isMy={false}
-            clickable
-            authorId={p.authorId}
-            authorName={p.author.name}
-            avatar={p.author.avatar}
-            createdAt={p.createdAt}
-          />
-          <Button
-            color='icon'
-            onClick={() => {
-              postStore.open(p.id)
-            }}
-          >
-            <Image
-              className={styles.posts__image}
-              src={p.previewUrl}
-              width={500}
-              height={500}
-              alt=''
-            />
-          </Button>
-          {p.description && (
-            <div className={styles.posts__description}>{p.description}</div>
-          )}
-          <div className={styles.posts__actions}>
-            <Button
-              color='solid'
-              onClick={() => {
-                skip({ id: p.id })
-              }}
-              loading={isSkipPending}
-              animate
+      {data.map(
+        (p) =>
+          p.previewUrl && (
+            <div
+              key={p.id}
+              className={styles.posts__post}
             >
-              пропустить
-            </Button>
-            <div className={styles.posts__delete}>
-              <ConfirmButton
-                color='outlined'
-                content={{
-                  title: 'Удалить пост?',
-                  confirm: 'удалить',
-                  reject: 'отмена'
+              <AuthorHeader
+                className={styles.posts__header}
+                isMy={false}
+                clickable
+                authorId={p.authorId}
+                authorName={p.author.name}
+                avatar={p.author.avatar}
+                createdAt={p.createdAt}
+              />
+              <Button
+                color='icon'
+                onClick={() => {
+                  postStore.open(p.id)
                 }}
-                onConfirm={() => {
-                  remove({ id: p.id })
-                }}
-                loading={isDeletePending}
               >
-                удалить
-              </ConfirmButton>
-              <ConfirmButton
-                color='outlined'
-                content={{
-                  title: 'Удалить пост и забанить автора?',
-                  confirm: 'удалить и забанить',
-                  reject: 'отмена'
-                }}
-                onConfirm={() => {
-                  removeAndBan({ postId: p.id, userId: p.authorId })
-                }}
-                loading={isRemoveAndBanPending}
-              >
-                удалить и забанить автора
-              </ConfirmButton>
+                <Image
+                  className={styles.posts__image}
+                  src={p.previewUrl}
+                  width={500}
+                  height={500}
+                  alt=''
+                />
+              </Button>
+              {p.description && (
+                <div className={styles.posts__description}>{p.description}</div>
+              )}
+              <div className={styles.posts__actions}>
+                <Button
+                  color='solid'
+                  onClick={() => {
+                    skip({ id: p.id })
+                  }}
+                  loading={isSkipPending}
+                  animate
+                >
+                  пропустить
+                </Button>
+                <div className={styles.posts__delete}>
+                  <ConfirmButton
+                    color='outlined'
+                    content={{
+                      title: 'Удалить пост?',
+                      confirm: 'удалить',
+                      reject: 'отмена'
+                    }}
+                    onConfirm={() => {
+                      remove({ id: p.id })
+                    }}
+                    loading={isDeletePending}
+                  >
+                    удалить
+                  </ConfirmButton>
+                  <ConfirmButton
+                    color='outlined'
+                    content={{
+                      title: 'Удалить пост и забанить автора?',
+                      confirm: 'удалить и забанить',
+                      reject: 'отмена'
+                    }}
+                    onConfirm={() => {
+                      removeAndBan({ postId: p.id, userId: p.authorId })
+                    }}
+                    loading={isRemoveAndBanPending}
+                  >
+                    удалить и забанить автора
+                  </ConfirmButton>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
+          )
+      )}
     </div>
   )
 }

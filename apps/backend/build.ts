@@ -8,7 +8,7 @@ await esbuild.build({
   target: 'node20',
   format: 'esm',
   outfile: 'dist/index.js',
-  external: ['@prisma/client', '.prisma'],
+  external: ['@prisma/client', '.prisma', 'sharp'],
   banner: {
     js: `
       import { createRequire } from 'module';
