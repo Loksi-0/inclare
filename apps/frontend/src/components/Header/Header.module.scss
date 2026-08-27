@@ -12,6 +12,8 @@
 
   &__logo {
     height: fluid(25, 20);
+    align-items: start;
+    align-self: start;
   }
 
   &__nav {

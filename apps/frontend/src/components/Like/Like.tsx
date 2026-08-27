@@ -45,8 +45,8 @@ const Like = (props: LikeProps) => {
             {pixelsData.map((p) => (
               <rect
                 key={p.id}
-                width={PIXEL_SIZE + 0.5}
-                height={PIXEL_SIZE + 0.5}
+                width={PIXEL_SIZE + 1}
+                height={PIXEL_SIZE + 1}
                 x={p.x}
                 y={p.y}
                 fill={p.fill}
