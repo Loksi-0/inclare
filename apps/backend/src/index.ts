@@ -45,7 +45,14 @@ app.get(`${UPLOADS.URL}/:userId/:postId/*`, async (c) => {
   })
 
   if (getEnv('NODE_ENV') === 'production') {
-    c.header('X-Accel-Redirect', url)
+    const uploadsPath = url.replace(UPLOADS.URL, '')
+    const cleanLocation = getEnv('INTERNAL_UPLOADS_LOCATION').replaceAll(
+      '/',
+      ''
+    )
+    const modifiedUrl = `/${cleanLocation}/${uploadsPath}`
+
+    c.header('X-Accel-Redirect', modifiedUrl)
     return c.body(null)
   }
 
