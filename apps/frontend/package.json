@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000",
-    "build": "next build&& node -e \"fs.cpSync('public', '.next/standalone/apps/frontend/public', {recursive: true}); fs.cpSync('.next/static', '.next/standalone/apps/frontend/.next/static', {recursive: true})\"",
+    "build": "next build",
     "start": "node .next/standalone/apps/frontend/server.js",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\"",
@@ -40,6 +40,7 @@
   "devDependencies": {
     "@inclare/backend": "workspace:*",
     "@repo/api-error-codes": "workspace:*",
+    "@repo/db": "workspace:^",
     "@repo/eslint-config": "workspace:*",
     "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",

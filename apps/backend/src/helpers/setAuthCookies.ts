@@ -1,6 +1,6 @@
 import type { Context } from 'hono'
 import { getDeviceIdCookie, setDeviceIdCookie } from './deviceIdCookie'
-import type { User } from '@db/client'
+import type { User } from '@repo/db'
 import { TokenService } from '@backend/services/token.service'
 import { setTokenCookie } from './tokenCookie'
 

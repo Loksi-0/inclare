@@ -3,8 +3,7 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@backend/*": ["../backend/src/*"],
-      "@db/*": ["../backend/prisma/generated/*"]
+      "@backend/*": ["../backend/src/*"]
     }
   },
   "references": [

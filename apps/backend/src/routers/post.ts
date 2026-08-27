@@ -6,13 +6,13 @@ import { moderatorPostRouter } from './post/moderator'
 import { publicPostRouter } from './post/public'
 import { createPostFolder } from '@backend/helpers/createPostFolder'
 import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
-import type { User } from '@db/client'
+import type { User } from '@repo/db'
 import type {
   PostFindManyArgs,
   PostFindUniqueArgs,
   PostWhereInput,
   PostWhereUniqueInput
-} from '@db/models'
+} from '@repo/db'
 import apiError from '@backend/helpers/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { getPreviewUrl } from '@backend/helpers/getPreviewUrl'

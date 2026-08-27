@@ -1,11 +1,13 @@
 import type { NextConfig } from 'next'
 
+const backendUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
+
 const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
         source: '/uploads/:path*',
-        destination: `${String(process.env.NEXT_PUBLIC_API_URL)}/uploads/:path*`
+        destination: `${String(backendUrl)}/uploads/:path*`
       }
     ]
   },

@@ -1,12 +1,10 @@
 'use client'
 
-import { type PropsWithChildren } from 'react'
+import { useEffect, type PropsWithChildren } from 'react'
 import Providers from './Providers'
 import { Toaster } from 'sonner'
 import Effector from '@/components/Effector'
 import Cursor from '@/components/Cursor'
-import { isTouchscreen } from '@/shared/functions/isTouchscreen'
-import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import ViewPost from '@/components/ViewPost'
 import PhotoModal from '@/components/PhotoModal'
 import UploadPost from '@/components/UploadPost'
@@ -14,9 +12,9 @@ import { soundStore } from '@/stores/sound.store'
 import Onboarding from '@/components/Onboarding'
 
 const App = ({ children }: PropsWithChildren) => {
-  const { isMounted } = useIsMounted()
-
-  void soundStore.init()
+  useEffect(() => {
+    void soundStore.init()
+  }, [])
 
   return (
     <Providers>
@@ -24,7 +22,7 @@ const App = ({ children }: PropsWithChildren) => {
         position='top-center'
         dir='auto'
       />
-      {!isTouchscreen && isMounted && <Cursor />}
+      <Cursor />
       <PhotoModal />
       <Effector>
         {children}

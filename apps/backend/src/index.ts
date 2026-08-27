@@ -71,7 +71,7 @@ app.all('/trpc/*', (c) => {
 serve(
   {
     fetch: app.fetch,
-    port: Number(getEnv('PORT'))
+    port: Number(getEnv('API_PORT'))
   },
   (info) => {
     console.log(`Server is running on port ${String(info.port)}`)

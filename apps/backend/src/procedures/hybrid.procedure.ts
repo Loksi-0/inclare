@@ -1,19 +1,5 @@
 import { checkUser } from '@backend/helpers/checkUser'
-import { parseJwtToken } from '@backend/helpers/parseJwtToken'
-import { unauthorized } from '@backend/helpers/unauthorized'
 import { publicProcedure } from '@backend/trpc'
-import type { JwtSchema } from '@repo/validators'
-
-const getValidUserId = (
-  payload: JwtSchema.Payload | null,
-  deviceId: string | undefined
-) => {
-  if (!payload || !deviceId) {
-    return null
-  }
-
-  return payload.deviceId === deviceId ? payload.userId : null
-}
 
 export const hybridProcedure = publicProcedure.use(async ({ ctx, next }) => {
   let user = null

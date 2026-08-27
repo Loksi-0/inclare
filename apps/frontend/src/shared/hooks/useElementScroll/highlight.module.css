@@ -1,0 +1,14 @@
+.highlight {
+  animation: light 2s forwards;
+}
+
+@keyframes light {
+  from {
+    background-color: var(--color-accent-10);
+    border-color: var(--color-accent);
+  }
+  to {
+    background-color: var(--color-white);
+    border-color: var(--color-gray-10);
+  }
+}/*# sourceMappingURL=highlight.module.css.map */

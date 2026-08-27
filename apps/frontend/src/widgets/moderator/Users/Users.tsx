@@ -6,7 +6,7 @@ import { useState } from 'react'
 import Preloader from '@/components/Preloader'
 import UserCard from '@/components/UserCard/UserCard'
 import Button from '@/components/Button'
-import type { Role } from '@db/enums'
+import type { Role } from '@repo/db'
 import styles from './Users.module.scss'
 
 const Users = ({ role, myEmail }: { role: Role; myEmail: string }) => {

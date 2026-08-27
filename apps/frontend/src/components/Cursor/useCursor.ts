@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { CURSOR } from '@/constants'
 import styles from './Cursor.module.scss'
+import { isTouchscreen } from '@/shared/functions/isTouchscreen'
 
 export const useCursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null)
@@ -42,6 +43,10 @@ export const useCursor = () => {
   }
 
   useEffect(() => {
+    if (isTouchscreen) {
+      return
+    }
+
     const setX = gsap.quickSetter(cursorRef.current, 'x', 'px')
     const setY = gsap.quickSetter(cursorRef.current, 'y', 'px')
 

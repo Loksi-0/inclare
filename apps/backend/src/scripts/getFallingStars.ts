@@ -1,7 +1,7 @@
 import { ALGORITHM_DEFAULTS, REDIS_KEYS } from '@backend/constants'
 import { prisma, redis } from '@backend/context'
 import { starsEmitter } from '@backend/helpers/starsEmitter'
-import { Prisma } from '@db/client'
+import { Prisma } from '@repo/db'
 
 const getFallingStars = async () => {
   const MIN_AVG_VELOCITY = 0.1

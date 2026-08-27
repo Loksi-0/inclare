@@ -2,7 +2,7 @@
   "extends": "@repo/typescript-config/honojs.json",
   "compilerOptions": {
     "paths": {
-      "@backend/*": ["./src/*"]
+      "@repo/db/*": ["./generated/*"]
     }
   }
 }
