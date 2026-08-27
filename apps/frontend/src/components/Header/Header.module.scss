@@ -12,6 +12,7 @@
 
   &__logo {
     width: fit-content;
+    max-width: rem(20);
     height: fluid(25, 20);
     align-items: start;
     align-self: start;

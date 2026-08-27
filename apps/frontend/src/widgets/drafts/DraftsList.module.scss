@@ -14,7 +14,7 @@
     --cols: 6;
 
     width: 100%;
-    max-height: 90vh;
+    max-height: 90svh;
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
     overflow-y: auto;

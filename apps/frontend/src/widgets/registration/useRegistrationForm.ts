@@ -79,7 +79,7 @@ export const useRegistrationForm = () => {
 
       if (formRef.current) {
         gsap.to(formRef.current, {
-          y: `${-screen * 100}vh`,
+          y: `${-screen * 100}svh`,
           duration: 0.7,
           ease: 'power4.out'
         })
@@ -92,7 +92,7 @@ export const useRegistrationForm = () => {
   const back = () => {
     if (formRef.current) {
       gsap.to(formRef.current, {
-        y: `${-(screen - 2) * 100}vh`,
+        y: `${-(screen - 2) * 100}svh`,
         duration: 0.7,
         ease: 'power4.out'
       })

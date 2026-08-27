@@ -4,7 +4,7 @@
   &.plane {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100svh;
   }
 
   &__main {
@@ -17,13 +17,13 @@
     }
 
     &.overflow {
-      height: 95vh;
+      height: 95svh;
       overflow-y: scroll;
       padding-bottom: calc(var(--section-padding) * 3);
     }
 
     &.profile {
-      height: 95vh;
+      height: 95svh;
       justify-content: space-between;
     }
 
