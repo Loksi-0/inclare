@@ -18,7 +18,7 @@ const PhotoLayout = forwardRef<HTMLDivElement, PhotoLayoutProps>(
         className={cx(styles.photo, className, [{ [styles.mini]: mini }])}
         style={style}
       >
-        {children}
+        <div className={styles.photo__inner}>{children}</div>
       </div>
     )
   }

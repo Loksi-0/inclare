@@ -1,6 +1,9 @@
 @use '@/app/styles/helpers' as *;
 
 .photo {
+  --photo-padding: #{fluid(10, 7)};
+  --photo-padding-bottom: #{fluid(50, 35)};
+
   background-color: var(--color-white);
   box-shadow: 0 0 rem(30) 0 var(--color-gray-20);
   aspect-ratio: 3 / 4;
@@ -10,12 +13,25 @@
   user-select: none;
   overflow: hidden;
   display: flex;
+  position: relative;
 
   &.mini {
+    --photo-padding: #{fluid(7, 5)};
+    --photo-padding-bottom: #{fluid(35, 25)};
+
     box-shadow: none;
     border: var(--border);
     width: fluid(185, 125);
     padding: fluid(7, 5);
     padding-bottom: fluid(35, 25);
+  }
+
+  &__inner {
+    // without position: absolute safari would set content height to photo container height (literally 100%)
+    position: absolute;
+    top: var(--photo-padding);
+    left: var(--photo-padding);
+    right: var(--photo-padding);
+    bottom: var(--photo-padding-bottom);
   }
 }

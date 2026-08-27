@@ -11,6 +11,7 @@
   z-index: 1000;
 
   &__logo {
+    width: fit-content;
     height: fluid(25, 20);
     align-items: start;
     align-self: start;
