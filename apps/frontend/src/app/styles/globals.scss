@@ -12,13 +12,14 @@ body {
   @include fluid-text(16, 14);
 
   width: 100vw;
-  height: 100vh;
+  height: 100lvh;
   display: flex;
   flex-direction: column;
   font-family: var(--font-family-base);
   letter-spacing: 0;
   color: var(--color-dark);
   background-color: var(--color-light);
+  overflow: hidden;
 
   @include selection {
     background-color: var(--color-gray-20);

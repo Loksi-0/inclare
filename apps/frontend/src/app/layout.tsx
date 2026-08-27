@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, PT_Serif, Geist_Mono } from 'next/font/google'
 import cx from 'clsx'
 import App from './App'
@@ -21,6 +21,13 @@ const geistMono = Geist_Mono({
   weight: '400',
   subsets: ['latin', 'cyrillic']
 })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.CLIENT_URL || 'https://inclare.ru'),

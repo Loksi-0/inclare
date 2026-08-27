@@ -20,6 +20,7 @@ const Settings = () => {
     <PageLayout
       className='container-small'
       settings
+      overflow
     >
       <SettingsHeader />
       <UpdateProfile />

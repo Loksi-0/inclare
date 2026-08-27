@@ -9,6 +9,7 @@ type PageLayoutProps = PropsWithChildren<{
   plane?: boolean
   settings?: boolean
   className?: string
+  overflow?: boolean
 }>
 
 const PageLayout = (props: PageLayoutProps) => {
@@ -18,7 +19,8 @@ const PageLayout = (props: PageLayoutProps) => {
     settings = false,
     profile = false,
     padding = false,
-    plane = false
+    plane = false,
+    overflow = false
   } = props
 
   return (
@@ -28,6 +30,7 @@ const PageLayout = (props: PageLayoutProps) => {
         className={cx(styles.layout__main, className, [
           { [styles.profile]: profile },
           { [styles.padding]: padding },
+          { [styles.overflow]: overflow },
           { [styles.plane]: plane },
           { [styles.settings]: settings }
         ])}
