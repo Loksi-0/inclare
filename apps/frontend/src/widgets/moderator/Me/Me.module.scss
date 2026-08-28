@@ -5,20 +5,17 @@
   flex-direction: column;
   justify-content: space-between;
   padding-block: var(--section-padding);
+  padding-inline: var(--container-padding-x);
   padding-right: fluid(30, 20);
   border-right: var(--border);
 
   @include mobile {
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
     background-color: var(--color-light);
     z-index: 1000;
     border-right: none;
     border-top: var(--border);
     flex-direction: row;
-    padding-inline: var(--container-padding-x);
     padding-block: fluid(30, 20);
   }
 

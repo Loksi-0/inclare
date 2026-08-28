@@ -6,6 +6,9 @@
   width: 100%;
   max-width: rem(700);
   gap: fluid(30, 20);
+  overflow-y: scroll;
+  min-height: 0;
+  padding-bottom: calc(var(--section-padding) * 2);
 
   @include mobile-s {
     grid-template-columns: repeat(1, 1fr);
