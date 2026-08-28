@@ -1,23 +1,40 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "globalEnv": [
-    "DATABASE_URL",
-    "PORT",
+    "POSTGRES_USER",
+    "POSTGRES_PASSWORD",
+    "POSTGRES_DB",
+    "IGNORE_BUILD_TYPE_ERRORS",
+    "UNOPTIMIZE_IMAGES",
+    "IMAGE_COMPRESSION",
+    "API_URL",
+    "NEXT_PUBLIC_API_URL",
     "CLIENT_URL",
-    "REDIS_URL",
-    "NODE_ENV",
     "JWT_SECRET",
     "SECURE_COOKIE",
     "PASSWORD_SALT_ROUNDS",
-    "NEXT_PUBLIC_API_URL",
-    "API_URL"
+    "API_PORT",
+    "NODE_ENV",
+    "INTERNAL_UPLOADS_LOCATION",
+    "REDIS_URL",
+    "DATABASE_URL"
   ],
   "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"],
+      "env": [
+        "IGNORE_BUILD_TYPE_ERRORS",
+        "UNOPTIMIZE_IMAGES",
+        "IMAGE_COMPRESSION",
+        "API_URL",
+        "NEXT_PUBLIC_API_URL",
+        "NEXT_TELEMETRY_DISABLED",
+        "CLIENT_URL",
+        "NODE_ENV"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
