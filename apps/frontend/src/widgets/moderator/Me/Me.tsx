@@ -49,34 +49,11 @@ const Me = ({ avatar, name, role }: MeProps) => {
       </div>
       <div className={styles.me__buttons}>
         <Button
-          color='outlined'
-          navigate={PAGES.SETTINGS}
-        >
-          настройки
-        </Button>
-        <OptionsButton
+          navigate={PAGES.PROFILE}
           color='solid'
-          data={[
-            {
-              title: 'выйти на этом устройстве',
-              color: 'solid',
-              onClick: () => {
-                logoutCurrent()
-              },
-              loading: isCurrentPending
-            },
-            {
-              title: 'выйти на всех устройствах',
-              color: 'outlined',
-              onClick: () => {
-                logoutAll()
-              },
-              loading: isAllPending
-            }
-          ]}
         >
-          выйти из аккаунта
-        </OptionsButton>
+          перейти в профиль
+        </Button>
       </div>
     </section>
   )

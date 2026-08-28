@@ -39,6 +39,35 @@ const ClientMe = (props: ClientMeProps) => {
     }
   }
 
+  const Actions = ({ mobile = false }: { mobile?: boolean }) => {
+    return (
+      <div className={cx(styles.me__buttons, [{ 'visible-mobile': mobile }])}>
+        {me.role === 'MODERATOR' ||
+          (me.role === 'ADMIN' && (
+            <Button
+              color='outlined'
+              navigate={PAGES.MODERATOR}
+            >
+              админка
+            </Button>
+          ))}
+        <Button
+          navigate={PAGES.SETTINGS}
+          color='outlined'
+        >
+          настройки
+        </Button>
+        <Button
+          className={styles.me__share}
+          color='icon'
+          onClick={shareProfile}
+        >
+          <Share />
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <section className={styles.me}>
       <div className={styles.me__body}>
@@ -73,38 +102,10 @@ const ClientMe = (props: ClientMeProps) => {
               <p>{me.role}</p>
             </li>
           </ul>
-          <div className={styles.me__buttons}>
-            <Button
-              navigate={PAGES.SETTINGS}
-              color='outlined'
-            >
-              настройки
-            </Button>
-            <Button
-              className={styles.me__share}
-              color='icon'
-              onClick={shareProfile}
-            >
-              <Share />
-            </Button>
-          </div>
+          <Actions />
         </div>
       </div>
-      <div className={cx(styles.me__buttons, 'visible-mobile')}>
-        <Button
-          navigate={PAGES.SETTINGS}
-          color='outlined'
-        >
-          настройки
-        </Button>
-        <Button
-          className={styles.me__share}
-          color='icon'
-          onClick={shareProfile}
-        >
-          <Share />
-        </Button>
-      </div>
+      <Actions mobile />
     </section>
   )
 }

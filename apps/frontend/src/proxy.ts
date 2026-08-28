@@ -42,13 +42,6 @@ export const proxy = async (req: NextRequest) => {
     return NextResponse.redirect(new URL(PAGES.PROFILE, req.url))
   }
 
-  if (
-    (role === 'MODERATOR' || role === 'ADMIN') &&
-    pathname.startsWith(PAGES.PROFILE)
-  ) {
-    return NextResponse.redirect(new URL(PAGES.MODERATOR, req.url))
-  }
-
   if ((role === 'USER' || !role) && pathname.startsWith(PAGES.MODERATOR)) {
     return NextResponse.redirect(new URL(PAGES.PROFILE, req.url))
   }
