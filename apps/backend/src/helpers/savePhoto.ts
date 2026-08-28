@@ -30,9 +30,10 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
   const photoId = cuid()
 
   const fileExt = file.name.split('.').at(-1)
+  const optimizedExt = getEnv('IMAGE_COMPRESSION') === 'avif' ? 'avif' : 'webp'
 
   const rawName = `${photoId}.${fileExt || 'jpg'}`
-  const optimizedName = `${photoId}.avif`
+  const optimizedName = `${photoId}.${optimizedExt}`
 
   const rawPath = path.join(RAW_POST.PATH(userId, postId), rawName)
   const optimizedPath = path.join(
@@ -83,7 +84,7 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
       orientation
     }
 
-    if (getEnv('IMAGE_COMPRESSION') === 'avif') {
+    if (optimizedExt === 'avif') {
       await compressAvif(compressOptions)
     } else {
       await compressWebp(compressOptions)
