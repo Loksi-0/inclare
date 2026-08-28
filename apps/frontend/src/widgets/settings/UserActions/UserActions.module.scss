@@ -1,0 +1,8 @@
+@use '@/app/styles/helpers' as *;
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: fluid(10, 5);
+  flex-wrap: wrap;
+}

@@ -11,6 +11,7 @@ type ConfirmButtonProps = PropsWithChildren<{
   color: ComponentProps<typeof Button>['color']
   content: {
     title: string
+    description?: string
     confirm: string
     reject: string
   }
@@ -37,7 +38,12 @@ const ConfirmButton = observer((props: ConfirmButtonProps) => {
         className={cx(styles.modal, [{ [styles.open]: isOpen }])}
         ref={modalRef}
       >
-        <h3>{content.title}</h3>
+        <div className={styles.modal__body}>
+          <h3>{content.title}</h3>
+          {content.description && (
+            <p className={styles.modal__description}>{content.description}</p>
+          )}
+        </div>
         <div className={styles.modal__buttons}>
           <Button
             tabindex={isOpen ? 0 : -1}

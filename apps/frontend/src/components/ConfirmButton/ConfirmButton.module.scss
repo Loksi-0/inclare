@@ -12,7 +12,9 @@
   border: var(--border);
   padding: fluid(20, 10);
   pointer-events: none;
+  min-width: rem(250);
   width: max-content;
+  max-width: 70vw;
 
   &.open {
     pointer-events: unset;
@@ -20,6 +22,18 @@
 
   &__wrapper {
     position: relative;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(10, 5);
+    align-items: center;
+    text-align: center;
+  }
+
+  &__description {
+    color: var(--color-gray-10);
   }
 
   &__buttons {

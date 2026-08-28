@@ -1,6 +1,7 @@
 'use client'
 
 import { useBlur } from '@/shared/hooks/useBlur'
+import { useFluid } from '@/shared/hooks/useFluid'
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
 
@@ -14,13 +15,13 @@ export const useConfirmButton = () => {
   const blurIn = useBlur({ from: 0, to: 10 })
   const blurOut = useBlur({ from: 10, to: 0 })
 
+  const PADDING = 10
+  const MARGIN = useFluid(20, 50)
+
   const setModalPosition = () => {
     if (!buttonRef.current || !modalRef.current) {
       return
     }
-
-    const PADDING = 10
-    const MARGIN = 50
 
     const buttonRect = buttonRef.current.getBoundingClientRect()
     const modalRect = modalRef.current.getBoundingClientRect()

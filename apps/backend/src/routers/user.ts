@@ -1,4 +1,4 @@
-import { USER_PROFILE } from '@backend/constants'
+import { USER_FOLDER, USER_PROFILE } from '@backend/constants'
 import apiError from '@backend/helpers/apiError'
 import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
 import { moderatorProcedure } from '@backend/procedures/moderator.procedure'
@@ -14,6 +14,7 @@ import { getRandomAvatar } from '@backend/helpers/getRandomAvatar'
 import cuid from '@bugsnag/cuid'
 import { getFilePathByUrl } from '@backend/helpers/getFilePathByUrl'
 import fs from 'fs/promises'
+import { deleteTokenCookie } from '@backend/helpers/tokenCookie'
 
 export const userRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
@@ -217,5 +218,11 @@ export const userRouter = router({
     })
 
     return user
+  }),
+
+  deleteMe: protectedProcedure.mutation(async ({ ctx }) => {
+    await ctx.prisma.user.delete({ where: { id: ctx.user.id } })
+    await fs.rm(USER_FOLDER.PATH(ctx.user.id), { recursive: true, force: true })
+    deleteTokenCookie(ctx.honoContext)
   })
 })

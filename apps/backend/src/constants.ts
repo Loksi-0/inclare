@@ -10,11 +10,16 @@ export const UPLOADS = {
   URL: '/uploads'
 }
 
+export const USER_FOLDER = {
+  PATH: (userId: string) => path.join(UPLOADS.PATH, userId),
+  URL: (userId: string) => [UPLOADS.URL, userId].join('/')
+}
+
 export const POST = {
   PATH: (userId: string, postId: string) =>
-    path.join(UPLOADS.PATH, userId, postId),
+    path.join(USER_FOLDER.PATH(userId), postId),
   URL: (userId: string, postId: string) =>
-    [UPLOADS.URL, userId, postId].join('/')
+    [USER_FOLDER.URL(userId), postId].join('/')
 }
 
 export const RAW_POST = {

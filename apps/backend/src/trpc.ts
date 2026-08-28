@@ -1,6 +1,7 @@
 import { initTRPC } from '@trpc/server'
 import type { Context } from './context'
 import SuperJSON from 'superjson'
+import getEnv from './helpers/getEnv'
 
 export const t = initTRPC.context<Context>().create({
   transformer: SuperJSON,
@@ -10,7 +11,9 @@ export const t = initTRPC.context<Context>().create({
       code: shape.code,
       data: {
         code: shape.data.code,
-        httpStatus: shape.data.httpStatus
+        httpStatus: shape.data.httpStatus,
+        stack:
+          getEnv('NODE_ENV') !== 'development' ? undefined : shape.data.stack
       }
     }
   }
