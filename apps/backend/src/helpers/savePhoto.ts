@@ -6,9 +6,9 @@ import { getExif } from './getExif'
 import { exiftool } from 'exiftool-vendored'
 import apiError from './apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
-import { compressAvif } from './compressAvif'
 import getEnv from './getEnv'
-import { compressWebp } from './compressWebp'
+import { orientationToAngle } from './orientationToAngle'
+import { compressImage } from './compressImage'
 
 type Options = {
   file: File
@@ -66,7 +66,7 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
     // exif
     const exif = await getExif(rawPath)
 
-    const orientation = exif?.Orientation
+    const angle = orientationToAngle(exif?.Orientation)
 
     const exifDto = {
       shutterSpeed: exif?.ShutterSpeed?.trim(),
@@ -81,14 +81,10 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
       height: null,
       img: isRaw ? tempPath : rawBuffer,
       output: optimizedPath,
-      orientation
+      angle
     }
 
-    if (optimizedExt === 'avif') {
-      await compressAvif(compressOptions)
-    } else {
-      await compressWebp(compressOptions)
-    }
+    await compressImage(optimizedExt, compressOptions)
 
     if (isRaw) {
       await fs.unlink(tempPath)

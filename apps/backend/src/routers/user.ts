@@ -9,12 +9,12 @@ import type { Prisma, Role, User } from '@repo/db'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import path from 'path'
 import { createFolder } from '@backend/helpers/createFolder'
-import { compressWebp } from '@backend/helpers/compressWebp'
 import { getRandomAvatar } from '@backend/helpers/getRandomAvatar'
 import cuid from '@bugsnag/cuid'
 import { getFilePathByUrl } from '@backend/helpers/getFilePathByUrl'
 import fs from 'fs/promises'
 import { deleteTokenCookie } from '@backend/helpers/tokenCookie'
+import { compressImage } from '@backend/helpers/compressImage'
 
 export const userRouter = router({
   getAll: hybridProcedure.query(async ({ ctx }) => {
@@ -141,7 +141,7 @@ export const userRouter = router({
       const bytes = await input.file.bytes()
       const imgBuffer = Buffer.from(bytes)
 
-      await compressWebp({
+      await compressImage('webp', {
         width: 150,
         height: 150,
         img: imgBuffer,
