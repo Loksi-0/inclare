@@ -1,7 +1,5 @@
 'use client'
 
-'use client'
-
 import panzoom, { type PanZoom } from 'panzoom'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { ApiReturnType } from '@/types/globals'
@@ -128,11 +126,13 @@ export const usePlaneContext = (props: PlaneProps) => {
 
     instance.on('panstart', () => {
       isDragging.current = true
+      postStore.setCanClose(false)
     })
 
     instance.on('panend', () => {
       requestAnimationFrame(() => {
         isDragging.current = false
+        postStore.setCanClose(true)
       })
     })
 

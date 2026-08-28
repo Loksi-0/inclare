@@ -7,6 +7,7 @@ class PostStore {
   isOpen = false
   isUploading = false
   bodyRef: HTMLElement | null = null
+  canCloseOutside = true
 
   constructor() {
     makeAutoObservable(this)
@@ -80,6 +81,10 @@ class PostStore {
 
   setIsUploading = (bool: boolean) => {
     this.isUploading = bool
+  }
+
+  setCanClose = (bool: boolean) => {
+    this.canCloseOutside = bool
   }
 }
 
