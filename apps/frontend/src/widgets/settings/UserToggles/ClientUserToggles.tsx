@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query'
 import { observer } from 'mobx-react-lite'
 import { soundStore } from '@/stores/sound.store'
 import styles from './UserToggles.module.scss'
+import { preferencesStore } from '@/stores/preferences.store'
 
 type UserTogglesProps = {
   isPrivate: boolean
@@ -39,6 +40,13 @@ const ClientUserToggles = observer(
           isToggled={soundStore.isOn}
           onToggle={(t) => {
             soundStore.setIsOn(t)
+          }}
+        />
+        <ToggleSwitch
+          title='Кастомный курсор'
+          isToggled={!preferencesStore.hideCursor}
+          onToggle={(t) => {
+            preferencesStore.setHideCursor(!t)
           }}
         />
       </div>

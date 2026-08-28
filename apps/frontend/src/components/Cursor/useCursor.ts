@@ -3,8 +3,8 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { CURSOR } from '@/constants'
-import styles from './Cursor.module.scss'
 import { isTouchscreen } from '@/shared/functions/isTouchscreen'
+import { preferencesStore } from '@/stores/preferences.store'
 
 export const useCursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null)
@@ -43,7 +43,13 @@ export const useCursor = () => {
   }
 
   useEffect(() => {
-    if (isTouchscreen) {
+    if (preferencesStore.hideCursor) {
+      document.documentElement.setAttribute('custom-cursor', 'hidden')
+    } else {
+      document.documentElement.setAttribute('custom-cursor', 'visible')
+    }
+
+    if (isTouchscreen || preferencesStore.hideCursor) {
       return
     }
 
@@ -104,8 +110,6 @@ export const useCursor = () => {
       scale(1)
     }
 
-    document.documentElement.classList.add(styles.global)
-
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mousedown', onDown)
     window.addEventListener('mouseup', onUp)
@@ -114,10 +118,12 @@ export const useCursor = () => {
 
     return () => {
       window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mousedown', onDown)
+      window.removeEventListener('mouseup', onUp)
       document.removeEventListener('mouseenter', onEnter)
       document.removeEventListener('mouseleave', onLeave)
     }
-  }, [])
+  }, [preferencesStore.hideCursor])
 
   return { cursorRef }
 }

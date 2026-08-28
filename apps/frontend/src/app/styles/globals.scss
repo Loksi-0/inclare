@@ -90,6 +90,12 @@ a {
   }
 }
 
+[custom-cursor='visible'] {
+  * {
+    cursor: none !important;
+  }
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-timing-function: var(--transition-cubic-beizer);
