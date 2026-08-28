@@ -17,7 +17,8 @@
     "NODE_ENV",
     "INTERNAL_UPLOADS_LOCATION",
     "REDIS_URL",
-    "DATABASE_URL"
+    "DATABASE_URL",
+    "ADMIN_KEYWORD"
   ],
   "ui": "tui",
   "tasks": {

@@ -1,5 +1,6 @@
 import { isClient } from '@/shared/functions/isClient'
 import type { AppRouter } from '@inclare/backend'
+import { API_BASE_URL } from '@repo/constants'
 import {
   createTRPCClient,
   httpBatchLink,
@@ -10,7 +11,7 @@ import {
 } from '@trpc/client'
 import SuperJSON from 'superjson'
 
-const apiUrl = `${String(isClient ? process.env.NEXT_PUBLIC_API_URL : process.env.API_URL)}/trpc`
+const apiUrl = `${String(isClient ? process.env.NEXT_PUBLIC_API_URL : process.env.API_URL)}${API_BASE_URL}`
 
 const linkOptions = {
   url: apiUrl,

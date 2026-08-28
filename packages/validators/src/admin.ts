@@ -24,3 +24,9 @@ export const setFallingStarIntervals = z
       ctx.addIssue('Now не может быть больше past')
     }
   })
+
+export const setAdmin = z.object({
+  keyword: stringSchema(),
+  email: z.email(),
+  isAdmin: z.boolean()
+})

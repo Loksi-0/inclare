@@ -20,6 +20,7 @@
   "dependencies": {
     "@bugsnag/cuid": "^3.2.2",
     "@hono/node-server": "^1.19.14",
+    "@hono/zod-validator": "^0.9.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@repo/constants": "workspace:^",
     "@repo/validators": "workspace:^",
