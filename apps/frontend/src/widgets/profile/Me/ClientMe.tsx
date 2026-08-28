@@ -10,6 +10,8 @@ import { hideEmail } from '@/shared/functions/hideEmail'
 import type { ApiReturnType } from '@/types/globals'
 import Avatar from '@/components/Avatar'
 import styles from './Me.module.scss'
+import { toast } from '@/shared/functions/toast'
+import Share from '@/icons/Share'
 
 type ClientMeProps = {
   data: ApiReturnType<typeof api.auth.me.query>
@@ -22,6 +24,20 @@ const ClientMe = (props: ClientMeProps) => {
   const { data: me } = useQuery(
     trpc.auth.me.queryOptions(undefined, { initialData })
   )
+
+  const shareProfile = async () => {
+    const pathname = PAGES.USER(me.id)
+    const origin = window.location.origin
+
+    const url = `${origin}${pathname}`
+
+    try {
+      await navigator.clipboard.writeText(url)
+      toast.message('Ссылка на профиль скопирована')
+    } catch {
+      toast.error('Не удалось скопировать url')
+    }
+  }
 
   return (
     <section className={styles.me}>
@@ -57,22 +73,38 @@ const ClientMe = (props: ClientMeProps) => {
               <p>{me.role}</p>
             </li>
           </ul>
-          <Button
-            className='align-end'
-            navigate={PAGES.SETTINGS}
-            color='outlined'
-          >
-            ред. профиль
-          </Button>
+          <div className={styles.me__buttons}>
+            <Button
+              navigate={PAGES.SETTINGS}
+              color='outlined'
+            >
+              настройки
+            </Button>
+            <Button
+              className={styles.me__share}
+              color='icon'
+              onClick={shareProfile}
+            >
+              <Share />
+            </Button>
+          </div>
         </div>
       </div>
-      <Button
-        className={cx('align-start', 'visible-mobile')}
-        navigate={PAGES.SETTINGS}
-        color='outlined'
-      >
-        ред. профиль
-      </Button>
+      <div className={cx(styles.me__buttons, 'visible-mobile')}>
+        <Button
+          navigate={PAGES.SETTINGS}
+          color='outlined'
+        >
+          настройки
+        </Button>
+        <Button
+          className={styles.me__share}
+          color='icon'
+          onClick={shareProfile}
+        >
+          <Share />
+        </Button>
+      </div>
     </section>
   )
 }

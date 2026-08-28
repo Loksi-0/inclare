@@ -80,4 +80,25 @@
       }
     }
   }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: rem(5);
+    align-items: end;
+    align-self: end;
+
+    @include mobile {
+      align-items: start;
+      align-self: start;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__share {
+    height: 100%;
+    background-color: var(--color-white);
+    padding: rem(15);
+    border: var(--border);
+  }
 }
