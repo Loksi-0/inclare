@@ -6,7 +6,8 @@ export const metadata: Metadata = {
   description: 'Создайте аккаунт в соцсети Inclare',
   openGraph: {
     title: 'Регистрация',
-    description: 'Создайте аккаунт в соцсети Inclare'
+    description: 'Создайте аккаунт в соцсети Inclare',
+    images: ['/favicon/web-app-manifest-192x192.png']
   }
 }
 

@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: 'Inclare',
     description:
       'Минималистичная платформа для архивации фотографий с лентой в виде бесконечной 2D плоскости',
-    images: ['/favicon/web-app-manifest-512x512.png']
+    images: ['/favicon/web-app-manifest-192x192.png']
   },
   icons: {
     icon: [

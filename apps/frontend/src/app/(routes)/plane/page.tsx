@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   description: 'Исследуйте Inclare на бесконечной плоскости',
   openGraph: {
     title: 'Плоскость',
-    description: 'Исследуйте Inclare на бесконечной плоскости'
+    description: 'Исследуйте Inclare на бесконечной плоскости',
+    images: ['/favicon/web-app-manifest-192x192.png']
   }
 }
 
