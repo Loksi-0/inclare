@@ -104,7 +104,7 @@ const ViewPost = observer(() => {
                 tabindex={-1}
                 color='solid'
               >
-                скачать исходники
+                скачать исходники (архив)
               </Button>
             </a>
           )}

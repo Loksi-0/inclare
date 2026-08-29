@@ -34,7 +34,7 @@
   &__download {
     @include square(50);
 
-    border: var(--border);
+    border-left: var(--border);
     background-color: var(--color-white);
     padding: rem(15);
   }

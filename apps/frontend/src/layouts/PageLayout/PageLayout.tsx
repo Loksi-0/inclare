@@ -1,10 +1,7 @@
-'use client'
-
 import Header from '@/components/Header'
-import { useEffect, useRef, type PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 import cx from 'clsx'
 import styles from './PageLayout.module.scss'
-import { pageStore } from '@/stores/page.store'
 
 type PageLayoutProps = PropsWithChildren<{
   profile?: boolean
@@ -26,21 +23,8 @@ const PageLayout = (props: PageLayoutProps) => {
     overflow = false
   } = props
 
-  const pageRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    if (!pageRef.current) {
-      return
-    }
-
-    pageStore.pageRef = pageRef.current
-  }, [])
-
   return (
-    <div
-      ref={pageRef}
-      className={cx(styles.layout, [{ [styles.plane]: plane }])}
-    >
+    <div className={cx(styles.layout, [{ [styles.plane]: plane }])}>
       <Header />
       <main
         className={cx(styles.layout__main, className, [

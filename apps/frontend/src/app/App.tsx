@@ -10,6 +10,7 @@ import PhotoModal from '@/components/PhotoModal'
 import UploadPost from '@/components/UploadPost'
 import { soundStore } from '@/stores/sound.store'
 import Onboarding from '@/components/Onboarding'
+import Main from '@/components/Main'
 
 const App = ({ children }: PropsWithChildren) => {
   useEffect(() => {
@@ -25,7 +26,7 @@ const App = ({ children }: PropsWithChildren) => {
       <Cursor />
       <PhotoModal />
       <Effector>
-        {children}
+        <Main>{children}</Main>
         <Onboarding />
         <ViewPost />
         <UploadPost />

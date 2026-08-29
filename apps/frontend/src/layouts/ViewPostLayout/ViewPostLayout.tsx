@@ -1,7 +1,7 @@
-import { useEffect, useRef, type PropsWithChildren } from 'react'
+import { useEffect, type PropsWithChildren } from 'react'
 import styles from './ViewPostLayout.module.scss'
 import { postStore } from '@/stores/post.store'
-import { pageStore } from '@/stores/page.store'
+import { mainStore } from '@/stores/main.store'
 
 type ViewPostLayoutProps = PropsWithChildren<{
   height: number
@@ -11,33 +11,30 @@ type ViewPostLayoutProps = PropsWithChildren<{
 const ViewPostLayout = (props: ViewPostLayoutProps) => {
   const { height, children, zIndex } = props
 
-  const viewPostRef = useRef<HTMLDivElement | null>(null)
-
   useEffect(() => {
-    if (!pageStore.pageRef) {
+    if (!mainStore.mainRef) {
       return
     }
 
     const onClick = (e: PointerEvent) => {
       if (
         e.target instanceof HTMLElement &&
-        !e.target.closest('button, a, img, svg') &&
+        !e.target.closest('a, button') &&
         postStore.canCloseOutside
       ) {
         postStore.close()
       }
     }
 
-    pageStore.pageRef.addEventListener('click', onClick)
+    mainStore.mainRef.addEventListener('click', onClick)
 
     return () => {
-      pageStore.pageRef?.removeEventListener('click', onClick)
+      mainStore.mainRef?.removeEventListener('click', onClick)
     }
   }, [])
 
   return (
     <section
-      ref={viewPostRef}
       className={styles.post}
       style={{
         height: `${height}px`,
