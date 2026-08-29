@@ -54,7 +54,6 @@
 
 .underline {
   position: relative;
-  overflow: hidden;
   width: fit-content;
 
   &.gray {
@@ -67,8 +66,8 @@
     position: absolute;
     content: '';
     bottom: 0;
-    left: -100%;
-    width: 100%;
+    left: 0;
+    width: 0;
     height: rem(1);
     background-color: var(--color-dark);
   }
@@ -77,7 +76,7 @@
     filter: blur(0);
 
     &::after {
-      left: 0;
+      width: 100%;
     }
 
     &.gray {

@@ -8,6 +8,8 @@ import { observer } from 'mobx-react-lite'
 import { soundStore } from '@/stores/sound.store'
 import styles from './UserToggles.module.scss'
 import { preferencesStore } from '@/stores/preferences.store'
+import { isTouchscreen } from '@/shared/functions/isTouchscreen'
+import { useIsMounted } from '@/shared/hooks/useIsMounted'
 
 type UserTogglesProps = {
   isPrivate: boolean
@@ -15,6 +17,7 @@ type UserTogglesProps = {
 
 const ClientUserToggles = observer(
   ({ isPrivate: initialIsPrivate }: UserTogglesProps) => {
+    const { isMounted } = useIsMounted()
     const [isPrivate, setIsPrivate] = useState(initialIsPrivate)
 
     const trpc = useTRPC()
@@ -42,13 +45,15 @@ const ClientUserToggles = observer(
             soundStore.setIsOn(t)
           }}
         />
-        <ToggleSwitch
-          title='Кастомный курсор'
-          isToggled={!preferencesStore.hideCursor}
-          onToggle={(t) => {
-            preferencesStore.setHideCursor(!t)
-          }}
-        />
+        {!isTouchscreen && isMounted && (
+          <ToggleSwitch
+            title='Кастомный курсор'
+            isToggled={!preferencesStore.hideCursor}
+            onToggle={(t) => {
+              preferencesStore.setHideCursor(!t)
+            }}
+          />
+        )}
       </div>
     )
   }

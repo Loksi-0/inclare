@@ -57,13 +57,6 @@ const ClientMe = (props: ClientMeProps) => {
         >
           настройки
         </Button>
-        <Button
-          className={styles.me__share}
-          color='icon'
-          onClick={shareProfile}
-        >
-          <Share />
-        </Button>
       </div>
     )
   }
@@ -79,7 +72,13 @@ const ClientMe = (props: ClientMeProps) => {
             height={120}
           />
           <div className={styles.me__content}>
-            <h1>{me.name}</h1>
+            <Button
+              className='h1'
+              color='underline'
+              onClick={shareProfile}
+            >
+              {me.name}
+            </Button>
             {me.description && <p>{me.description}</p>}
           </div>
         </div>

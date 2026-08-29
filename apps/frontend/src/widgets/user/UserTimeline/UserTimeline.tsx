@@ -11,7 +11,7 @@ type UserTimelineProps = {
 
 const UserTimeline = catchError(
   async ({ uuid }: UserTimelineProps) => {
-    const posts = await api.post.getUserPosts.query({ userId: uuid })
+    const posts = await api.post.getUserPublishedPosts.query({ userId: uuid })
 
     if (!posts.at(0)) {
       return (

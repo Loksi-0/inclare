@@ -7,12 +7,7 @@ import { publicPostRouter } from './post/public'
 import { createPostFolder } from '@backend/helpers/createPostFolder'
 import { hybridProcedure } from '@backend/procedures/hybrid.procedure'
 import type { User } from '@repo/db'
-import type {
-  PostFindManyArgs,
-  PostFindUniqueArgs,
-  PostWhereInput,
-  PostWhereUniqueInput
-} from '@repo/db'
+import type { PostFindUniqueArgs, PostWhereUniqueInput } from '@repo/db'
 import apiError from '@backend/helpers/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { getPreviewUrl } from '@backend/helpers/getPreviewUrl'
@@ -22,30 +17,18 @@ export const postRouter = router({
   moderator: moderatorPostRouter,
   my: myPostRouter,
 
-  getUserPosts: hybridProcedure
+  getUserPublishedPosts: hybridProcedure
     .input(PostSchema.getUsers)
     .query(async ({ ctx, input }) => {
-      const generalWhere: PostWhereInput = {
-        authorId: input.userId
-      }
-
-      const filters: Record<User['role'], PostFindManyArgs> = {
-        USER: {
-          where: {
-            ...generalWhere,
-            isDrafted: false,
-            author: {
-              isPrivate: false,
-              isBanned: false
-            }
-          }
-        },
-        MODERATOR: { where: generalWhere },
-        ADMIN: { where: generalWhere }
-      }
-
       const posts = await ctx.prisma.post.findMany({
-        ...filters[ctx.user?.role || 'USER'],
+        where: {
+          isDrafted: false,
+          author: {
+            isPrivate: false,
+            isBanned: false
+          },
+          authorId: input.userId
+        },
         include: {
           photos: {
             select: {
