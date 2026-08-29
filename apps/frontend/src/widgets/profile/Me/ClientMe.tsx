@@ -11,7 +11,6 @@ import type { ApiReturnType } from '@/types/globals'
 import Avatar from '@/components/Avatar'
 import styles from './Me.module.scss'
 import { toast } from '@/shared/functions/toast'
-import Share from '@/icons/Share'
 
 type ClientMeProps = {
   data: ApiReturnType<typeof api.auth.me.query>
