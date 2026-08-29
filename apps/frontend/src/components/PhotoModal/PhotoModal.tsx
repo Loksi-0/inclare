@@ -52,7 +52,7 @@ const PhotoModal = observer(() => {
                   }
                 },
                 {
-                  title: `скачать исходник${rawExt ? ` (.${rawExt})` : ''}`,
+                  title: `скачать оригинал${rawExt ? ` (.${rawExt})` : ''}`,
                   onClick: () => {
                     downloadFile(data.rawUrl)
                   },

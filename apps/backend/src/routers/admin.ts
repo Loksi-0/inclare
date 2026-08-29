@@ -4,6 +4,7 @@ import { adminProcedure } from '@backend/procedures/admin.procedure'
 import { router } from '@backend/trpc'
 import { AdminSchema, UserSchema } from '@repo/validators'
 import { ERROR_CODES } from '@repo/api-error-codes'
+import { starsEmitter } from '@backend/helpers/starsEmitter'
 
 export const adminRouter = router({
   getModerators: adminProcedure.query(async ({ ctx }) => {
@@ -50,6 +51,24 @@ export const adminRouter = router({
 
       return user
     }),
+
+  spawnFallingStar: adminProcedure.mutation(async ({ ctx }) => {
+    const post = await ctx.prisma.post.findFirst({
+      where: {
+        isDrafted: false,
+        author: {
+          isBanned: false,
+          isPrivate: false
+        }
+      }
+    })
+
+    if (!post) {
+      return
+    }
+
+    starsEmitter.emit('falling-star', post.id)
+  }),
 
   setAlgorithmGravity: adminProcedure
     .input(AdminSchema.setGravity)

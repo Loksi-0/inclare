@@ -4,6 +4,7 @@ import { useTRPC } from '@/api/tanstack'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import Preloader from '@/components/Preloader'
 import styles from './Config.module.scss'
+import Button from '@/components/Button'
 
 const Config = () => {
   const trpc = useTRPC()
@@ -30,6 +31,9 @@ const Config = () => {
         refetch()
       }
     })
+  )
+  const { mutate: spawnPixel, isPending: isPixelPending } = useMutation(
+    trpc.admin.spawnFallingStar.mutationOptions()
   )
 
   if (!config) {
@@ -84,40 +88,51 @@ const Config = () => {
   ]
 
   return (
-    <ul className={styles.config}>
-      {distConfig.map((c, i) => (
-        <li
-          key={`${c.title}-{${i}`}
-          className={styles.config__item}
-        >
-          <header className={styles.config__header}>
-            <h2>{c.title}</h2>
-            {c.isPending && <Preloader />}
-          </header>
-          {c.description && (
-            <p className={styles.config__description}>{c.description}</p>
-          )}
-          <input
-            className={styles.config__input}
-            type='number'
-            defaultValue={c.defaultValue}
-            onChange={(e) => {
-              const number = Number(e.target.value)
+    <div className={styles.config}>
+      <ul className={styles.config__list}>
+        {distConfig.map((c, i) => (
+          <li
+            key={`${c.title}-{${i}`}
+            className={styles.config__item}
+          >
+            <header className={styles.config__header}>
+              <h2>{c.title}</h2>
+              {c.isPending && <Preloader />}
+            </header>
+            {c.description && (
+              <p className={styles.config__description}>{c.description}</p>
+            )}
+            <input
+              className={styles.config__input}
+              type='number'
+              defaultValue={c.defaultValue}
+              onChange={(e) => {
+                const number = Number(e.target.value)
 
-              if (
-                !number ||
-                (c.min && number < c.min) ||
-                (c.max && number > c.max)
-              ) {
-                return
-              }
+                if (
+                  !number ||
+                  (c.min && number < c.min) ||
+                  (c.max && number > c.max)
+                ) {
+                  return
+                }
 
-              c.onChange(number)
-            }}
-          />
-        </li>
-      ))}
-    </ul>
+                c.onChange(number)
+              }}
+            />
+          </li>
+        ))}
+      </ul>
+      <Button
+        color='solid'
+        loading={isPixelPending}
+        onClick={() => {
+          spawnPixel()
+        }}
+      >
+        заспавнить битый пиксель
+      </Button>
+    </div>
   )
 }
 

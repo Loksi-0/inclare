@@ -1,17 +1,23 @@
 @use '@/app/styles/helpers' as *;
 
 .config {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   width: 100%;
   max-width: rem(700);
-  gap: fluid(30, 20);
   overflow-y: scroll;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: fluid(30, 20);
   padding-bottom: calc(var(--section-padding) * 2);
 
-  @include mobile-s {
-    grid-template-columns: repeat(1, 1fr);
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: fluid(30, 20);
+
+    @include mobile-s {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &__item {
