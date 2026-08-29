@@ -3,6 +3,8 @@
 .block {
   @include fluid-text(250, 150);
 
+  --padding: #{rem(30)};
+
   position: absolute;
   pointer-events: none;
   user-select: none;
@@ -11,33 +13,28 @@
   z-index: -1000;
   animation: fade-in var(--transition-duration) var(--transition-cubic-beizer)
     forwards;
+  padding: var(--padding);
 
   &.top-left {
     top: -3%;
     left: -3%;
+    top: calc(-3% - var(--padding));
+    left: calc(-3% - var(--padding));
   }
 
   &.top-right {
-    top: -3%;
-    right: -3%;
+    top: calc(-3% - var(--padding));
+    right: calc(-3% - var(--padding));
   }
 
   &.bottom-left {
-    bottom: 10%;
-    left: -3%;
-
-    @include mobile {
-      bottom: 0%;
-    }
+    bottom: calc(var(--padding) * -1);
+    left: calc(-3% - var(--padding));
   }
 
   &.bottom-right {
-    bottom: 10%;
-    right: -3%;
-
-    @include mobile {
-      bottom: 0%;
-    }
+    bottom: calc(var(--padding) * -1);
+    right: calc(-3% - var(--padding));
   }
 }
 
