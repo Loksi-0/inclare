@@ -9,10 +9,12 @@ import gsap from 'gsap'
 import { soundStore } from '@/stores/sound.store'
 import { randomInt } from '@/shared/functions/randomInt'
 import styles from './Onboarding.module.scss'
+import { useIsMounted } from '@/shared/hooks/useIsMounted'
 
 const Onboarding = observer(() => {
   const BUTTON_TEXTS = ['ясно', 'ясно понятно', 'хорошо']
 
+  const { isMounted } = useIsMounted()
   const [buttonText, setButtonText] = useState('ясно')
 
   const popupRef = useRef<HTMLDivElement | null>(null)
@@ -20,6 +22,10 @@ const Onboarding = observer(() => {
   const blurIn = useBlur({ from: 0, to: 5 })
 
   useEffect(() => {
+    if (!isMounted) {
+      return
+    }
+
     if (onboardingStore.isOpen) {
       soundStore.playPopup()
       setButtonText(
@@ -30,11 +36,18 @@ const Onboarding = observer(() => {
       gsap.fromTo(
         popupRef.current,
         { display: 'flex', opacity: 0 },
-        { opacity: 1, duration: 0.2 }
+        {
+          opacity: 1,
+          duration: 0.2
+        }
       )
     } else {
       blurIn(popupRef.current)
-      gsap.to(popupRef.current, { opacity: 0, display: 'none', duration: 0.2 })
+      gsap.to(popupRef.current, {
+        opacity: 0,
+        display: 'none',
+        duration: 0.2
+      })
     }
   }, [onboardingStore.isOpen])
 

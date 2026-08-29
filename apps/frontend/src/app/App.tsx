@@ -25,9 +25,9 @@ const App = ({ children }: PropsWithChildren) => {
       />
       <Cursor />
       <PhotoModal />
+      <Onboarding />
       <Effector>
         <Main>{children}</Main>
-        <Onboarding />
         <ViewPost />
         <UploadPost />
       </Effector>

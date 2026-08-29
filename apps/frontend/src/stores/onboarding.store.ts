@@ -1,4 +1,5 @@
 import { isClient } from '@/shared/functions/isClient'
+import { isTouchscreen } from '@/shared/functions/isTouchscreen'
 import { makeAutoObservable } from 'mobx'
 import { makePersistable, stopPersisting } from 'mobx-persist-store'
 
@@ -21,8 +22,7 @@ class OnboardingStore {
   messages: Record<keyof typeof this.displayed, Message> = {
     timeline: {
       title: 'Таймлайн',
-      description:
-        'На таймлайне будут показываться все опубликованные посты в хронологическом порядке. Чтобы открыть пост, просто нажмите на фотографию. Таймлайн можно листать пальцем или мышкой'
+      description: `На таймлайне будут показываться все опубликованные посты в хронологическом порядке. Чтобы открыть пост, просто нажмите на фотографию. Таймлайн можно листать ${isTouchscreen ? 'пальцем' : 'мышкой'}`
     },
     plane: {
       title: 'Плоскость',
