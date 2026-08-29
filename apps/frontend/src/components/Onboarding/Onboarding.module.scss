@@ -13,7 +13,7 @@
   border: var(--border);
   z-index: 2000;
   padding: fluid(30, 20);
-  display: flex;
+  display: none;
   flex-direction: column;
   row-gap: fluid(20, 15);
   opacity: 0;

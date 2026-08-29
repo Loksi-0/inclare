@@ -8,8 +8,8 @@ import { useBlur } from '@/shared/hooks/useBlur'
 import gsap from 'gsap'
 import { soundStore } from '@/stores/sound.store'
 import { randomInt } from '@/shared/functions/randomInt'
-import styles from './Onboarding.module.scss'
 import { useIsMounted } from '@/shared/hooks/useIsMounted'
+import styles from './Onboarding.module.scss'
 
 const Onboarding = observer(() => {
   const BUTTON_TEXTS = ['ясно', 'ясно понятно', 'хорошо']
