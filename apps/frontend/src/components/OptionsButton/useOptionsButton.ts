@@ -1,10 +1,11 @@
 'use client'
 
+import { getPopupPosition } from '@/shared/functions/getPopupPosition'
 import { useBlur } from '@/shared/hooks/useBlur'
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
 
-export const useConfirmButton = () => {
+export const useOptionsButton = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
   const cancelButtonRef = useRef<HTMLButtonElement | null>(null)
@@ -18,24 +19,16 @@ export const useConfirmButton = () => {
       return
     }
 
-    const PADDING = 10
-
     const buttonRect = buttonRef.current.getBoundingClientRect()
     const modalRect = modalRef.current.getBoundingClientRect()
 
-    let modalX = 0
-    let modalY = (modalRect.height + PADDING) * -1
+    const { popupX, popupY } = getPopupPosition({
+      buttonRect,
+      popupRect: modalRect
+    })
 
-    if (buttonRect.x + modalRect.width > window.innerWidth) {
-      modalX = buttonRect.width - modalRect.width
-    }
-
-    if (buttonRect.y < modalRect.height + PADDING) {
-      modalY = buttonRect.height + PADDING
-    }
-
-    modalRef.current.style.left = `${modalX}px`
-    modalRef.current.style.top = `${modalY}px`
+    modalRef.current.style.left = `${popupX}px`
+    modalRef.current.style.top = `${popupY}px`
   }
 
   useEffect(() => {

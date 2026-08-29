@@ -2,16 +2,16 @@ const Retry = () => {
   return (
     <svg
       className='svg-icon'
-      width='22'
-      height='19'
-      viewBox='0 0 22 19'
+      width='27'
+      height='23'
+      viewBox='0 0 27 23'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
       <path
-        d='M17.55 0.75H0.75V17.55H17.55C17.55 17.55 17.55 11.3487 17.55 6.35M14.35 9.55C15.5997 8.30032 16.3003 7.59968 17.55 6.35C18.7997 7.59968 20.75 9.55 20.75 9.55'
+        d='M22 1H1V22H22C22 22 22 14.2484 22 8M18 12C19.5621 10.4379 20.4379 9.5621 22 8C23.5621 9.5621 26 12 26 12'
         stroke='#1A1F21'
-        strokeWidth='1.5'
+        stroke-width='2'
       />
     </svg>
   )

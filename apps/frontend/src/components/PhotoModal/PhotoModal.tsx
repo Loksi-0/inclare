@@ -11,6 +11,9 @@ import ArrowRight from '@/icons/ArrowRight'
 import Preloader from '../Preloader'
 import { usePhotoModal } from './usePhotoModal'
 import styles from './PhotoModal.module.scss'
+import OptionsButton from '../OptionsButton'
+import Download from '@/icons/Download'
+import { downloadFile } from '@/shared/functions/downloadFile'
 
 const PhotoModal = observer(() => {
   const {
@@ -20,7 +23,9 @@ const PhotoModal = observer(() => {
     isImgLoaded,
     setIsImgLoaded,
     minOrder,
-    maxOrder
+    maxOrder,
+    rawExt,
+    optimizedExt
   } = usePhotoModal()
 
   return (
@@ -35,6 +40,29 @@ const PhotoModal = observer(() => {
     >
       <div className={styles.modal__inner}>
         <header className={styles.modal__header}>
+          {data && (
+            <OptionsButton
+              className={styles.modal__download}
+              color='icon'
+              data={[
+                {
+                  title: `скачать сжатый${optimizedExt ? ` (.${optimizedExt})` : ''}`,
+                  onClick: () => {
+                    downloadFile(data.optimizedUrl)
+                  }
+                },
+                {
+                  title: `скачать исходник${rawExt ? ` (.${rawExt})` : ''}`,
+                  onClick: () => {
+                    downloadFile(data.rawUrl)
+                  },
+                  color: 'outlined'
+                }
+              ]}
+            >
+              <Download />
+            </OptionsButton>
+          )}
           <Button
             className={styles.modal__close}
             onClick={() => {

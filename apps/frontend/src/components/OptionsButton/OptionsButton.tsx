@@ -4,11 +4,12 @@ import { type ComponentProps, type PropsWithChildren } from 'react'
 import Button from '../Button'
 import cx from 'clsx'
 import { observer } from 'mobx-react-lite'
-import { useConfirmButton } from './useOptionsButton'
+import { useOptionsButton } from './useOptionsButton'
 import styles from './OptionsButton.module.scss'
 
 type OptionsButtonProps = PropsWithChildren<{
   color: ComponentProps<typeof Button>['color']
+  className?: string
   title?: string
   data: {
     title: string
@@ -19,10 +20,10 @@ type OptionsButtonProps = PropsWithChildren<{
 }>
 
 const OptionsButton = observer((props: OptionsButtonProps) => {
-  const { children, color, title, data } = props
+  const { children, color, className, title, data } = props
 
   const { isOpen, modalRef, buttonRef, cancelButtonRef, open, close } =
-    useConfirmButton()
+    useOptionsButton()
 
   return (
     <div className={styles.modal__wrapper}>
@@ -59,6 +60,7 @@ const OptionsButton = observer((props: OptionsButtonProps) => {
         </div>
       </div>
       <Button
+        className={className}
         ref={buttonRef}
         color={color}
         onClick={() => {

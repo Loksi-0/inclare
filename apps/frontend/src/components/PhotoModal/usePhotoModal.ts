@@ -63,6 +63,17 @@ export const usePhotoModal = () => {
     }
   }, [photoModalStore.photos])
 
+  const { rawExt, optimizedExt } = useMemo(() => {
+    if (!data) {
+      return { rawExt: undefined, optimizedExt: undefined }
+    }
+
+    const rawExt = data.rawUrl.split('.').at(-1)
+    const optimizedExt = data.optimizedUrl.split('.').at(-1)
+
+    return { rawExt, optimizedExt }
+  }, [data])
+
   return {
     data,
     imgRef,
@@ -70,6 +81,8 @@ export const usePhotoModal = () => {
     isImgLoaded,
     setIsImgLoaded,
     minOrder,
-    maxOrder
+    maxOrder,
+    rawExt,
+    optimizedExt
   }
 }

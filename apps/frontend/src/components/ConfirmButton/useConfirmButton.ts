@@ -1,5 +1,6 @@
 'use client'
 
+import { getPopupPosition } from '@/shared/functions/getPopupPosition'
 import { useBlur } from '@/shared/hooks/useBlur'
 import { useFluid } from '@/shared/hooks/useFluid'
 import gsap from 'gsap'
@@ -15,9 +16,6 @@ export const useConfirmButton = () => {
   const blurIn = useBlur({ from: 0, to: 10 })
   const blurOut = useBlur({ from: 10, to: 0 })
 
-  const PADDING = 10
-  const MARGIN = useFluid(20, 50)
-
   const setModalPosition = () => {
     if (!buttonRef.current || !modalRef.current) {
       return
@@ -26,19 +24,13 @@ export const useConfirmButton = () => {
     const buttonRect = buttonRef.current.getBoundingClientRect()
     const modalRect = modalRef.current.getBoundingClientRect()
 
-    let modalX = 0
-    let modalY = (modalRect.height + PADDING) * -1
+    const { popupX, popupY } = getPopupPosition({
+      buttonRect,
+      popupRect: modalRect
+    })
 
-    if (buttonRect.x + modalRect.width + MARGIN > window.innerWidth) {
-      modalX = buttonRect.width - modalRect.width
-    }
-
-    if (buttonRect.y < modalRect.height + MARGIN + PADDING) {
-      modalY = buttonRect.height + PADDING
-    }
-
-    modalRef.current.style.left = `${modalX}px`
-    modalRef.current.style.top = `${modalY}px`
+    modalRef.current.style.left = `${popupX}px`
+    modalRef.current.style.top = `${popupY}px`
   }
 
   useEffect(() => {

@@ -2,8 +2,10 @@ import { closeModal, openModal } from '@/shared/functions/manageModal'
 import { makeAutoObservable } from 'mobx'
 
 type PhotoData = {
+  id: string
   order: number
   optimizedUrl: string
+  rawUrl: string
   shutterSpeed: string | null
   iso: number | null
   aperture: number | null
