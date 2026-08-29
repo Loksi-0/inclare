@@ -5,6 +5,7 @@ import Button from '../Button'
 import cx from 'clsx'
 import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import styles from './ToggleSwitch.module.scss'
+import { CURSOR } from '@/constants'
 
 type ToggleSwitchProps = {
   title: string
@@ -30,12 +31,15 @@ const ToggleSwitch = (props: ToggleSwitchProps) => {
   }
 
   return (
-    <div className={styles.toggle}>
+    <div
+      onClick={onClick}
+      className={styles.toggle}
+      data-cursor={CURSOR.POINTER}
+    >
       <p>{title}</p>
       <Button
         color='icon'
         className={styles.toggle__button}
-        onClick={onClick}
       >
         <div
           className={cx(styles.toggle__switch, [

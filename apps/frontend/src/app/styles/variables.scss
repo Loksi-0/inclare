@@ -12,6 +12,8 @@
   --color-red-10: #fff0f0;
   --color-red: #db3434;
 
+  --color-shadow: var(--color-gray-20);
+
   --border: #{rem(1)} solid var(--color-gray-20);
 
   --section-padding: #{fluid(60, 20)};
@@ -28,4 +30,19 @@
   @include tablet {
     --container-padding-x: #{rem(24)};
   }
+}
+
+[theme='dark'] {
+  --color-white: #000000;
+  --color-light: #0c0d0d;
+
+  --color-gray-20: #181a1b;
+  --color-gray-10: #798286;
+
+  --color-dark: #d7d9db;
+
+  --color-shadow: #000000;
+
+  --color-red-10: #fff0f0;
+  --color-red: #db3434;
 }

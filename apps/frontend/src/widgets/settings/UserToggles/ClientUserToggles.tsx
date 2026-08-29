@@ -1,7 +1,7 @@
 'use client'
 
 import ToggleSwitch from '@/components/ToggleSwitch'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTRPC } from '@/api/tanstack'
 import { useMutation } from '@tanstack/react-query'
 import { observer } from 'mobx-react-lite'
@@ -54,6 +54,13 @@ const ClientUserToggles = observer(
             }}
           />
         )}
+        <ToggleSwitch
+          title='Темная тема'
+          isToggled={preferencesStore.darkTheme}
+          onToggle={(t) => {
+            preferencesStore.setDarkTheme(t)
+          }}
+        />
       </div>
     )
   }

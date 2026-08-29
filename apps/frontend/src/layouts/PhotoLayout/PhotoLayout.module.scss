@@ -5,7 +5,7 @@
   --photo-padding-bottom: #{fluid(50, 35)};
 
   background-color: var(--color-white);
-  box-shadow: 0 0 rem(30) 0 var(--color-gray-20);
+  box-shadow: 0 0 rem(30) 0 var(--color-shadow);
   aspect-ratio: 3 / 4;
   width: fluid(260, 170);
   padding: fluid(10, 7);

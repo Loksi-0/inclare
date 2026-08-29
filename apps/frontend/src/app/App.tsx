@@ -11,10 +11,12 @@ import UploadPost from '@/components/UploadPost'
 import { soundStore } from '@/stores/sound.store'
 import Onboarding from '@/components/Onboarding'
 import Main from '@/components/Main'
+import { preferencesStore } from '@/stores/preferences.store'
 
 const App = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     void soundStore.init()
+    void preferencesStore.initTheme()
   }, [])
 
   return (
