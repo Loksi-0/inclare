@@ -14,20 +14,16 @@ import styles from './ProfileTimeline.module.scss'
 
 type ClientTimelineProps = {
   data: ApiReturnType<typeof api.post.my.getPublished.query>
-  me: ApiReturnType<typeof api.auth.me.query>
 }
 
 const ClientProfileTimeline = (props: ClientTimelineProps) => {
-  const { data: initialData, me: initialMe } = props
+  const { data: initialData } = props
 
   const trpc = useTRPC()
   const { data } = useQuery(
     trpc.post.my.getPublished.queryOptions(undefined, {
       initialData
     })
-  )
-  const { data: me } = useQuery(
-    trpc.auth.me.queryOptions(undefined, { initialData: initialMe })
   )
 
   if (!data || !data.at(0)) {
@@ -55,12 +51,7 @@ const ClientProfileTimeline = (props: ClientTimelineProps) => {
     )
   }
 
-  return (
-    <Timeline
-      unoptimized={me.isPrivate}
-      data={data}
-    />
-  )
+  return <Timeline data={data} />
 }
 
 export default ClientProfileTimeline

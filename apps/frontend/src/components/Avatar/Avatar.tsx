@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from '@/components/Image'
 import cx from 'clsx'
 import styles from './Avatar.module.scss'
 
@@ -22,8 +22,6 @@ const Avatar = (props: AvatarProps) => {
       src={src}
       width={width}
       height={height}
-      alt=''
-      draggable={false}
     />
   )
 }

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from '@/components/Image'
 import cx from 'clsx'
 import styles from './Bio.module.scss'
 
@@ -17,8 +17,6 @@ const Bio = (props: BioProps) => {
           src={props.avatar}
           width={120}
           height={120}
-          alt=''
-          draggable={false}
         />
       ) : (
         <div className={cx(styles.bio__avatar, styles.skeleton)}></div>

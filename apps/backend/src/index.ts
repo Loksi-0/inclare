@@ -7,7 +7,10 @@ import getEnv from '@backend/helpers/getEnv'
 import rateLimit from '@backend/helpers/rateLimit'
 import { cors } from 'hono/cors'
 import { Hono } from 'hono'
-import { baseRouter } from './router'
+import { API_BASE_URL } from '@repo/constants'
+import { UPLOADS } from './constants'
+import { uploads } from './restRouters/uploads'
+import { base } from './restRouters/base'
 
 const app = new Hono()
 
@@ -20,7 +23,8 @@ app.use(
 )
 
 app.use(rateLimit(1, 600))
-app.route('/', baseRouter)
+app.route(UPLOADS.URL, uploads)
+app.route(API_BASE_URL, base)
 
 serve(
   {

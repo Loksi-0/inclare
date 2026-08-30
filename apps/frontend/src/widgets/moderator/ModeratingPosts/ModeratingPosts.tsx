@@ -3,7 +3,7 @@
 import { useTRPC } from '@/api/tanstack'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import Preloader from '@/components/Preloader'
-import Image from 'next/image'
+import Image from '@/components/Image'
 import Button from '@/components/Button'
 import { postStore } from '@/stores/post.store'
 import ConfirmButton from '@/components/ConfirmButton'
@@ -109,7 +109,6 @@ const ModeratingPosts = () => {
                   src={p.previewUrl}
                   width={500}
                   height={500}
-                  alt=''
                 />
               </Button>
               {p.description && (

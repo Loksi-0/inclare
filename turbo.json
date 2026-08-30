@@ -5,7 +5,6 @@
     "POSTGRES_PASSWORD",
     "POSTGRES_DB",
     "IGNORE_BUILD_TYPE_ERRORS",
-    "UNOPTIMIZE_IMAGES",
     "IMAGE_COMPRESSION",
     "API_URL",
     "NEXT_PUBLIC_API_URL",
@@ -18,7 +17,8 @@
     "INTERNAL_UPLOADS_LOCATION",
     "REDIS_URL",
     "DATABASE_URL",
-    "ADMIN_KEYWORD"
+    "ADMIN_KEYWORD",
+    "INTERNAL_CACHE_LOCATION"
   ],
   "ui": "tui",
   "tasks": {
@@ -28,7 +28,6 @@
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"],
       "env": [
         "IGNORE_BUILD_TYPE_ERRORS",
-        "UNOPTIMIZE_IMAGES",
         "IMAGE_COMPRESSION",
         "API_URL",
         "NEXT_PUBLIC_API_URL",

@@ -5,7 +5,7 @@ import { photoModalStore } from '@/stores/photoModal.store'
 import gsap from 'gsap'
 import Button from '../Button'
 import Cross from '@/icons/Cross'
-import Image from 'next/image'
+import Image from '@/components/Image'
 import ArrowLeft from '@/icons/ArrowLeft'
 import ArrowRight from '@/icons/ArrowRight'
 import Preloader from '../Preloader'
@@ -82,9 +82,6 @@ const PhotoModal = observer(() => {
                 width={2000}
                 height={1500}
                 src={data.optimizedUrl}
-                alt=''
-                draggable={false}
-                unoptimized={photoModalStore.isUnoptimized}
                 onLoad={() => {
                   setIsImgLoaded(true)
                   gsap.to(imgRef.current, { opacity: 1, duration: 0.2 })

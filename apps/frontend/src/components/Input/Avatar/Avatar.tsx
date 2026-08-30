@@ -2,7 +2,7 @@
 
 import Button from '@/components/Button'
 import Plus from '@/icons/Plus'
-import Image from 'next/image'
+import Image from '@/components/Image'
 import cx from 'clsx'
 import Cross from '@/icons/Cross'
 import { useAvatar, type AvatarInputProps } from './useAvatar'
@@ -62,7 +62,6 @@ const AvatarInput = (props: AvatarInputProps) => {
           src={imgUrl}
           width={120}
           height={120}
-          alt=''
         />
       )}
     </div>

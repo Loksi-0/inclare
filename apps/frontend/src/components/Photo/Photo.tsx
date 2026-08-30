@@ -1,7 +1,8 @@
-import Image from 'next/image'
+import Image from '@/components/Image'
 import { forwardRef, memo, type CSSProperties } from 'react'
 import Gradient from '../Gradient/Gradient'
 import PhotoLayout from '@/layouts/PhotoLayout'
+import cx from 'clsx'
 import styles from './Photo.module.scss'
 
 type PhotoProps = {
@@ -11,7 +12,8 @@ type PhotoProps = {
   className?: string
   mini?: boolean
   style?: CSSProperties
-  unoptimized?: boolean
+  render?: boolean
+  gpuAcc?: boolean
 }
 
 const Photo = memo(
@@ -23,7 +25,8 @@ const Photo = memo(
       className,
       style,
       mini = false,
-      unoptimized = false
+      render = true,
+      gpuAcc = true
     } = props
 
     if (isError) {
@@ -39,7 +42,7 @@ const Photo = memo(
       )
     }
 
-    if (!src || isLoading) {
+    if (!src || !render || isLoading) {
       return (
         <PhotoLayout
           className={className}
@@ -60,15 +63,11 @@ const Photo = memo(
         ref={ref}
       >
         <Image
-          className={styles.photo__image}
+          className={cx(styles.photo__image, [{ [styles.gpu]: gpuAcc }])}
           src={src}
           alt=''
           width={200}
           height={250}
-          draggable={false}
-          loading='lazy'
-          decoding='async'
-          unoptimized={unoptimized}
         />
       </PhotoLayout>
     )

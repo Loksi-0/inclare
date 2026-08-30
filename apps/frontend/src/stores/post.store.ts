@@ -8,6 +8,8 @@ class PostStore {
   isUploading = false
   bodyRef: HTMLElement | null = null
   canCloseOutside = true
+  isRenderReady = false
+  isOpening = false
 
   constructor() {
     makeAutoObservable(this)
@@ -30,7 +32,15 @@ class PostStore {
     gsap.to(this.bodyRef, {
       y: offsetHeight * -1,
       duration: 0.5,
-      ease: 'power2.out'
+      ease: 'power2.out',
+      onStart: () => {
+        this.setIsRenderReady(false)
+        this.setIsOpening(true)
+      },
+      onComplete: () => {
+        this.setIsRenderReady(true)
+        this.setIsOpening(false)
+      }
     })
   }
 
@@ -64,7 +74,12 @@ class PostStore {
       ease: 'power2.out',
       onComplete: () => {
         this.setIsUploading(false)
+        this.setIsRenderReady(false)
         onClose?.()
+
+        if (!this.isOpening) {
+          this.setPostId(null)
+        }
       }
     })
   }
@@ -76,7 +91,13 @@ class PostStore {
 
     this.isOpen = false
     this.isUploading = false
+    this.setIsRenderReady(false)
+    this.setPostId(null)
     gsap.set(this.bodyRef, { y: '0' })
+  }
+
+  setPostId = (id: string | null) => {
+    this.postId = id
   }
 
   setIsUploading = (bool: boolean) => {
@@ -85,6 +106,14 @@ class PostStore {
 
   setCanClose = (bool: boolean) => {
     this.canCloseOutside = bool
+  }
+
+  setIsRenderReady = (bool: boolean) => {
+    this.isRenderReady = bool
+  }
+
+  setIsOpening = (bool: boolean) => {
+    this.isOpening = bool
   }
 }
 

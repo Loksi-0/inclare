@@ -8,11 +8,10 @@ import styles from './Timeline.module.scss'
 
 type TimelineProps = {
   data: Post[]
-  unoptimized?: boolean
 }
 
 const Timeline = (props: TimelineProps) => {
-  const { data, unoptimized = false } = props
+  const { data } = props
 
   const {
     timelineRef,
@@ -59,7 +58,6 @@ const Timeline = (props: TimelineProps) => {
                           ? p.createdAt.getFullYear()
                           : undefined
                       }
-                      unoptimized={unoptimized}
                     />
                   )
               )}

@@ -46,6 +46,11 @@ export const USER_PROFILE = {
   URL: (userId: string) => [UPLOADS.URL, userId, 'profile'].join('/')
 }
 
+export const CACHE = {
+  PATH: path.join(UPLOADS.PATH, 'cache'),
+  URL: [UPLOADS.URL, 'cache'].join('/')
+}
+
 export const UPLOAD_DEFAULTS = {
   AVATAR: {
     PATH: path.join(UPLOADS.PATH, 'defaults', 'avatars'),

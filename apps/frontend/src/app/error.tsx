@@ -1,7 +1,6 @@
 'use client'
 
 import Misted from '@/components/Misted'
-import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
 import cx from 'clsx'
 import { useTRPC } from '@/api/tanstack'
@@ -15,7 +14,6 @@ type ErrorProps = {
 }
 
 const Error = ({ error }: ErrorProps) => {
-  const router = useRouter()
   const { replace } = useNavigate()
   const trpc = useTRPC()
   const { mutate: logout } = useMutation(
@@ -36,16 +34,7 @@ const Error = ({ error }: ErrorProps) => {
             ? 'Ваш аккаунт заблокирован на неопределенный срок'
             : 'Произошла ошибка при загрузке страницы'}
         </p>
-        {!isBanned ? (
-          <Button
-            color='solid'
-            onClick={() => {
-              router.refresh()
-            }}
-          >
-            обновить страницу
-          </Button>
-        ) : (
+        {isBanned ? (
           <Button
             color='solid'
             onClick={() => {
@@ -53,6 +42,15 @@ const Error = ({ error }: ErrorProps) => {
             }}
           >
             выйти из аккаунта
+          </Button>
+        ) : (
+          <Button
+            color='solid'
+            onClick={() => {
+              window.location.reload()
+            }}
+          >
+            обновить страницу
           </Button>
         )}
         <Misted className={cx(styles.error__code, 'mono', 'subtitle')}>

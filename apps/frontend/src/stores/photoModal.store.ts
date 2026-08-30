@@ -16,30 +16,26 @@ type PhotoData = {
 type OpenOpts = {
   photos: PhotoData[]
   current: number
-  isUnoptimized?: boolean
 }
 
 class PhotoModalStore {
   photos: PhotoData[] = []
   current = 0
   isOpen = false
-  isUnoptimized = false
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  open = ({ photos, current, isUnoptimized }: OpenOpts) => {
+  open = ({ photos, current }: OpenOpts) => {
     this.isOpen = true
     this.photos = photos
     this.current = current
-    this.isUnoptimized = isUnoptimized ?? false
     openModal()
   }
 
   close = () => {
     this.isOpen = false
-    this.isUnoptimized = false
     closeModal()
   }
 

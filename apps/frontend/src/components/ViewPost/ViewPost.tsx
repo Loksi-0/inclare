@@ -37,7 +37,6 @@ const ViewPost = observer(() => {
   }
 
   const sortedPhotos = data.photos.sort((a, b) => a.order - b.order)
-  const isUnoptimized = data.author.isPrivate || data.isDrafted
 
   return (
     <ViewPostLayout height={postStore.postHeight}>
@@ -64,23 +63,23 @@ const ViewPost = observer(() => {
           <div className={styles.post__description}>{data.description}</div>
         )}
         <div className={styles.post__photos}>
-          {sortedPhotos.map((p) => (
+          {sortedPhotos.map((p, i) => (
             <Button
               color='icon'
               key={p.id}
               onClick={() => {
                 photoModalStore.open({
                   photos: sortedPhotos,
-                  current: p.order,
-                  isUnoptimized
+                  current: p.order
                 })
               }}
             >
               <Photo
                 className={styles.post__photo}
                 src={p.optimizedUrl}
+                render={postStore.isRenderReady || i < 4}
+                gpuAcc
                 mini
-                unoptimized={isUnoptimized}
               />
             </Button>
           ))}

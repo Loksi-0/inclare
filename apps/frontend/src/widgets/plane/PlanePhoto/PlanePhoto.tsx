@@ -1,5 +1,5 @@
 import PhotoLayout from '@/layouts/PhotoLayout'
-import Image from 'next/image'
+import Image from '@/components/Image'
 import Like from '@/components/Like'
 import Button from '@/components/Button'
 import { memo, type CSSProperties } from 'react'
@@ -12,7 +12,6 @@ type PlanePhotoProps = {
   color: string
   likes?: number
   isLiked?: boolean
-  unoptimized?: boolean
   onClick?: (id: string) => void
   style?: CSSProperties
   className?: string
@@ -22,7 +21,6 @@ const PlanePhoto = memo((props: PlanePhotoProps) => {
   const {
     postId,
     src,
-    unoptimized = false,
     color,
     likes,
     isLiked,
@@ -46,13 +44,8 @@ const PlanePhoto = memo((props: PlanePhotoProps) => {
         <Image
           className={styles.photo__image}
           src={src}
-          alt=''
           width={200}
           height={250}
-          draggable={false}
-          loading='lazy'
-          decoding='async'
-          unoptimized={unoptimized}
         />
       </Button>
       <Like

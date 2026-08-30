@@ -6,6 +6,10 @@
     height: 100%;
     min-height: 0;
     object-fit: cover;
+
+    &.gpu {
+      transform: translateZ(0);
+    }
   }
 
   &__error {
