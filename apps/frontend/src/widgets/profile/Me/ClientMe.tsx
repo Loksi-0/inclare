@@ -67,8 +67,8 @@ const ClientMe = (props: ClientMeProps) => {
           <Avatar
             className={styles.me__avatar}
             src={me.avatar}
-            width={120}
-            height={120}
+            width={200}
+            height={200}
           />
           <div className={styles.me__content}>
             <Button

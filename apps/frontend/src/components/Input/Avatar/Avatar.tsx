@@ -60,8 +60,8 @@ const AvatarInput = (props: AvatarInputProps) => {
         <Image
           className={styles.avatar__preview}
           src={imgUrl}
-          width={120}
-          height={120}
+          width={300}
+          height={300}
         />
       )}
     </div>

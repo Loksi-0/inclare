@@ -15,8 +15,8 @@ const Bio = (props: BioProps) => {
         <Image
           className={styles.bio__avatar}
           src={props.avatar}
-          width={120}
-          height={120}
+          width={200}
+          height={200}
         />
       ) : (
         <div className={cx(styles.bio__avatar, styles.skeleton)}></div>

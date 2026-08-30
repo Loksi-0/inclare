@@ -66,8 +66,8 @@ const Photo = memo(
           className={cx(styles.photo__image, [{ [styles.gpu]: gpuAcc }])}
           src={src}
           alt=''
-          width={200}
-          height={250}
+          width={300}
+          height={400}
         />
       </PhotoLayout>
     )
