@@ -31,15 +31,14 @@ uploads.get('/:userId/:postId/*', async (c) => {
   })
 
   if (getEnv('NODE_ENV') === 'production') {
-    const fileUrl = url.replace(UPLOADS.URL, '')
-
     if (w && h) {
-      const modifiedUrl = `/${getEnv('INTERNAL_CACHE_LOCATION')}${fileUrl}`
+      const modifiedUrl = `/${getEnv('INTERNAL_CACHE_LOCATION')}${url}`
 
       c.header('X-Accel-Redirect', modifiedUrl)
       return c.body(null)
     }
 
+    const fileUrl = url.replace(UPLOADS.URL, '')
     const modifiedUrl = `/${getEnv('INTERNAL_UPLOADS_LOCATION')}${fileUrl}`
 
     c.header('X-Accel-Redirect', modifiedUrl)
