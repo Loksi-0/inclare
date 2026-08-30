@@ -38,7 +38,7 @@ base.post(`/set-admin`, zValidator('json', AdminSchema.setAdmin), async (c) => {
 })
 
 base.get('/generate-cache/*', async (c) => {
-  const imgUrl = c.req.path.replace('/generate-cache', '')
+  const imgUrl = c.req.path.replace(`${API_BASE_URL}/generate-cache`, '')
 
   const w = c.req.query(CACHE_IMAGE_QUERIES.WIDTH)
   const h = c.req.query(CACHE_IMAGE_QUERIES.HEIGHT)
