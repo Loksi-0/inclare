@@ -27,7 +27,7 @@ export const useLoginForm = () => {
   const { mutate: login, isPending } = useMutation(
     trpc.auth.login.mutationOptions()
   )
-  const { push } = useNavigate()
+  const { replace } = useNavigate()
 
   const { topRef, bgRef } = useParallax({
     topCoefficient: 5,
@@ -36,7 +36,7 @@ export const useLoginForm = () => {
   const onSubmit = (data: AuthSchema.Login) => {
     login(data, {
       onSuccess: () => {
-        push(PAGES.PROFILE)
+        replace(PAGES.PROFILE)
       }
     })
   }

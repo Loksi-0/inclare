@@ -59,7 +59,7 @@ export const useRegistrationForm = () => {
     bgCoefficient: 1
   })
 
-  const { push } = useNavigate()
+  const { replace } = useNavigate()
   const formRef = useRef<HTMLFormElement | null>(null)
 
   const next = async () => {
@@ -105,7 +105,7 @@ export const useRegistrationForm = () => {
     const end = () => {
       setIsPending(false)
 
-      push(PAGES.PROFILE)
+      replace(PAGES.PROFILE)
     }
 
     setIsPending(true)

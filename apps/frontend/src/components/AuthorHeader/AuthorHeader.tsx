@@ -35,8 +35,8 @@ const AuthorHeader = (props: AuthorHeaderProps) => {
         <Avatar
           className={styles.header__avatar}
           src={avatar}
-          width={30}
-          height={30}
+          width={40}
+          height={40}
         />
       )}
       <div className='mono subtitle'>

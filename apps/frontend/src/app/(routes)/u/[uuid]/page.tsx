@@ -45,6 +45,7 @@ const User = catchError(
     return (
       <PageLayout profile>
         <Bio
+          id={user.id}
           avatar={user.avatar}
           name={user.name}
           description={user.description}
