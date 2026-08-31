@@ -13,11 +13,28 @@ import Onboarding from '@/components/Onboarding'
 import Main from '@/components/Main'
 import { preferencesStore } from '@/stores/preferences.store'
 import ImageModal from '@/components/ImageModal'
+import { postStore } from '@/stores/post.store'
+import { photoModalStore } from '@/stores/photoModal.store'
+import { imageModalStore } from '@/stores/imageModal.store'
+import { onboardingStore } from '@/stores/onboarding.store'
 
 const App = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     void soundStore.init()
     void preferencesStore.initTheme()
+
+    const onPopstate = () => {
+      postStore.close()
+      photoModalStore.close()
+      imageModalStore.close()
+      onboardingStore.close()
+    }
+
+    window.addEventListener('popstate', onPopstate)
+
+    return () => {
+      window.removeEventListener('popstate', onPopstate)
+    }
   }, [])
 
   return (
