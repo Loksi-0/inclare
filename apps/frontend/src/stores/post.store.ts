@@ -12,13 +12,14 @@ class PostStore {
   canCloseOutside = true
   isRenderReady = false
   isOpening = false
+  isAnimating = false
 
   constructor() {
     makeAutoObservable(this)
   }
 
   private shiftPost = (offset?: number) => {
-    if (!this.bodyRef) {
+    if (!this.bodyRef || this.isAnimating) {
       return
     }
 
@@ -39,15 +40,21 @@ class PostStore {
       onStart: () => {
         this.setIsRenderReady(false)
         this.setIsOpening(true)
+        this.setIsAnimating(true)
       },
       onComplete: () => {
         this.setIsRenderReady(true)
         this.setIsOpening(false)
+        this.setIsAnimating(false)
       }
     })
   }
 
   open = (id: string, offset?: number) => {
+    if (this.isAnimating) {
+      return
+    }
+
     this.isOpen = true
     this.postId = id
     this.setIsUploading(false)
@@ -55,31 +62,40 @@ class PostStore {
   }
 
   openFull = () => {
-    if (!this.bodyRef) {
+    if (!this.bodyRef || this.isAnimating) {
       return
     }
 
     this.postHeight = window.innerHeight
     this.isFullyOpen = true
+    this.isAnimating = true
 
     gsap.to(this.bodyRef, {
       y: window.innerHeight * -1,
-      duration: 0.7,
+      duration: 0.6,
       ease: 'power2.out',
+      onStart: () => {
+        this.setIsAnimating(true)
+      },
       onComplete: () => {
-        this.postHeight = window.innerHeight
+        this.setIsAnimating(false)
+        this.setPostHeight(window.innerHeight)
       }
     })
   }
 
   openUpload = (offset?: number) => {
+    if (this.isAnimating) {
+      return
+    }
+
     this.isOpen = true
     this.setIsUploading(true)
     this.shiftPost(offset)
   }
 
   closeFull = () => {
-    if (!this.bodyRef) {
+    if (!this.bodyRef || this.isAnimating) {
       return
     }
 
@@ -89,14 +105,18 @@ class PostStore {
       y: this.prevPostHeight * -1,
       duration: 0.5,
       ease: 'power2.out',
+      onStart: () => {
+        this.setIsAnimating(true)
+      },
       onComplete: () => {
-        this.postHeight = this.prevPostHeight
+        this.setIsAnimating(false)
+        this.setPostHeight(this.prevPostHeight)
       }
     })
   }
 
   close = (onClose?: () => void) => {
-    if (!this.bodyRef) {
+    if (!this.bodyRef || this.isAnimating) {
       return
     }
 
@@ -107,9 +127,13 @@ class PostStore {
       y: 0,
       duration: 0.5,
       ease: 'power2.out',
+      onStart: () => {
+        this.setIsAnimating(true)
+      },
       onComplete: () => {
         this.setIsUploading(false)
         this.setIsRenderReady(false)
+        this.setIsAnimating(false)
         onClose?.()
 
         if (!this.isOpening) {
@@ -135,8 +159,16 @@ class PostStore {
     this.postId = id
   }
 
+  setPostHeight = (height: number) => {
+    this.postHeight = height
+  }
+
   setIsUploading = (bool: boolean) => {
     this.isUploading = bool
+  }
+
+  setIsAnimating = (bool: boolean) => {
+    this.isAnimating = bool
   }
 
   setCanClose = (bool: boolean) => {
