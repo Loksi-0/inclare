@@ -13,6 +13,7 @@ class PostStore {
   isRenderReady = false
   isOpening = false
   isAnimating = false
+  scrollPosition = 0
 
   constructor() {
     makeAutoObservable(this)
@@ -181,6 +182,10 @@ class PostStore {
 
   setIsOpening = (bool: boolean) => {
     this.isOpening = bool
+  }
+
+  setScrollPosition = (pos: number) => {
+    this.scrollPosition = pos
   }
 }
 

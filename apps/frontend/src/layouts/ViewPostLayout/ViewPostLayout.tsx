@@ -3,16 +3,28 @@ import styles from './ViewPostLayout.module.scss'
 import { postStore } from '@/stores/post.store'
 import { mainStore } from '@/stores/main.store'
 import { useFluid } from '@/shared/hooks/useFluid'
+import { useSwipe } from '@/shared/hooks/useSwipe'
+import { observer } from 'mobx-react-lite'
 
 type ViewPostLayoutProps = PropsWithChildren<{
   height: number
   zIndex?: number
 }>
 
-const ViewPostLayout = (props: ViewPostLayoutProps) => {
+const ViewPostLayout = observer((props: ViewPostLayoutProps) => {
   const { height, children, zIndex } = props
 
   const innerRef = useRef<HTMLDivElement | null>(null)
+
+  useSwipe({
+    touchDelta: 100,
+    timeDelta: 200,
+    onTopToBottom: () => {
+      if (postStore.scrollPosition < 10) {
+        postStore.close()
+      }
+    }
+  })
 
   const SCROLL_DOWN_THRESHOLD = useFluid(200, 400)
   const SCROLL_UP_THRESHOLD = 20
@@ -34,6 +46,8 @@ const ViewPostLayout = (props: ViewPostLayoutProps) => {
 
     const onScroll = (e: Event) => {
       if (e.target instanceof HTMLElement) {
+        postStore.setScrollPosition(e.target.scrollTop)
+
         if (
           e.target.scrollHeight > window.innerHeight &&
           e.target.scrollTop > SCROLL_DOWN_THRESHOLD &&
@@ -74,6 +88,6 @@ const ViewPostLayout = (props: ViewPostLayoutProps) => {
       </div>
     </section>
   )
-}
+})
 
 export default ViewPostLayout
