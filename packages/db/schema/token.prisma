@@ -11,5 +11,6 @@ model Token {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([userId, deviceId])
+  @@index([token])
   @@map("tokens")
 }

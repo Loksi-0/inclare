@@ -8,7 +8,7 @@ model Photo {
   shutterSpeed String? @map("shutter_speed")
   iso          Int?
   aperture     Float?
-  focalLength  String?  @map("focal_length")
+  focalLength  String? @map("focal_length")
   cameraModel  String? @map("camera_model")
 
   postId String @map("post_id")
@@ -18,5 +18,6 @@ model Photo {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([order, postId])
+  @@index([postId])
   @@map("photos")
 }
