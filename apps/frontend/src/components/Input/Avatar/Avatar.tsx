@@ -62,6 +62,7 @@ const AvatarInput = (props: AvatarInputProps) => {
           src={imgUrl}
           width={300}
           height={300}
+          unoptimized
         />
       )}
     </div>

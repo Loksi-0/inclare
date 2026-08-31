@@ -55,6 +55,7 @@ const ClientMe = (props: ClientMeProps) => {
             src={me.avatar}
             width={200}
             height={200}
+            expandable
           />
           <div className={styles.me__content}>
             <Button

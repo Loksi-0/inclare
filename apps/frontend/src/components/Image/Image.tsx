@@ -1,5 +1,10 @@
 import { CACHE_IMAGE_QUERIES } from '@repo/constants'
-import { forwardRef, useMemo } from 'react'
+import {
+  forwardRef,
+  useMemo,
+  type DetailedHTMLProps,
+  type ImgHTMLAttributes
+} from 'react'
 
 type ImageProps = {
   src: string
@@ -10,8 +15,8 @@ type ImageProps = {
   decoding?: 'async' | 'auto' | 'sync'
   className?: string
   alt?: string
-  onLoad?: () => void
-}
+  unoptimized?: boolean
+} & DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
 
 const Image = forwardRef<HTMLImageElement, ImageProps>((props, ref) => {
   const {
@@ -23,7 +28,8 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, ref) => {
     decoding = 'async',
     alt = '',
     className,
-    onLoad
+    unoptimized = false,
+    ...rest
   } = props
 
   const cacheSrc = useMemo(() => {
@@ -33,13 +39,13 @@ const Image = forwardRef<HTMLImageElement, ImageProps>((props, ref) => {
   return (
     <img
       ref={ref}
-      src={cacheSrc}
+      src={unoptimized ? src : cacheSrc}
       draggable={draggable}
       loading={loading}
       decoding={decoding}
       alt={alt}
       className={className}
-      onLoad={onLoad}
+      {...rest}
     />
   )
 })

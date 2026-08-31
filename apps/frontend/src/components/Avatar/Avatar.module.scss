@@ -6,4 +6,13 @@
 
 .avatar {
   object-fit: cover;
+
+  &__button {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  &__expanded {
+    position: absolute;
+  }
 }

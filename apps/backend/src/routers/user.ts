@@ -142,8 +142,8 @@ export const userRouter = router({
       const imgBuffer = Buffer.from(bytes)
 
       await compressImage('webp', {
-        width: 150,
-        height: 150,
+        width: 1000,
+        height: 1000,
         img: imgBuffer,
         fit: 'cover',
         output: avatarPath,

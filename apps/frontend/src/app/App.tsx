@@ -12,6 +12,7 @@ import { soundStore } from '@/stores/sound.store'
 import Onboarding from '@/components/Onboarding'
 import Main from '@/components/Main'
 import { preferencesStore } from '@/stores/preferences.store'
+import ImageModal from '@/components/ImageModal'
 
 const App = ({ children }: PropsWithChildren) => {
   useEffect(() => {
@@ -26,6 +27,7 @@ const App = ({ children }: PropsWithChildren) => {
         dir='auto'
       />
       <Cursor />
+      <ImageModal />
       <PhotoModal />
       <Onboarding />
       <Effector>
