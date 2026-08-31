@@ -4,7 +4,9 @@ import { makeAutoObservable } from 'mobx'
 class PostStore {
   postId: string | null = null
   postHeight: number | null = null
+  prevPostHeight = 0
   isOpen = false
+  isFullyOpen = false
   isUploading = false
   bodyRef: HTMLElement | null = null
   canCloseOutside = true
@@ -28,6 +30,7 @@ class PostStore {
       : maxHeight
 
     this.postHeight = offsetHeight
+    this.prevPostHeight = offsetHeight
 
     gsap.to(this.bodyRef, {
       y: offsetHeight * -1,
@@ -45,14 +48,28 @@ class PostStore {
   }
 
   open = (id: string, offset?: number) => {
-    if (!this.bodyRef) {
-      return
-    }
-
     this.isOpen = true
     this.postId = id
     this.setIsUploading(false)
     this.shiftPost(offset)
+  }
+
+  openFull = () => {
+    if (!this.bodyRef) {
+      return
+    }
+
+    this.postHeight = window.innerHeight
+    this.isFullyOpen = true
+
+    gsap.to(this.bodyRef, {
+      y: window.innerHeight * -1,
+      duration: 0.7,
+      ease: 'power2.out',
+      onComplete: () => {
+        this.postHeight = window.innerHeight
+      }
+    })
   }
 
   openUpload = (offset?: number) => {
@@ -61,15 +78,33 @@ class PostStore {
     this.shiftPost(offset)
   }
 
+  closeFull = () => {
+    if (!this.bodyRef) {
+      return
+    }
+
+    this.isFullyOpen = false
+
+    gsap.to(this.bodyRef, {
+      y: this.prevPostHeight * -1,
+      duration: 0.5,
+      ease: 'power2.out',
+      onComplete: () => {
+        this.postHeight = this.prevPostHeight
+      }
+    })
+  }
+
   close = (onClose?: () => void) => {
     if (!this.bodyRef) {
       return
     }
 
     this.isOpen = false
+    this.isFullyOpen = false
 
     gsap.to(this.bodyRef, {
-      y: '0',
+      y: 0,
       duration: 0.5,
       ease: 'power2.out',
       onComplete: () => {
