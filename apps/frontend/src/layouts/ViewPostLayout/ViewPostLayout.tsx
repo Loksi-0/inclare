@@ -17,7 +17,7 @@ const ViewPostLayout = observer((props: ViewPostLayoutProps) => {
   const innerRef = useRef<HTMLDivElement | null>(null)
 
   useSwipe({
-    touchDelta: 100,
+    touchDelta: 60,
     timeDelta: 200,
     onTopToBottom: () => {
       if (postStore.scrollPosition < 10) {
@@ -49,7 +49,7 @@ const ViewPostLayout = observer((props: ViewPostLayoutProps) => {
         postStore.setScrollPosition(e.target.scrollTop)
 
         if (
-          e.target.scrollHeight > window.innerHeight &&
+          e.target.scrollHeight > window.innerHeight * 1.5 &&
           e.target.scrollTop > SCROLL_DOWN_THRESHOLD &&
           !postStore.isFullyOpen
         ) {
