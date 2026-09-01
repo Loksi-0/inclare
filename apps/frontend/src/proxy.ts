@@ -13,7 +13,9 @@ export const proxy = async (req: NextRequest) => {
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/uploads') ||
-    pathname.match(/\.(html|css|js|mp3|wav|ogg|png|jpg|jpeg|svg|webp|ico)$/)
+    pathname.match(
+      /\.(html|css|js|mp3|wav|ogg|png|jpg|jpeg|svg|webp|ico|webmanifest)$/
+    )
   ) {
     return NextResponse.next()
   }
