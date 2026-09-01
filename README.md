@@ -1,4 +1,4 @@
-# Inclare
+# **[Inclare](https://inclare.ru)**
 
 **Inclare** — платформа для фотографов с архивацией и обработкой всех видов RAW фотографий. Изучайте самые популярные посты на бесконечной плоскости вместо привычной ленты.
 
@@ -176,11 +176,3 @@
   ```bash
   pnpm dev
   ```
-
----
-
-<div style='display: flex; align-items: center; justify-content: center; font-size: 40px;'>
-  <a href='https://inclare.ru'>
-    <b>Inclare</b>
-  </a>
-</div>
