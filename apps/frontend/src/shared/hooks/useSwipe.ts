@@ -8,6 +8,9 @@ type UseSwipeProps = {
   onTopToBottom?: () => void
   onLeftToRight?: () => void
   onRightToLeft?: () => void
+  onVertical?: () => void
+  onHorizontal?: () => void
+  ref?: HTMLElement | null
 }
 
 type StrengthDelta = {
@@ -21,7 +24,7 @@ const strengthMap: Record<UseSwipeProps['strength'], StrengthDelta> = {
     timeDelta: 200
   },
   medium: {
-    touchDelta: 80,
+    touchDelta: 100,
     timeDelta: 350
   },
   hard: {
@@ -36,7 +39,10 @@ export const useSwipe = (props: UseSwipeProps) => {
     onBottomToTop,
     onTopToBottom,
     onLeftToRight,
-    onRightToLeft
+    onRightToLeft,
+    onVertical,
+    onHorizontal,
+    ref
   } = props
 
   const { timeDelta, touchDelta } = strengthMap[strength] || strengthMap.light
@@ -49,6 +55,10 @@ export const useSwipe = (props: UseSwipeProps) => {
 
   useEffect(() => {
     const onTouchStart = (e: TouchEvent) => {
+      if (ref) {
+        e.stopImmediatePropagation()
+      }
+
       const startTouch = [...e.touches].at(0)
 
       if (!startTouch) {
@@ -63,6 +73,10 @@ export const useSwipe = (props: UseSwipeProps) => {
     }
 
     const onTouchEnd = (e: TouchEvent) => {
+      if (ref) {
+        e.stopImmediatePropagation()
+      }
+
       const endTouch = [...e.changedTouches].at(0)
 
       if (!endTouch) {
@@ -82,24 +96,50 @@ export const useSwipe = (props: UseSwipeProps) => {
       const absY = Math.abs(changeY)
 
       if (changeX > 0 && changeX > touchDelta) {
-        onLeftToRight?.()
+        if (onHorizontal) {
+          onHorizontal()
+        } else {
+          onLeftToRight?.()
+        }
       } else if (changeX < 0 && absX > touchDelta) {
-        onRightToLeft?.()
+        if (onHorizontal) {
+          onHorizontal()
+        } else {
+          onRightToLeft?.()
+        }
       }
 
       if (changeY > 0 && changeY > touchDelta) {
-        onTopToBottom?.()
+        if (onVertical) {
+          onVertical()
+        } else {
+          onTopToBottom?.()
+        }
       } else if (changeY < 0 && absY > touchDelta) {
-        onBottomToTop?.()
+        if (onVertical) {
+          onVertical()
+        } else {
+          onBottomToTop?.()
+        }
       }
     }
 
-    document.addEventListener('touchstart', onTouchStart)
-    document.addEventListener('touchend', onTouchEnd)
+    if (ref) {
+      ref.addEventListener('touchstart', onTouchStart)
+      ref.addEventListener('touchend', onTouchEnd)
+    } else {
+      document.addEventListener('touchstart', onTouchStart)
+      document.addEventListener('touchend', onTouchEnd)
+    }
 
     return () => {
-      document.removeEventListener('touchstart', onTouchStart)
-      document.removeEventListener('touchend', onTouchEnd)
+      if (ref) {
+        ref.removeEventListener('touchstart', onTouchStart)
+        ref.removeEventListener('touchend', onTouchEnd)
+      } else {
+        document.removeEventListener('touchstart', onTouchStart)
+        document.removeEventListener('touchend', onTouchEnd)
+      }
     }
   }, [])
 }

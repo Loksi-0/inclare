@@ -98,8 +98,11 @@ export const postRouter = router({
         return apiError(ERROR_CODES.POST.NOT_FOUND)
       }
 
+      const sortedPhotos = [...post.photos].sort((a, b) => a.order - b.order)
+
       const postDto = {
         ...post,
+        photos: sortedPhotos,
         likesCount: post._count.likes,
         isLiked: ctx.user?.id ? post.likes.length > 0 : false,
         isMy: Boolean(authorPost)

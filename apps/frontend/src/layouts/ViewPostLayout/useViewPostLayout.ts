@@ -3,6 +3,7 @@ import { postStore } from '@/stores/post.store'
 import { mainStore } from '@/stores/main.store'
 import { useFluid } from '@/shared/hooks/useFluid'
 import { useSwipe } from '@/shared/hooks/useSwipe'
+import { photoModalStore } from '@/stores/photoModal.store'
 
 export const useViewPostLayout = () => {
   const SCROLL_DOWN_THRESHOLD = useFluid(200, 400)
@@ -10,17 +11,24 @@ export const useViewPostLayout = () => {
 
   const innerRef = useRef<HTMLDivElement | null>(null)
 
-  useSwipe({
-    strength: 'light',
-    onTopToBottom: () => {
-      if (postStore.scrollPosition < 50) {
-        if (postStore.isFullyOpen) {
-          postStore.closeFull()
-        } else {
-          postStore.close()
-        }
+  const handleGesture = () => {
+    if (
+      postStore.isOpen &&
+      !photoModalStore.isOpen &&
+      !photoModalStore.isClosing &&
+      postStore.scrollPosition < 10
+    ) {
+      if (postStore.isFullyOpen) {
+        postStore.closeFull()
+      } else {
+        postStore.close()
       }
     }
+  }
+
+  useSwipe({
+    strength: 'light',
+    onTopToBottom: handleGesture
   })
 
   useEffect(() => {
@@ -54,16 +62,8 @@ export const useViewPostLayout = () => {
     }
 
     const onWheel = (e: WheelEvent) => {
-      if (
-        e.deltaY < WHEEL_THRESHOLD * -1 &&
-        postStore.isOpen &&
-        postStore.scrollPosition < 10
-      ) {
-        if (postStore.isFullyOpen) {
-          postStore.closeFull()
-        } else {
-          postStore.close()
-        }
+      if (e.deltaY < WHEEL_THRESHOLD * -1) {
+        handleGesture()
       }
     }
 

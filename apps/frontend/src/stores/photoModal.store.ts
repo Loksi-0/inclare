@@ -22,6 +22,7 @@ class PhotoModalStore {
   photos: PhotoData[] = []
   current = 0
   isOpen = false
+  isClosing = false
 
   constructor() {
     makeAutoObservable(this)
@@ -36,6 +37,7 @@ class PhotoModalStore {
 
   close = () => {
     this.isOpen = false
+    this.isClosing = true
     closeModal()
   }
 
@@ -59,6 +61,10 @@ class PhotoModalStore {
     }
 
     this.current = nextOrder
+  }
+
+  setIsClosing = (bool: boolean) => {
+    this.isClosing = bool
   }
 }
 

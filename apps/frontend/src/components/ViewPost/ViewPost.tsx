@@ -36,8 +36,6 @@ const ViewPost = observer(() => {
     return <ViewPostSkeleton height={postStore.postHeight} />
   }
 
-  const sortedPhotos = data.photos.sort((a, b) => a.order - b.order)
-
   return (
     <ViewPostLayout height={postStore.postHeight}>
       <div className={styles.post__top}>
@@ -63,13 +61,13 @@ const ViewPost = observer(() => {
           <div className={styles.post__description}>{data.description}</div>
         )}
         <div className={styles.post__photos}>
-          {sortedPhotos.map((p, i) => (
+          {data.photos.map((p, i) => (
             <Button
               color='icon'
               key={p.id}
               onClick={() => {
                 photoModalStore.open({
-                  photos: sortedPhotos,
+                  photos: data.photos,
                   current: p.order
                 })
               }}

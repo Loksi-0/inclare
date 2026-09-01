@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { photoModalStore } from '@/stores/photoModal.store'
 import { useBlur } from '@/shared/hooks/useBlur'
 import gsap from 'gsap'
+import { useSwipe } from '@/shared/hooks/useSwipe'
 
 export const usePhotoModal = () => {
   const [isImgLoaded, setIsImgLoaded] = useState(false)
@@ -19,20 +20,42 @@ export const usePhotoModal = () => {
     )
   }, [photoModalStore.photos, photoModalStore.current])
 
+  useSwipe({
+    strength: 'medium',
+    onVertical: () => {
+      if (photoModalStore.isOpen) {
+        photoModalStore.close()
+      }
+    }
+  })
+
   useEffect(() => {
     if (photoModalStore.isOpen) {
       blurOut(modalRef.current)
       gsap.fromTo(
         modalRef.current,
-        { opacity: 0, display: 'flex' },
-        { opacity: 1, duration: 0.2 }
+        {
+          opacity: 0,
+          display: 'flex'
+        },
+        {
+          opacity: 1,
+          duration: 0.2
+        }
       )
     } else {
       blurIn(modalRef.current)
       gsap.fromTo(
         modalRef.current,
         { opacity: 1 },
-        { opacity: 0, display: 'none', duration: 0.2 }
+        {
+          opacity: 0,
+          display: 'none',
+          duration: 0.2,
+          onComplete: () => {
+            photoModalStore.setIsClosing(false)
+          }
+        }
       )
     }
   }, [photoModalStore.isOpen])
