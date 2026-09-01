@@ -43,13 +43,13 @@ export const useCursor = () => {
   }
 
   useEffect(() => {
-    if (preferencesStore.hideCursor) {
-      document.documentElement.setAttribute('custom-cursor', 'hidden')
-    } else {
+    if (preferencesStore.showCursor) {
       document.documentElement.setAttribute('custom-cursor', 'visible')
+    } else {
+      document.documentElement.setAttribute('custom-cursor', 'hidden')
     }
 
-    if (isTouchscreen || preferencesStore.hideCursor) {
+    if (isTouchscreen || !preferencesStore.showCursor) {
       return
     }
 
@@ -123,7 +123,7 @@ export const useCursor = () => {
       document.removeEventListener('mouseenter', onEnter)
       document.removeEventListener('mouseleave', onLeave)
     }
-  }, [preferencesStore.hideCursor])
+  }, [preferencesStore.showCursor])
 
   return { cursorRef }
 }

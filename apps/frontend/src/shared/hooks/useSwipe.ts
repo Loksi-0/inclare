@@ -1,5 +1,6 @@
 'use client'
 
+import { preferencesStore } from '@/stores/preferences.store'
 import { useEffect, useRef } from 'react'
 
 type UseSwipeProps = {
@@ -55,6 +56,10 @@ export const useSwipe = (props: UseSwipeProps) => {
 
   useEffect(() => {
     const onTouchStart = (e: TouchEvent) => {
+      if (!preferencesStore.enableGestures) {
+        return
+      }
+
       if (ref) {
         e.stopImmediatePropagation()
       }
@@ -73,6 +78,10 @@ export const useSwipe = (props: UseSwipeProps) => {
     }
 
     const onTouchEnd = (e: TouchEvent) => {
+      if (!preferencesStore.enableGestures) {
+        return
+      }
+
       if (ref) {
         e.stopImmediatePropagation()
       }

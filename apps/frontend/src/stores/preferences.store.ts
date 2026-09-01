@@ -3,8 +3,9 @@ import { makeAutoObservable } from 'mobx'
 import { makePersistable, stopPersisting } from 'mobx-persist-store'
 
 class PreferencesStore {
-  hideCursor = false
+  showCursor = true
   darkTheme = false
+  enableGestures = true
 
   constructor() {
     makeAutoObservable(this)
@@ -16,13 +17,17 @@ class PreferencesStore {
     void stopPersisting(this)
     makePersistable(this, {
       name: 'preferences',
-      properties: ['hideCursor', 'darkTheme'],
+      properties: ['showCursor', 'darkTheme', 'enableGestures'],
       storage: window.localStorage
     })
   }
 
-  setHideCursor = (bool: boolean) => {
-    this.hideCursor = bool
+  setShowCursor = (bool: boolean) => {
+    this.showCursor = bool
+  }
+
+  setEnableGestures = (bool: boolean) => {
+    this.enableGestures = bool
   }
 
   setDarkTheme = (isDark: boolean) => {

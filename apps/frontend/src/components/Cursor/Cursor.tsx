@@ -15,7 +15,7 @@ const Cursor = observer(() => {
     <div
       ref={cursorRef}
       className={cx(styles.cursor, [
-        { [styles.hidden]: preferencesStore.hideCursor && isMounted }
+        { [styles.hidden]: !preferencesStore.showCursor && isMounted }
       ])}
     ></div>
   )

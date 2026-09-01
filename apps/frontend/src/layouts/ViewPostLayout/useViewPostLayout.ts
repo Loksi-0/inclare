@@ -4,6 +4,7 @@ import { mainStore } from '@/stores/main.store'
 import { useFluid } from '@/shared/hooks/useFluid'
 import { useSwipe } from '@/shared/hooks/useSwipe'
 import { photoModalStore } from '@/stores/photoModal.store'
+import { preferencesStore } from '@/stores/preferences.store'
 
 export const useViewPostLayout = () => {
   const SCROLL_DOWN_THRESHOLD = useFluid(200, 400)
@@ -62,7 +63,7 @@ export const useViewPostLayout = () => {
     }
 
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY < WHEEL_THRESHOLD * -1) {
+      if (e.deltaY < WHEEL_THRESHOLD * -1 && preferencesStore.enableGestures) {
         handleGesture()
       }
     }

@@ -48,12 +48,19 @@ const ClientUserToggles = observer(
         {!isTouchscreen && isMounted && (
           <ToggleSwitch
             title='Кастомный курсор'
-            isToggled={!preferencesStore.hideCursor}
+            isToggled={preferencesStore.showCursor}
             onToggle={(t) => {
-              preferencesStore.setHideCursor(!t)
+              preferencesStore.setShowCursor(t)
             }}
           />
         )}
+        <ToggleSwitch
+          title='Жесты'
+          isToggled={preferencesStore.enableGestures}
+          onToggle={(t) => {
+            preferencesStore.setEnableGestures(t)
+          }}
+        />
         <ToggleSwitch
           title='Темная тема'
           isToggled={preferencesStore.darkTheme}
