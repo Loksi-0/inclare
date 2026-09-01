@@ -1,7 +1,7 @@
 @use '@/app/styles/helpers' as *;
 
 .modal {
-  z-index: 1000;
+  z-index: 3000;
   position: absolute;
   opacity: 0;
   will-change: filter, opacity;
