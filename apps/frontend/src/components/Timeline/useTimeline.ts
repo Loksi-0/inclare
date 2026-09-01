@@ -161,6 +161,7 @@ export const useTimeline = (data: Post[]) => {
     }
 
     timelineStore.timelineRef = timelineRef.current
+    timelineStore.setOffset()
 
     if (!wasPositionSet.current) {
       gsap.set(bodyRef.current, { x: getMaxX() })

@@ -3,23 +3,49 @@
 import { useEffect, useRef } from 'react'
 
 type UseSwipeProps = {
-  touchDelta: number
-  timeDelta: number
+  strength: 'light' | 'medium' | 'hard'
   onBottomToTop?: () => void
   onTopToBottom?: () => void
   onLeftToRight?: () => void
   onRightToLeft?: () => void
 }
 
+type StrengthDelta = {
+  touchDelta: number
+  timeDelta: number
+}
+
+const strengthMap: Record<UseSwipeProps['strength'], StrengthDelta> = {
+  light: {
+    touchDelta: 40,
+    timeDelta: 200
+  },
+  medium: {
+    touchDelta: 80,
+    timeDelta: 350
+  },
+  hard: {
+    touchDelta: 150,
+    timeDelta: 500
+  }
+}
+
 export const useSwipe = (props: UseSwipeProps) => {
-  const propsRef = useRef(props)
+  const {
+    strength,
+    onBottomToTop,
+    onTopToBottom,
+    onLeftToRight,
+    onRightToLeft
+  } = props
+
+  const { timeDelta, touchDelta } = strengthMap[strength] || strengthMap.light
+
   const firstTouch = useRef({
     x: 0,
     y: 0,
     timestamp: 0
   })
-
-  propsRef.current = props
 
   useEffect(() => {
     const onTouchStart = (e: TouchEvent) => {
@@ -42,15 +68,6 @@ export const useSwipe = (props: UseSwipeProps) => {
       if (!endTouch) {
         return
       }
-
-      const {
-        touchDelta,
-        timeDelta,
-        onBottomToTop,
-        onTopToBottom,
-        onLeftToRight,
-        onRightToLeft
-      } = propsRef.current
 
       const endTouchTimestamp = Date.now()
 

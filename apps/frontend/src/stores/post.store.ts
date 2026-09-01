@@ -19,7 +19,7 @@ class PostStore {
     makeAutoObservable(this)
   }
 
-  private shiftPost = (offset?: number) => {
+  private shiftPost = (offset?: number | null) => {
     if (!this.bodyRef || this.isAnimating) {
       return
     }
@@ -51,7 +51,7 @@ class PostStore {
     })
   }
 
-  open = (id: string, offset?: number) => {
+  open = (id: string, offset?: number | null) => {
     if (this.isAnimating) {
       return
     }
@@ -68,8 +68,6 @@ class PostStore {
     }
 
     this.postHeight = window.innerHeight
-    this.isFullyOpen = true
-    this.isAnimating = true
 
     gsap.to(this.bodyRef, {
       y: window.innerHeight * -1,
@@ -81,11 +79,12 @@ class PostStore {
       onComplete: () => {
         this.setIsAnimating(false)
         this.setPostHeight(window.innerHeight)
+        this.setIsFullyOpen(true)
       }
     })
   }
 
-  openUpload = (offset?: number) => {
+  openUpload = (offset?: number | null) => {
     if (this.isAnimating) {
       return
     }
@@ -100,11 +99,9 @@ class PostStore {
       return
     }
 
-    this.isFullyOpen = false
-
     gsap.to(this.bodyRef, {
       y: this.prevPostHeight * -1,
-      duration: 0.5,
+      duration: 0.4,
       ease: 'power2.out',
       onStart: () => {
         this.setIsAnimating(true)
@@ -112,6 +109,7 @@ class PostStore {
       onComplete: () => {
         this.setIsAnimating(false)
         this.setPostHeight(this.prevPostHeight)
+        this.setIsFullyOpen(false)
       }
     })
   }
@@ -186,6 +184,10 @@ class PostStore {
 
   setScrollPosition = (pos: number) => {
     this.scrollPosition = pos
+  }
+
+  setIsFullyOpen = (bool: boolean) => {
+    this.isFullyOpen = bool
   }
 }
 

@@ -11,12 +11,14 @@ import { postStore } from '@/stores/post.store'
 import { timelineStore } from '@/stores/timeline.store'
 import type { ApiReturnType } from '@/types/globals'
 import styles from './ProfileTimeline.module.scss'
+import { useSwipe } from '@/shared/hooks/useSwipe'
+import { observer } from 'mobx-react-lite'
 
 type ClientTimelineProps = {
   data: ApiReturnType<typeof api.post.my.getPublished.query>
 }
 
-const ClientProfileTimeline = (props: ClientTimelineProps) => {
+const ClientProfileTimeline = observer((props: ClientTimelineProps) => {
   const { data: initialData } = props
 
   const trpc = useTRPC()
@@ -25,6 +27,15 @@ const ClientProfileTimeline = (props: ClientTimelineProps) => {
       initialData
     })
   )
+
+  useSwipe({
+    strength: 'light',
+    onBottomToTop: () => {
+      if (!postStore.isOpen && !postStore.isUploading) {
+        postStore.openUpload(timelineStore.offset)
+      }
+    }
+  })
 
   if (!data || !data.at(0)) {
     timelineStore.timelineRef = null
@@ -52,6 +63,6 @@ const ClientProfileTimeline = (props: ClientTimelineProps) => {
   }
 
   return <Timeline data={data} />
-}
+})
 
 export default ClientProfileTimeline

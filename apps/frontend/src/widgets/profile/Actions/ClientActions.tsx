@@ -35,11 +35,7 @@ const ClientActions = observer((props: ClientActionsProps) => {
         className={styles.actions__button}
         color='solid'
         onClick={() => {
-          postStore.openUpload(
-            timelineStore.timelineRef
-              ? timelineStore.timelineRef.offsetHeight + UI.TIMELINE_PADDING * 2
-              : undefined
-          )
+          postStore.openUpload(timelineStore.offset)
         }}
       >
         загрузить пачку
