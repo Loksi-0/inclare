@@ -3,19 +3,17 @@ import { makeAutoObservable } from 'mobx'
 
 class TimelineStore {
   timelineRef: HTMLElement | null = null
-  offset: number | null = null
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  setOffset = () => {
+  getOffset = () => {
     if (!this.timelineRef) {
-      this.offset = null
-      return
+      return null
     }
 
-    this.offset = this.timelineRef.offsetHeight + UI.TIMELINE_PADDING * 2
+    return this.timelineRef.offsetHeight + UI.TIMELINE_PADDING * 2
   }
 }
 

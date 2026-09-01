@@ -201,6 +201,7 @@ export const usePlaneContext = (props: PlaneProps) => {
     instance.on('transform', onTransform)
 
     return () => {
+      onTransform.cancel()
       instance.dispose()
     }
   }, [])

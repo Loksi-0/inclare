@@ -62,6 +62,7 @@ class PostStore {
 
     this.isOpen = true
     this.postId = id
+    this.scrollPosition = 0
     this.setIsUploading(false)
   }
 
@@ -92,9 +93,13 @@ class PostStore {
       return
     }
 
+    if (!this.isOpen) {
+      this.shiftPost(offset)
+    }
+
     this.isOpen = true
+    this.scrollPosition = 0
     this.setIsUploading(true)
-    this.shiftPost(offset)
   }
 
   closeFull = () => {

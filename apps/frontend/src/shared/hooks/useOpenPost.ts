@@ -14,7 +14,18 @@ export const useOpenPost = () => {
   const blurOut = useBlur({ from: 5, to: 0 })
 
   useEffect(() => {
-    if (!timelineStore.timelineRef || !ref.current) {
+    if (!ref.current) {
+      return
+    }
+
+    if (!timelineStore.timelineRef) {
+      blurOut(ref.current)
+      gsap.to(ref.current, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: 'power2.out'
+      })
       return
     }
 

@@ -13,25 +13,34 @@ export const useMisted = ({ size, delay }: UseMistedProps) => {
   const { screenSize } = useWindow()
   const groupRef = useRef<SVGGElement | null>(null)
   const maskRef = useRef<SVGSVGElement | null>(null)
+  const maskRect = useRef<DOMRect | null>(null)
+
+  const setMaskRect = () => {
+    if (!maskRef.current) {
+      return
+    }
+
+    maskRect.current = maskRef.current.getBoundingClientRect()
+  }
 
   useEffect(() => {
     if (!groupRef.current || !maskRef.current) {
       return
     }
 
-    const maskRect = maskRef.current.getBoundingClientRect()
+    setMaskRect()
 
     const createCicle = (cursor: { x: number; y: number }) => {
-      if (!groupRef.current) {
+      if (!groupRef.current || !maskRect.current) {
         return
       }
 
-      const offsetX = cursor.x - maskRect.x
-      const offsetY = cursor.y - maskRect.y
+      const offsetX = cursor.x - maskRect.current.x
+      const offsetY = cursor.y - maskRect.current.y
 
       if (
-        offsetX - size > maskRect.width ||
-        offsetY - size > maskRect.height ||
+        offsetX - size > maskRect.current.width ||
+        offsetY - size > maskRect.current.height ||
         offsetX + size < 0 ||
         offsetY + size < 0
       ) {
@@ -77,6 +86,8 @@ export const useMisted = ({ size, delay }: UseMistedProps) => {
       })
     }
     const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+
       createCicle({
         x: e.touches[0].pageX,
         y: e.touches[0].pageY
@@ -86,9 +97,12 @@ export const useMisted = ({ size, delay }: UseMistedProps) => {
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('touchmove', onTouchMove, { passive: false })
 
+    const interval = setInterval(setMaskRect, 2000)
+
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('touchmove', onTouchMove)
+      clearInterval(interval)
     }
   }, [screenSize])
 

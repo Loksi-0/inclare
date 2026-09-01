@@ -79,5 +79,11 @@ export const useViewPostLayout = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (postStore.isOpen && innerRef.current) {
+      innerRef.current.scroll({ top: 0 })
+    }
+  }, [postStore.isOpen, postStore.postId])
+
   return { innerRef }
 }

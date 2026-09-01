@@ -32,7 +32,7 @@ const ClientProfileTimeline = observer((props: ClientTimelineProps) => {
     strength: 'light',
     onBottomToTop: () => {
       if (!postStore.isOpen && !postStore.isUploading) {
-        postStore.openUpload(timelineStore.offset)
+        postStore.openUpload(timelineStore.getOffset())
       }
     }
   })
