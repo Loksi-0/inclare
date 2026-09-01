@@ -1,3 +1,4 @@
+import { isClient } from '@/shared/functions/isClient'
 import { closeModal, openModal } from '@/shared/functions/manageModal'
 import { makeAutoObservable } from 'mobx'
 
@@ -26,6 +27,22 @@ class PhotoModalStore {
 
   constructor() {
     makeAutoObservable(this)
+
+    if (!isClient) {
+      return
+    }
+
+    document.addEventListener('keyup', (e) => {
+      if (!this.isOpen || this.isClosing) {
+        return
+      }
+
+      if (e.key === 'ArrowLeft') {
+        this.prevCurrent()
+      } else if (e.key === 'ArrowRight') {
+        this.nextCurrent()
+      }
+    })
   }
 
   open = ({ photos, current }: OpenOpts) => {
@@ -47,7 +64,13 @@ class PhotoModalStore {
 
   nextCurrent = () => {
     const prevIndex = this.photos.findIndex((p) => p.order === this.current)
-    const nextOrder = prevIndex !== -1 && this.photos.at(prevIndex + 1)?.order
+    const nextIndex = prevIndex !== -1 && prevIndex + 1
+
+    if (!nextIndex || nextIndex > this.photos.length - 1) {
+      return
+    }
+
+    const nextOrder = nextIndex && this.photos.at(nextIndex)?.order
 
     if (typeof nextOrder !== 'number') {
       return
@@ -58,7 +81,13 @@ class PhotoModalStore {
 
   prevCurrent = () => {
     const prevIndex = this.photos.findIndex((p) => p.order === this.current)
-    const nextOrder = prevIndex !== -1 && this.photos.at(prevIndex - 1)?.order
+    const nextIndex = prevIndex !== -1 && prevIndex - 1
+
+    if (typeof nextIndex !== 'number' || nextIndex < 0) {
+      return
+    }
+
+    const nextOrder = nextIndex && this.photos.at(nextIndex)?.order
 
     if (typeof nextOrder !== 'number') {
       return

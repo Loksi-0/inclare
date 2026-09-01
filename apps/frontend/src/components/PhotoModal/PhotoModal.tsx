@@ -10,10 +10,11 @@ import ArrowLeft from '@/icons/ArrowLeft'
 import ArrowRight from '@/icons/ArrowRight'
 import Preloader from '../Preloader'
 import { usePhotoModal } from './usePhotoModal'
-import styles from './PhotoModal.module.scss'
 import OptionsButton from '../OptionsButton'
 import Download from '@/icons/Download'
 import { downloadFile } from '@/shared/functions/downloadFile'
+import cx from 'clsx'
+import styles from './PhotoModal.module.scss'
 
 const PhotoModal = observer(() => {
   const {
@@ -76,6 +77,14 @@ const PhotoModal = observer(() => {
         {data && (
           <div className={styles.modal__body}>
             <div className={styles.modal__photoWrapper}>
+              <div
+                className={cx(styles.modal__overlay, styles.left)}
+                onClick={photoModalStore.prevCurrent}
+              ></div>
+              <div
+                className={cx(styles.modal__overlay, styles.right)}
+                onClick={photoModalStore.nextCurrent}
+              ></div>
               <Image
                 ref={imgRef}
                 className={styles.modal__photo}
