@@ -13,29 +13,26 @@ import Onboarding from '@/components/Onboarding'
 import Main from '@/components/Main'
 import { preferencesStore } from '@/stores/preferences.store'
 import ImageModal from '@/components/ImageModal'
-import { postStore } from '@/stores/post.store'
-import { photoModalStore } from '@/stores/photoModal.store'
+import { usePathname } from 'next/navigation'
 import { imageModalStore } from '@/stores/imageModal.store'
 import { onboardingStore } from '@/stores/onboarding.store'
+import { photoModalStore } from '@/stores/photoModal.store'
+import { postStore } from '@/stores/post.store'
 
 const App = ({ children }: PropsWithChildren) => {
+  const pathname = usePathname()
+
   useEffect(() => {
     void soundStore.init()
     void preferencesStore.initTheme()
-
-    const onPopstate = () => {
-      postStore.close()
-      photoModalStore.close()
-      imageModalStore.close()
-      onboardingStore.close()
-    }
-
-    window.addEventListener('popstate', onPopstate)
-
-    return () => {
-      window.removeEventListener('popstate', onPopstate)
-    }
   }, [])
+
+  useEffect(() => {
+    postStore.closeInstantly()
+    photoModalStore.close()
+    imageModalStore.close()
+    onboardingStore.close()
+  }, [pathname])
 
   return (
     <Providers>
