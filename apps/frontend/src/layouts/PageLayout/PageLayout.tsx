@@ -6,6 +6,9 @@ import cx from 'clsx'
 import styles from './PageLayout.module.scss'
 import { useSwipe } from '@/shared/hooks/useSwipe'
 import { useNavigate } from '@/shared/hooks/useNavigate'
+import { postStore } from '@/stores/post.store'
+import { photoModalStore } from '@/stores/photoModal.store'
+import { imageModalStore } from '@/stores/imageModal.store'
 
 type PageLayoutProps = PropsWithChildren<{
   profile?: boolean
@@ -37,7 +40,12 @@ const PageLayout = (props: PageLayoutProps) => {
   useSwipe({
     strength: 'medium',
     onLeftToRight: () => {
-      if (!gestures?.back) {
+      if (
+        !gestures?.back ||
+        postStore.isOpen ||
+        photoModalStore.isOpen ||
+        imageModalStore.isOpen
+      ) {
         return
       }
 
@@ -48,7 +56,12 @@ const PageLayout = (props: PageLayoutProps) => {
       }
     },
     onRightToLeft: () => {
-      if (!gestures?.forward) {
+      if (
+        !gestures?.forward ||
+        postStore.isOpen ||
+        photoModalStore.isOpen ||
+        imageModalStore.isOpen
+      ) {
         return
       }
 
