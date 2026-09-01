@@ -2,9 +2,6 @@ import Image from '@/components/Image'
 import cx from 'clsx'
 import styles from './Avatar.module.scss'
 import Button from '../Button'
-import { photoModalStore } from '@/stores/photoModal.store'
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
 import { imageModalStore } from '@/stores/imageModal.store'
 
 type AvatarProps = {

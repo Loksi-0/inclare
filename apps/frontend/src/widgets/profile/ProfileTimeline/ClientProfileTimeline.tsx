@@ -13,6 +13,8 @@ import type { ApiReturnType } from '@/types/globals'
 import styles from './ProfileTimeline.module.scss'
 import { useSwipe } from '@/shared/hooks/useSwipe'
 import { observer } from 'mobx-react-lite'
+import { photoModalStore } from '@/stores/photoModal.store'
+import { imageModalStore } from '@/stores/imageModal.store'
 
 type ClientTimelineProps = {
   data: ApiReturnType<typeof api.post.my.getPublished.query>
@@ -31,7 +33,13 @@ const ClientProfileTimeline = observer((props: ClientTimelineProps) => {
   useSwipe({
     strength: 'light',
     onBottomToTop: () => {
-      if (!postStore.isOpen && !postStore.isUploading) {
+      if (
+        !postStore.isOpen &&
+        !photoModalStore.isOpen &&
+        !imageModalStore.isOpen &&
+        !imageModalStore.isClosing &&
+        !postStore.isUploading
+      ) {
         postStore.openUpload(timelineStore.getOffset())
       }
     }

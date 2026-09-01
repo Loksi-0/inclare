@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 
 class ImageModalStore {
   isOpen = false
+  isClosing = false
   src: string | null = null
 
   constructor() {
@@ -15,6 +16,15 @@ class ImageModalStore {
 
   close = () => {
     this.isOpen = false
+    this.isClosing = true
+
+    requestAnimationFrame(() => {
+      this.setIsClosing(false)
+    })
+  }
+
+  setIsClosing = (bool: boolean) => {
+    this.isClosing = bool
   }
 }
 
