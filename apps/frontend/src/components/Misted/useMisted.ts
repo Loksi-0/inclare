@@ -89,8 +89,8 @@ export const useMisted = ({ size, delay }: UseMistedProps) => {
       e.preventDefault()
 
       createCicle({
-        x: e.touches[0].pageX,
-        y: e.touches[0].pageY
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
       })
     }
 
@@ -101,10 +101,10 @@ export const useMisted = ({ size, delay }: UseMistedProps) => {
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchmove', onTouchMove, false)
       clearInterval(interval)
     }
-  }, [screenSize])
+  }, [screenSize, size])
 
   return { groupRef, maskRef }
 }
