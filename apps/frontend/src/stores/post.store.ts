@@ -56,10 +56,13 @@ class PostStore {
       return
     }
 
+    if (!this.isOpen) {
+      this.shiftPost(offset)
+    }
+
     this.isOpen = true
     this.postId = id
     this.setIsUploading(false)
-    this.shiftPost(offset)
   }
 
   openFull = () => {

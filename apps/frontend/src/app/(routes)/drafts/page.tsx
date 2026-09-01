@@ -1,3 +1,4 @@
+import { PAGES } from '@/constants'
 import PageLayout from '@/layouts/PageLayout'
 import DraftsList from '@/widgets/drafts'
 import type { Metadata } from 'next'
@@ -13,7 +14,7 @@ export const dynamic = 'force-dynamic'
 
 const Drafts = () => {
   return (
-    <PageLayout>
+    <PageLayout gestures={{ back: PAGES.PROFILE }}>
       <DraftsList />
     </PageLayout>
   )

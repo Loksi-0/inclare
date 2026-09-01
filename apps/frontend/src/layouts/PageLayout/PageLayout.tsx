@@ -1,7 +1,11 @@
+'use client'
+
 import Header from '@/components/Header'
 import { type PropsWithChildren } from 'react'
 import cx from 'clsx'
 import styles from './PageLayout.module.scss'
+import { useSwipe } from '@/shared/hooks/useSwipe'
+import { useNavigate } from '@/shared/hooks/useNavigate'
 
 type PageLayoutProps = PropsWithChildren<{
   profile?: boolean
@@ -10,6 +14,10 @@ type PageLayoutProps = PropsWithChildren<{
   settings?: boolean
   className?: string
   overflow?: boolean
+  gestures?: {
+    back?: string
+    forward?: string
+  }
 }>
 
 const PageLayout = (props: PageLayoutProps) => {
@@ -20,8 +28,33 @@ const PageLayout = (props: PageLayoutProps) => {
     profile = false,
     padding = false,
     plane = false,
-    overflow = false
+    overflow = false,
+    gestures
   } = props
+
+  const { push, back } = useNavigate()
+
+  useSwipe({
+    strength: 'medium',
+    onLeftToRight: () => {
+      if (!gestures?.back) {
+        return
+      }
+
+      if (gestures.back === 'back') {
+        back()
+      } else {
+        push(gestures.back)
+      }
+    },
+    onRightToLeft: () => {
+      if (!gestures?.forward) {
+        return
+      }
+
+      push(gestures.forward)
+    }
+  })
 
   return (
     <div className={cx(styles.layout, [{ [styles.plane]: plane }])}>

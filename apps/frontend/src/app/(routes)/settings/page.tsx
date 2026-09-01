@@ -1,3 +1,4 @@
+import { PAGES } from '@/constants'
 import PageLayout from '@/layouts/PageLayout'
 import SettingsHeader from '@/widgets/settings/SettingsHeader'
 import UpdateProfile from '@/widgets/settings/UpdateProfile'
@@ -21,6 +22,7 @@ const Settings = () => {
       className='container-small'
       settings
       overflow
+      gestures={{ back: PAGES.PROFILE }}
     >
       <SettingsHeader />
       <UpdateProfile />

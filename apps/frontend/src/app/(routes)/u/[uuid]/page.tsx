@@ -43,7 +43,10 @@ const User = catchError(
     const user = await api.user.getOne.query({ id: uuid })
 
     return (
-      <PageLayout profile>
+      <PageLayout
+        profile
+        gestures={{ back: 'back' }}
+      >
         <Bio
           id={user.id}
           avatar={user.avatar}
