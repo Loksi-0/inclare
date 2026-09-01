@@ -1,159 +1,186 @@
-# Turborepo starter
+# Inclare
 
-This Turborepo starter is maintained by the Turborepo core team.
+**Inclare** — платформа для фотографов с архивацией и обработкой всех видов RAW фотографий. Изучайте самые популярные посты на бесконечной плоскости вместо привычной ленты.
 
-## Using this example
+---
 
-Run the following command:
+### Стек технологий
 
-```sh
-npx create-turbo@latest
-```
+* **Frontend**
+  * Next.js
+  * tRPC
+  * Tanstack Query
+  * Panzoom
+  * React Hook Form
+  * GSAP
+  * MobX
 
-## What's inside?
+* **Backend**
+  * Hono
+  * tRPC
+  * Exiftool
+  * Redis
+  * Prisma (Postgres)
+  * Sharp
+  * Zod
 
-This Turborepo includes the following packages/apps:
+* **Infrastructure**
+  * Docker
+  * Docker Compose
+  * Nginx
+  * Turbo Monorepo
 
-### Apps and Packages
+---
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Ключевые фичи
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+* Серверная авторизация через HTTPOnly cookie и JWT токены с автоматическим продлением сессии
 
-### Utilities
+* Упор на серверный рендеринг и серверные запросы. Везде, где необходима инвалидация и клиентское взаимодействие, прокидывается initialData из серверного компонента
 
-This Turborepo has some additional tools already setup for you:
+* Серверная защита роутов через proxy Next.js
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+* Защита постов и каждой фотографии приватных пользователей
 
-### Build
+* Оптимистичные обновления в компонентах лайка, тумблера и инпута аватарки
 
-To build all apps and packages, run the following command:
+* Конвертация любых RAW фотографий в легкие и популярные форматы для превью
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+* Сохранение exif тегов фотографий с помощью exiftool
 
-```sh
-cd my-turborepo
-turbo build
-```
+* Собственная система кэширования, защиты и оптимизации изображений под требуемый размер, раздача через Nginx и заголовок X-Accel-Redirect
 
-Without global `turbo`, use your package manager:
+* GSAP для производительных и красивых анимаций
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
-```
+* Уникальный алгоритм "падающей звезды" (на фронтенде "битый пиксель") - периодически на плоскости появляются посты, которые резко набрали популярность, а затем угасли
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+* tRPC для быстрого написания бекенда и сквозной типизации
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+* Концепция Backend for Frontend - бекенд отдает только необходимые данные, а фронтенд отвечает за UI
 
-```sh
-turbo build --filter=docs
-```
+* Роли пользователей и модерация
 
-Without global `turbo`:
+* Админка с гибкой регулировкой переменных алгоритмов
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+---
 
-### Develop
+### Инструкция по запуску (Docker)
 
-To develop all apps and packages, run the following command:
+Проект полностью контейнеризирован и предполагает запускаться через Docker, так что для запуска вам понадобятся Docker и Docker Compose
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+1. **Подготовка проекта:**
 
-```sh
-cd my-turborepo
-turbo dev
-```
+  * Создайте папку, в которой будет храниться проект (например, /var/www/inclare)
 
-Without global `turbo`, use your package manager:
+    ```bash
+    mkdir /var/www/inclare
+    cd /var/www/inclare
+    ```
 
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
+  * Скопируйте проект в эту папку
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+    ```bash
+    git clone https://github.com/Loksi-0/inclare.git .
+    ```
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+  * Создайте в корне проекта файл .env и заполните его по примеру из файла .env.example
 
-```sh
-turbo dev --filter=web
-```
+    **Важно!** Если вы не собираетесь использовать Nginx, оставьте NODE_ENV=development. Значение NODE_ENV=production настраивает проект на использование технологий Nginx (например раздача изображений через X-Accel-Redirect)
 
-Without global `turbo`:
+2. **Запуск:**
 
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+  Запустите проект командой:
 
-### Remote Caching
+  ```bash
+  docker compose up --build -d
+  ```
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+  Команда автоматически соберет фронтенд и бекенд и поднимет все необходимые базы данных
+  
+  После этого проект будет доступен локально по портам, указанным в .env (API_PUBLIC_PORT и CLIENT_PUBLIC_PORT)
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+3. **Настройка Nginx (опционально):**
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+  Для этого пункта вам понадобится установленный на сервере Nginx
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+  * Создайте файл inclare.conf в /etc/nginx/sites-available
 
-```sh
-cd my-turborepo
-turbo login
-```
+  ```bash
+  touch /etc/nginx/sites-available/inclare.conf
+  ```
 
-Without global `turbo`, use your package manager:
+  * Скопируйте содержимое конфига nginx.example.conf в созданный файл
 
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
+  * Измените все порты и пути под ваш проект и структуру папок
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+  * Свяжите конфиг с папкой sites-enabled
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+  ```bash
+  ln -s /etc/nginx/sites-available/inclare.conf /etc/nginx/sites-enabled
+  ```
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+  * Перезагрузите nginx, чтобы применить изменения
 
-```sh
-turbo link
-```
+  ```bash
+  systemctl reload nginx
+  ```
 
-Without global `turbo`:
+4. **Доступ к приложению:**
 
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
+  * Без Nginx - проект будет доступен локально по тем портам, которые вы указали в .env по такому принципу:
 
-## Useful Links
+    * **Frontend**: http://localhost:[CLIENT_PUBLIC_PORT]
+    * **Backend**: http://localhost:[API_PUBLIC_PORT]
 
-Learn more about the power of Turborepo:
+  * С Nginx - проект будет доступен по настроенному вами домену, например https://inclare.ru
 
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+---
+
+### Инструкция по подготовке проекта для разработки
+
+* Создайте папку для проекта
+
+  ```bash
+  mkdir inclare
+  cd inclare
+  ```
+
+* Скопируйте проект в эту папку
+
+  ```bash
+  git clone https://github.com/Loksi-0/inclare.git .
+  ```
+
+* Создайте .env в соответствии с .env.example в корне и в следующих папках:
+  * apps/backend
+  * apps/frontend
+  * packages/db
+
+* Скачайте все необходимые зависимости и сгенерируйте типы БД
+
+  ```bash
+  pnpm install
+  pnpm generate
+  ```
+
+* Запустите базы данных Postgres и Redis. 
+  
+  Redis удобно запускать через Docker:
+
+  ```bash
+  docker run --name inclare-redis -p 6379:6379 -d redis
+  ```
+
+* Запустите режим разработки
+
+  ```bash
+  pnpm dev
+  ```
+
+---
+
+<div style='display: flex; align-items: center; justify-content: center; font-size: 40px;'>
+  <a href='https://inclare.ru'>
+    <b>Inclare</b>
+  </a>
+</div>

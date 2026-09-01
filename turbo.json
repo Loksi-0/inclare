@@ -22,6 +22,10 @@
   ],
   "ui": "tui",
   "tasks": {
+    "generate": {
+      "env": ["DATABASE_URL"],
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
