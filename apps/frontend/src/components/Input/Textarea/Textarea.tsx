@@ -9,6 +9,7 @@ type TextareaProps = {
   error?: string
   required?: boolean
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  value?: string
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -19,6 +20,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       error,
       required = false,
       onChange,
+      value,
       ...rest
     } = props
 
@@ -51,6 +53,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           onChange={(e) => {
             onChange?.(e)
           }}
+          value={value}
         />
         {error && <p className={styles.textarea__error}>{error}</p>}
       </div>

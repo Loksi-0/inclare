@@ -44,6 +44,15 @@ export const useUploadPost = () => {
     )
   }, [uploadStore.totalPhotos, uploadStore.settledPhotos])
 
+  const onInput = (files: FileList | null) => {
+    if (!files) {
+      return
+    }
+
+    createPost({})
+    setFiles([...files])
+  }
+
   const addMore = (f: FileList | null) => {
     if (f) {
       setFiles([...files, ...f])
@@ -55,8 +64,33 @@ export const useUploadPost = () => {
     postStore.close(() => {
       setPostId(null)
       setFiles([])
+      setDescription(undefined)
     })
     uploadStore.reset()
+  }
+
+  const onDraft = async () => {
+    if (!postId) {
+      return
+    }
+
+    if (description) {
+      await sendDescription({ id: postId, description })
+    }
+
+    closeUpload()
+  }
+
+  const onPublish = async () => {
+    if (!postId) {
+      return
+    }
+
+    if (description) {
+      await sendDescription({ id: postId, description })
+    }
+
+    toggleIsDrafted({ id: postId }, { onSuccess: closeUpload })
   }
 
   return {
@@ -74,6 +108,9 @@ export const useUploadPost = () => {
     sendDescription,
     uploadPercentage,
     closeUpload,
-    toggleIsDrafted
+    toggleIsDrafted,
+    onDraft,
+    onPublish,
+    onInput
   }
 }

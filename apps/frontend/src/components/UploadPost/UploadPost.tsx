@@ -26,10 +26,10 @@ const UploadPost = observer(() => {
     createPost,
     description,
     setDescription,
-    sendDescription,
     uploadPercentage,
-    closeUpload,
-    toggleIsDrafted
+    onDraft,
+    onPublish,
+    onInput
   } = useUploadPost()
 
   if (!postStore.postHeight) {
@@ -84,14 +84,7 @@ const UploadPost = observer(() => {
             loading={isPending}
             color='solid'
             animate
-            onInput={(files) => {
-              if (!files) {
-                return
-              }
-
-              createPost({})
-              setFiles([...files])
-            }}
+            onInput={onInput}
           >
             добавить фотографии
           </FileInputButton>
@@ -108,6 +101,7 @@ const UploadPost = observer(() => {
               onChange={(e) => {
                 setDescription(e.target.value)
               }}
+              value={description}
             />
             <ProgressBar percentage={uploadPercentage} />
             <div className={styles.upload__buttons}>
@@ -115,13 +109,7 @@ const UploadPost = observer(() => {
                 color='solid'
                 disabled={uploadStore.settledPhotos !== uploadStore.totalPhotos}
                 loading={isDescriptionPending}
-                onClick={async () => {
-                  if (description) {
-                    await sendDescription({ id: postId, description })
-                  }
-
-                  closeUpload()
-                }}
+                onClick={onDraft}
                 animate
               >
                 сохранить в черновики
@@ -130,13 +118,7 @@ const UploadPost = observer(() => {
                 color='solid'
                 disabled={uploadStore.settledPhotos !== uploadStore.totalPhotos}
                 loading={isPublishPending || isDescriptionPending}
-                onClick={async () => {
-                  if (description) {
-                    await sendDescription({ id: postId, description })
-                  }
-
-                  toggleIsDrafted({ id: postId }, { onSuccess: closeUpload })
-                }}
+                onClick={onPublish}
                 animate
               >
                 опубликовать
