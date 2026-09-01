@@ -51,10 +51,7 @@ export const usePhotoModal = () => {
         {
           opacity: 0,
           display: 'none',
-          duration: 0.2,
-          onComplete: () => {
-            photoModalStore.setIsClosing(false)
-          }
+          duration: 0.2
         }
       )
     }

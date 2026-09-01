@@ -39,6 +39,10 @@ class PhotoModalStore {
     this.isOpen = false
     this.isClosing = true
     closeModal()
+
+    requestAnimationFrame(() => {
+      this.setIsClosing(false)
+    })
   }
 
   nextCurrent = () => {
