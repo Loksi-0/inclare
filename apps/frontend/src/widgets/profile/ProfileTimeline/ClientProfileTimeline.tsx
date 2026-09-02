@@ -34,14 +34,16 @@ const ClientProfileTimeline = observer((props: ClientTimelineProps) => {
     strength: 'light',
     onBottomToTop: () => {
       if (
-        !postStore.isOpen &&
-        !photoModalStore.isOpen &&
-        !imageModalStore.isOpen &&
-        !imageModalStore.isClosing &&
-        !postStore.isUploading
+        postStore.isOpen ||
+        photoModalStore.isOpen ||
+        imageModalStore.isOpen ||
+        imageModalStore.isClosing ||
+        postStore.isUploading
       ) {
-        postStore.openUpload(timelineStore.getOffset())
+        return
       }
+
+      postStore.openUpload(timelineStore.getOffset())
     }
   })
 

@@ -9,6 +9,7 @@ import { useNavigate } from '@/shared/hooks/useNavigate'
 import { postStore } from '@/stores/post.store'
 import { photoModalStore } from '@/stores/photoModal.store'
 import { imageModalStore } from '@/stores/imageModal.store'
+import { timelineStore } from '@/stores/timeline.store'
 
 type PageLayoutProps = PropsWithChildren<{
   profile?: boolean

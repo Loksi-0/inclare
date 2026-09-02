@@ -12,6 +12,8 @@ type UseSwipeProps = {
   onVertical?: () => void
   onHorizontal?: () => void
   ref?: HTMLElement | null
+  belowY?: number
+  aboveY?: number
 }
 
 type StrengthDelta = {
@@ -43,7 +45,9 @@ export const useSwipe = (props: UseSwipeProps) => {
     onRightToLeft,
     onVertical,
     onHorizontal,
-    ref
+    ref,
+    belowY,
+    aboveY
   } = props
 
   const { timeDelta, touchDelta } = strengthMap[strength] || strengthMap.light
@@ -55,8 +59,15 @@ export const useSwipe = (props: UseSwipeProps) => {
   })
 
   useEffect(() => {
-    const onTouchStart = (e: TouchEvent) => {
+    const getTouch = (e: TouchEvent, isChangedTouch: boolean = false) => {
       if (!preferencesStore.enableGestures) {
+        return
+      }
+
+      if (
+        e.target instanceof HTMLElement &&
+        e.target.closest('[data-swipe=false]')
+      ) {
         return
       }
 
@@ -64,29 +75,41 @@ export const useSwipe = (props: UseSwipeProps) => {
         e.stopImmediatePropagation()
       }
 
-      const startTouch = [...e.touches].at(0)
+      const touch = isChangedTouch
+        ? [...e.changedTouches].at(0)
+        : [...e.touches].at(0)
+
+      if (!touch) {
+        return
+      }
+
+      if (aboveY && touch.clientY > aboveY) {
+        return
+      }
+
+      if (belowY && touch.clientY < belowY) {
+        return
+      }
+
+      return touch
+    }
+
+    const onTouchStart = (e: TouchEvent) => {
+      const startTouch = getTouch(e)
 
       if (!startTouch) {
         return
       }
 
       firstTouch.current = {
-        x: startTouch.screenX,
-        y: startTouch.screenY,
+        x: startTouch.clientX,
+        y: startTouch.clientY,
         timestamp: Date.now()
       }
     }
 
     const onTouchEnd = (e: TouchEvent) => {
-      if (!preferencesStore.enableGestures) {
-        return
-      }
-
-      if (ref) {
-        e.stopImmediatePropagation()
-      }
-
-      const endTouch = [...e.changedTouches].at(0)
+      const endTouch = getTouch(e, true)
 
       if (!endTouch) {
         return
@@ -98,19 +121,26 @@ export const useSwipe = (props: UseSwipeProps) => {
         return
       }
 
-      const changeX = endTouch.screenX - firstTouch.current.x
-      const changeY = endTouch.screenY - firstTouch.current.y
+      const changeX = endTouch.clientX - firstTouch.current.x
+      const changeY = endTouch.clientY - firstTouch.current.y
 
       const absX = Math.abs(changeX)
       const absY = Math.abs(changeY)
 
-      if (changeX > 0 && changeX > touchDelta) {
+      const isDisallowedX =
+        e.target instanceof HTMLElement &&
+        e.target.closest('[data-swipe-horizontal=false]')
+      const isDisallowedY =
+        e.target instanceof HTMLElement &&
+        e.target.closest('[data-swipe-vertical=false]')
+
+      if (!isDisallowedX && changeX > 0 && changeX > touchDelta) {
         if (onHorizontal) {
           onHorizontal()
         } else {
           onLeftToRight?.()
         }
-      } else if (changeX < 0 && absX > touchDelta) {
+      } else if (!isDisallowedX && changeX < 0 && absX > touchDelta) {
         if (onHorizontal) {
           onHorizontal()
         } else {
@@ -118,13 +148,13 @@ export const useSwipe = (props: UseSwipeProps) => {
         }
       }
 
-      if (changeY > 0 && changeY > touchDelta) {
+      if (!isDisallowedY && changeY > 0 && changeY > touchDelta) {
         if (onVertical) {
           onVertical()
         } else {
           onTopToBottom?.()
         }
-      } else if (changeY < 0 && absY > touchDelta) {
+      } else if (!isDisallowedY && changeY < 0 && absY > touchDelta) {
         if (onVertical) {
           onVertical()
         } else {

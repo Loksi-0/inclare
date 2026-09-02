@@ -23,9 +23,11 @@ export const usePhotoModal = () => {
   useSwipe({
     strength: 'medium',
     onVertical: () => {
-      if (photoModalStore.isOpen) {
-        photoModalStore.close()
+      if (!photoModalStore.isOpen) {
+        return
       }
+
+      photoModalStore.close()
     }
   })
 

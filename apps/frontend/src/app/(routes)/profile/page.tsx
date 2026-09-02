@@ -1,4 +1,5 @@
 import { api } from '@/api/trpc'
+import { PAGES } from '@/constants'
 import PageLayout from '@/layouts/PageLayout'
 import Actions from '@/widgets/profile/Actions'
 import Me from '@/widgets/profile/Me'
@@ -26,6 +27,7 @@ const Profile = () => {
     <PageLayout
       profile
       padding
+      gestures={{ forward: PAGES.PLANE }}
     >
       <Me />
       <ProfileTimeline />

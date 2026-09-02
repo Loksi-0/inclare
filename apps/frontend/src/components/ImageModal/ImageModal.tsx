@@ -18,9 +18,11 @@ const ImageModal = observer(() => {
   useSwipe({
     strength: 'medium',
     onVertical: () => {
-      if (imageModalStore.isOpen) {
-        imageModalStore.close()
+      if (!imageModalStore.isOpen) {
+        return
       }
+
+      imageModalStore.close()
     }
   })
 

@@ -11,8 +11,12 @@ import { randomInt } from '@/shared/functions/randomInt'
 import { planeStore } from '@/stores/plane.store'
 import { postStore } from '@/stores/post.store'
 import { useFluid } from '@/shared/hooks/useFluid'
-import { UI } from '@/constants'
+import { PAGES, UI } from '@/constants'
 import { onboardingStore } from '@/stores/onboarding.store'
+import { useSwipe } from '@/shared/hooks/useSwipe'
+import { photoModalStore } from '@/stores/photoModal.store'
+import { useNavigate } from '@/shared/hooks/useNavigate'
+import { isClient } from '@/shared/functions/isClient'
 
 type ApiPosts = ApiReturnType<typeof api.post.public.getFeed.query>
 
@@ -78,6 +82,7 @@ export const usePlaneContext = (props: PlaneProps) => {
 
   const { isMounted } = useIsMounted()
   const { getFeed } = usePlaneApi()
+  const { push } = useNavigate()
 
   const onGetFeedComplete = ({
     data,
@@ -99,6 +104,18 @@ export const usePlaneContext = (props: PlaneProps) => {
 
     setChunks((prev) => [...prev.slice(CHUNKS_LIMIT * -1), newChunk])
   }
+
+  useSwipe({
+    strength: 'medium',
+    onLeftToRight: () => {
+      if (postStore.isOpen || photoModalStore.isOpen) {
+        return
+      }
+
+      push(PAGES.PROFILE)
+    },
+    belowY: isClient ? window.innerHeight - 120 : 0
+  })
 
   // initialization
   useEffect(() => {

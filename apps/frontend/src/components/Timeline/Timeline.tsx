@@ -28,6 +28,7 @@ const Timeline = (props: TimelineProps) => {
       ref={timelineRef}
       className={styles.timeline}
       data-cursor={CURSOR.GRAB}
+      data-swipe-horizontal={false}
     >
       <div className={styles.timeline__line}></div>
       <div
