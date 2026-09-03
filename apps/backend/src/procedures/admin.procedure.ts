@@ -1,4 +1,4 @@
-import apiError from '@backend/helpers/apiError'
+import apiError from '@backend/shared/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
 import { moderatorProcedure } from './moderator.procedure'
 

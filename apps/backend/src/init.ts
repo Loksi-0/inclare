@@ -1,0 +1,5 @@
+import './scripts/env'
+import './scripts/initRedisConfig'
+import './modules/feed/feed.star'
+import './modules/token/token.clear'
+import './modules/post/post.clear'

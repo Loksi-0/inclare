@@ -3,7 +3,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/routers/_app.ts"
+      "types": "./src/router.ts"
     },
     "./validators": {
       "main": "./src/validators/index.ts",

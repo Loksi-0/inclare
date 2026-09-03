@@ -3,11 +3,11 @@
 import { defineErrorMessage } from '@/shared/functions/defineErrorMessage'
 import { isClient } from '@/shared/functions/isClient'
 import { toast } from '@/shared/functions/toast'
-import type { AppRouter } from '@inclare/backend'
+import type { TrpcRouter } from '@inclare/backend'
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 import { createTRPCContext } from '@trpc/tanstack-react-query'
 
-export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>()
+export const { TRPCProvider, useTRPC } = createTRPCContext<TrpcRouter>()
 
 const makeQueryClient = () => {
   return new QueryClient({

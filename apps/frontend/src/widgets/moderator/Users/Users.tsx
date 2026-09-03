@@ -15,14 +15,14 @@ const Users = ({ role, myEmail }: { role: Role; myEmail: string }) => {
   const trpc = useTRPC()
   const { data, refetch } = useQuery(trpc.user.findMany.queryOptions({ query }))
   const { mutate: setBan, isPending: isBanPending } = useMutation(
-    trpc.user.setBan.mutationOptions({
+    trpc.moderator.banUser.mutationOptions({
       onSuccess: () => {
         refetch()
       }
     })
   )
   const { mutate: setIsModerator, isPending: isModeratorPending } = useMutation(
-    trpc.admin.setIsModerator.mutationOptions({
+    trpc.moderator.setIsModerator.mutationOptions({
       onSuccess: () => {
         refetch()
       }

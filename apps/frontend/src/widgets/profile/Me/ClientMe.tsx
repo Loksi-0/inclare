@@ -13,7 +13,7 @@ import styles from './Me.module.scss'
 import { shareProfile } from '@/shared/functions/shareProfile'
 
 type ClientMeProps = {
-  data: ApiReturnType<typeof api.auth.me.query>
+  data: ApiReturnType<typeof api.user.me.query>
 }
 
 const ClientMe = (props: ClientMeProps) => {
@@ -21,7 +21,7 @@ const ClientMe = (props: ClientMeProps) => {
 
   const trpc = useTRPC()
   const { data: me } = useQuery(
-    trpc.auth.me.queryOptions(undefined, { initialData })
+    trpc.user.me.queryOptions(undefined, { initialData })
   )
 
   const Actions = ({ mobile = false }: { mobile?: boolean }) => {

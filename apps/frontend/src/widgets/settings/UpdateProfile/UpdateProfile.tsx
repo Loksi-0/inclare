@@ -5,7 +5,7 @@ import ClientUpdateProfile from './ClientUpdateProfile'
 
 const UpdateProfile = catchError(
   async () => {
-    const me = await api.auth.me.query()
+    const me = await api.user.me.query()
 
     return <ClientUpdateProfile data={me} />
   },

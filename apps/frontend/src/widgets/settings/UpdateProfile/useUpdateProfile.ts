@@ -11,7 +11,7 @@ import type { api } from '@/api/trpc'
 import type { ApiReturnType } from '@/types/globals'
 
 export type UpdateProfileProps = {
-  data: ApiReturnType<typeof api.auth.me.query>
+  data: ApiReturnType<typeof api.user.me.query>
 }
 
 export const useUpdateProfile = ({ data: initialData }: UpdateProfileProps) => {
@@ -21,7 +21,7 @@ export const useUpdateProfile = ({ data: initialData }: UpdateProfileProps) => {
   const trpc = useTRPC()
   const queryClient = useQueryClient()
   const { data } = useQuery(
-    trpc.auth.me.queryOptions(undefined, { initialData })
+    trpc.user.me.queryOptions(undefined, { initialData })
   )
   const { mutateAsync: updateAvatar, isPending: isAvatarPending } = useMutation(
     trpc.user.setAvatar.mutationOptions()
@@ -65,7 +65,7 @@ export const useUpdateProfile = ({ data: initialData }: UpdateProfileProps) => {
     }
 
     await updateUser(data)
-    await queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() })
+    await queryClient.invalidateQueries({ queryKey: trpc.user.me.queryKey() })
     wasAvatarChanged.current = false
   }
 

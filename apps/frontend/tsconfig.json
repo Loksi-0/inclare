@@ -11,6 +11,7 @@
   ],
   "include": [
     "src/**/*",
+    "../backend/src/**/*",
     "next-env.d.ts",
     "next.config.ts",
     "*.config.ts"

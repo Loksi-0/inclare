@@ -7,7 +7,7 @@ import { PlaneProvider } from '@/contexts/PlaneContext'
 const Plane = catchError(
   async () => {
     const limit = 3
-    const data = await api.post.public.getFeed.query({ limit })
+    const data = await api.feed.getFeed.query({ limit })
 
     return (
       <PlaneProvider props={{ limit, firstData: data }}>

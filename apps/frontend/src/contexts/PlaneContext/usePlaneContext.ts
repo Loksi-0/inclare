@@ -18,7 +18,7 @@ import { photoModalStore } from '@/stores/photoModal.store'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { isClient } from '@/shared/functions/isClient'
 
-type ApiPosts = ApiReturnType<typeof api.post.public.getFeed.query>
+type ApiPosts = ApiReturnType<typeof api.feed.getFeed.query>
 
 export type PlaneProps = {
   firstData: ApiPosts
@@ -89,7 +89,7 @@ export const usePlaneContext = (props: PlaneProps) => {
     x,
     y
   }: {
-    data: ApiReturnType<typeof api.post.public.getFeed.query>
+    data: ApiReturnType<typeof api.feed.getFeed.query>
     x: number
     y: number
   }) => {

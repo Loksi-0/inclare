@@ -5,7 +5,7 @@ import ClientUserToggles from './ClientUserToggles'
 
 const UserToggles = catchError(
   async () => {
-    const me = await api.auth.me.query()
+    const me = await api.user.me.query()
 
     return <ClientUserToggles isPrivate={me.isPrivate} />
   },

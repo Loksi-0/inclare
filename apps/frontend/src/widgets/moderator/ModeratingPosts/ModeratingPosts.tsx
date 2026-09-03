@@ -17,23 +17,25 @@ const ModeratingPosts = () => {
 
   const trpc = useTRPC()
   const { data, refetch } = useQuery(
-    trpc.post.moderator.getModerating.queryOptions()
+    trpc.moderator.getModeratingPosts.queryOptions()
   )
   const { mutate: skip, isPending: isSkipPending } = useMutation(
-    trpc.post.moderator.markAsViewed.mutationOptions({
+    trpc.moderator.markPostAsViewed.mutationOptions({
       onSuccess: () => {
         refetch()
       }
     })
   )
   const { mutateAsync: remove, isPending: isDeletePending } = useMutation(
-    trpc.post.moderator.delete.mutationOptions({
+    trpc.moderator.deletePost.mutationOptions({
       onSuccess: () => {
         refetch()
       }
     })
   )
-  const { mutateAsync: ban } = useMutation(trpc.user.setBan.mutationOptions())
+  const { mutateAsync: ban } = useMutation(
+    trpc.moderator.banUser.mutationOptions()
+  )
 
   const removeAndBan = ({
     postId,

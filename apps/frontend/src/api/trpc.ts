@@ -1,5 +1,5 @@
 import { isClient } from '@/shared/functions/isClient'
-import type { AppRouter } from '@inclare/backend'
+import type { TrpcRouter } from '@inclare/backend'
 import { API_BASE_URL } from '@repo/constants'
 import {
   createTRPCClient,
@@ -28,7 +28,7 @@ const cookiesFetch = async (
   })
 }
 
-export const api = createTRPCClient<AppRouter>({
+export const api = createTRPCClient<TrpcRouter>({
   links: [
     splitLink({
       condition: (op) => op.type === 'subscription',

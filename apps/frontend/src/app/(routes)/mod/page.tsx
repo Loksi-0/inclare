@@ -19,7 +19,7 @@ export const dynamic = 'force-dynamic'
 
 const Moderator = catchError(
   async () => {
-    const me = await api.auth.me.query()
+    const me = await api.user.me.query()
 
     return (
       <div className={styles.moderator}>

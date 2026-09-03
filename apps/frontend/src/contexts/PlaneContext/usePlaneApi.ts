@@ -6,7 +6,7 @@ import { toast } from '@/shared/functions/toast'
 import type { ApiReturnType } from '@/types/globals'
 
 type GetFeedOnComplete = (
-  data: ApiReturnType<typeof api.post.public.getFeed.query>
+  data: ApiReturnType<typeof api.feed.getFeed.query>
 ) => void
 
 type GetFeedOpts = {
@@ -16,7 +16,7 @@ type GetFeedOpts = {
 
 export const usePlaneApi = () => {
   const getFeed = (opts: GetFeedOpts) => {
-    api.post.public.getFeed
+    api.feed.getFeed
       .query({ limit: opts.limit })
       .then((d) => {
         opts.onComplete(d)

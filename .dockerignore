@@ -3,4 +3,4 @@
 **/.turbo
 **/.env*
 **/.next
-**/uploads
+apps/backend/uploads

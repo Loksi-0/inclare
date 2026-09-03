@@ -1,4 +1,5 @@
-import { checkUser } from '@backend/helpers/checkUser'
+import { prisma } from '@backend/context'
+import { checkUser } from '@backend/modules/auth/auth.check'
 import { publicProcedure } from '@backend/trpc'
 
 export const hybridProcedure = publicProcedure.use(async ({ ctx, next }) => {
@@ -9,12 +10,12 @@ export const hybridProcedure = publicProcedure.use(async ({ ctx, next }) => {
     const { payload: checkedPayload, userId } = await checkUser({
       token: ctx.token,
       deviceId: ctx.deviceId,
-      honoContext: ctx.honoContext
+      honoContext: ctx.context
     })
 
     payload = checkedPayload
 
-    user = await ctx.prisma.user.findUnique({
+    user = await prisma.user.findUnique({
       where: { id: userId },
       omit: { password: true }
     })

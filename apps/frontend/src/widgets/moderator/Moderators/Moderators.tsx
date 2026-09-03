@@ -10,17 +10,17 @@ import UserCard from '@/components/UserCard/UserCard'
 const Moderators = () => {
   const trpc = useTRPC()
   const { data: moderators, refetch } = useQuery(
-    trpc.admin.getModerators.queryOptions()
+    trpc.moderator.getModerators.queryOptions()
   )
   const { mutate: setIsModerator, isPending: isModeratorPending } = useMutation(
-    trpc.admin.setIsModerator.mutationOptions({
+    trpc.moderator.setIsModerator.mutationOptions({
       onSuccess: () => {
         refetch()
       }
     })
   )
   const { mutate: setIsBan, isPending: isBanPending } = useMutation(
-    trpc.user.setBan.mutationOptions({
+    trpc.moderator.banUser.mutationOptions({
       onSuccess: () => {
         refetch()
       }

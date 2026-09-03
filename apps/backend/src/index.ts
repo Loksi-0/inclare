@@ -1,16 +1,10 @@
-import '@backend/helpers/env'
-import '@backend/scripts/clearExpiredTokens'
-import '@backend/scripts/getFallingStars'
-import '@backend/scripts/clearEmptyPosts'
+import './init'
 import { serve } from '@hono/node-server'
-import getEnv from '@backend/helpers/getEnv'
-import rateLimit from '@backend/helpers/rateLimit'
+import getEnv from '@backend/shared/getEnv'
+import rateLimit from '@backend/shared/rateLimit'
 import { cors } from 'hono/cors'
 import { Hono } from 'hono'
-import { API_BASE_URL } from '@repo/constants'
-import { UPLOADS } from './constants'
-import { uploads } from './restRouters/uploads'
-import { base } from './restRouters/base'
+import { appRouter } from './router'
 
 const app = new Hono()
 
@@ -23,8 +17,7 @@ app.use(
 )
 
 app.use(rateLimit(1, 600))
-app.route(UPLOADS.URL, uploads)
-app.route(API_BASE_URL, base)
+app.route('/', appRouter)
 
 serve(
   {

@@ -7,3 +7,4 @@ export const uploadContents = z.object({
   postId: stringSchema(),
   order: z.coerce.number()
 })
+export type UploadContents = z.infer<typeof uploadContents>

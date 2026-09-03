@@ -41,7 +41,7 @@ export const useDeadPixel = () => {
 
   const trpc = useTRPC()
   useSubscription(
-    trpc.post.public.fallingStar.subscriptionOptions(undefined, {
+    trpc.feed.fallingStar.subscriptionOptions(undefined, {
       onData: (d) => {
         createPixel(d)
       }

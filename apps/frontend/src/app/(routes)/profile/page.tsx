@@ -7,7 +7,7 @@ import ProfileTimeline from '@/widgets/profile/ProfileTimeline'
 import type { Metadata } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const me = await api.auth.me.query()
+  const me = await api.user.me.query()
 
   return {
     title: `Профиль / ${me.name}`,

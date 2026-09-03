@@ -9,31 +9,31 @@ import Button from '@/components/Button'
 const Config = () => {
   const trpc = useTRPC()
   const { data: config, refetch } = useQuery(
-    trpc.admin.getConfig.queryOptions()
+    trpc.moderator.getConfig.queryOptions()
   )
   const { mutate: setGravity, isPending: isGravityPendig } = useMutation(
-    trpc.admin.setAlgorithmGravity.mutationOptions({
+    trpc.moderator.setAlgorithmGravity.mutationOptions({
       onSuccess: () => {
         refetch()
       }
     })
   )
   const { mutate: setFallingStarK, isPending: isStarPending } = useMutation(
-    trpc.admin.setFallingStarCoefficient.mutationOptions({
+    trpc.moderator.setFallingStarCoefficient.mutationOptions({
       onSuccess: () => {
         refetch()
       }
     })
   )
   const { mutate: setIntervals, isPending: isIntervalPending } = useMutation(
-    trpc.admin.setFallingStarIntervals.mutationOptions({
+    trpc.moderator.setFallingStarIntervals.mutationOptions({
       onSuccess: () => {
         refetch()
       }
     })
   )
   const { mutate: spawnPixel, isPending: isPixelPending } = useMutation(
-    trpc.admin.spawnFallingStar.mutationOptions()
+    trpc.moderator.spawnFallingStar.mutationOptions()
   )
 
   if (!config) {

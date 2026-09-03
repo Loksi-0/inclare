@@ -1,14 +1,13 @@
-import apiError from '@backend/helpers/apiError'
+import apiError from '@backend/shared/apiError'
 import { ERROR_CODES } from '@repo/api-error-codes'
-import { TokenService } from '@backend/services/token.service'
-import { setTokenCookie } from '@backend/helpers/tokenCookie'
-import { unauthorized } from '@backend/helpers/unauthorized'
 import { hybridProcedure } from './hybrid.procedure'
-import { setDeviceIdCookie } from '@backend/helpers/deviceIdCookie'
+import { authErrors } from '@backend/modules/auth/auth.errors'
+import { tokenService } from '@backend/modules/token/token.service'
+import { authCookie } from '@backend/modules/auth/auth.cookie'
 
 export const protectedProcedure = hybridProcedure.use(async ({ ctx, next }) => {
   if (!ctx.deviceId || !ctx.token || !ctx.user || !ctx.payload) {
-    return unauthorized(ctx.honoContext)
+    return authErrors.unauthorized(ctx.context)
   }
 
   if (ctx.user.isBanned) {
@@ -19,11 +18,11 @@ export const protectedProcedure = hybridProcedure.use(async ({ ctx, next }) => {
   const refreshDelay = 1000 * 60 * 60 * 24 * 5
 
   if (now - ctx.payload.iat * 1000 > refreshDelay) {
-    const newToken = await TokenService.generateToken(ctx.payload)
-    await TokenService.saveToken(newToken, ctx.payload)
+    const newToken = await tokenService.generateToken(ctx.payload)
+    await tokenService.saveToken(newToken, ctx.payload)
 
-    setTokenCookie(ctx.honoContext, newToken)
-    setDeviceIdCookie(ctx.honoContext, ctx.deviceId)
+    authCookie.setToken(ctx.context, newToken)
+    authCookie.setDeviceId(ctx.context, ctx.deviceId)
   }
 
   return next({
