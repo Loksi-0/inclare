@@ -1,7 +1,7 @@
 @use '@/app/styles/helpers' as *;
 
 .timeline {
-  height: fluid(400, 270);
+  height: vertical-fluid(430, 230);
 
   &__line {
     width: 100%;

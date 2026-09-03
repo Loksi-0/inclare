@@ -26,7 +26,7 @@ const ClientMe = (props: ClientMeProps) => {
 
   const Actions = ({ mobile = false }: { mobile?: boolean }) => {
     return (
-      <div className={cx(styles.me__buttons, [{ 'visible-mobile': mobile }])}>
+      <div className={cx(styles.me__buttons, [{ [styles.mobile]: mobile }])}>
         {me.role === 'MODERATOR' ||
           (me.role === 'ADMIN' && (
             <Button

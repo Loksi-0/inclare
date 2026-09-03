@@ -4,7 +4,13 @@
   padding-inline: var(--container-padding-x);
   display: flex;
   flex-direction: column;
-  row-gap: fluid(20, 15);
+  gap: fluid(20, 15);
+
+  @include min-vertical {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   &__body {
     display: flex;
@@ -33,7 +39,13 @@
   }
 
   &__avatar {
-    @include square(fluid(120, 90));
+    --size: #{fluid(120, 90)};
+
+    @include square(var(--size));
+
+    @include min-vertical {
+      --size: #{fluid(80, 60)};
+    }
   }
 
   &__info {
@@ -46,6 +58,10 @@
     row-gap: 1rem;
     justify-content: space-between;
     font-family: var(--font-family-mono);
+
+    @include min-vertical {
+      display: none;
+    }
   }
 
   &__list {
@@ -88,10 +104,20 @@
     align-items: end;
     align-self: end;
 
-    @include mobile {
+    &.mobile {
+      display: none;
       align-items: start;
       align-self: start;
       flex-wrap: wrap;
+      justify-content: end;
+
+      @include min-vertical {
+        display: flex;
+      }
+
+      @include mobile {
+        display: flex;
+      }
     }
   }
 }

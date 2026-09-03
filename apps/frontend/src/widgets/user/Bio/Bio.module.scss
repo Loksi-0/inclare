@@ -3,12 +3,23 @@
 .bio {
   display: flex;
   flex-direction: column;
-  row-gap: fluid(30, 20);
+  gap: fluid(30, 20);
   align-items: center;
+  align-self: center;
   padding-inline: var(--container-padding-x);
 
+  @include min-vertical {
+    flex-direction: row;
+  }
+
   &__avatar {
-    @include square(fluid(120, 100));
+    --size: #{fluid(120, 100)};
+
+    @include square(var(--size));
+
+    @include min-vertical {
+      --size: #{fluid(90, 70)};
+    }
   }
 
   &__body {
@@ -20,5 +31,9 @@
     max-width: rem(700);
     overflow-wrap: anywhere;
     word-break: normal;
+
+    @include min-vertical {
+      align-items: start;
+    }
   }
 }

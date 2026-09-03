@@ -4,18 +4,21 @@ import styles from './PhotoLayout.module.scss'
 
 type PhotoLayoutProps = PropsWithChildren<{
   mini?: boolean
+  vertical?: boolean
   className?: string
   style?: CSSProperties
 }>
 
 const PhotoLayout = forwardRef<HTMLDivElement, PhotoLayoutProps>(
   (props, ref) => {
-    const { children, mini, className, style } = props
+    const { children, mini = false, vertical = false, className, style } = props
 
     return (
       <div
         ref={ref}
-        className={cx(styles.photo, className, [{ [styles.mini]: mini }])}
+        className={cx(styles.photo, className, [
+          { [styles.mini]: mini, [styles.vertical]: vertical }
+        ])}
         style={style}
       >
         <div className={styles.photo__inner}>{children}</div>

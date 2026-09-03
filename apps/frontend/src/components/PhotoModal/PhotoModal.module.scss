@@ -126,7 +126,7 @@
 
   &__item {
     flex-grow: 1;
-    padding: fluid(20, 15) fluid(30, 20);
+    padding: vertical-fluid(20, 10) vertical-fluid(30, 15);
     border-bottom: var(--border);
 
     @include tablet {
@@ -143,6 +143,16 @@
     @include fluid-text(14, 12);
 
     color: var(--color-gray-10);
+
+    @include min-vertical {
+      @include fluid-text(12, 10);
+    }
+  }
+
+  &__data {
+    @include min-vertical {
+      @include fluid-text(14, 12);
+    }
   }
 
   &__buttons {
@@ -155,8 +165,8 @@
 
   &__arrow {
     width: 100%;
-    height: fluid(75, 50);
-    padding: fluid(30, 20);
+    height: vertical-fluid(75, 35);
+    padding: vertical-fluid(30, 13);
 
     &:not(:last-child) {
       border-right: var(--border);

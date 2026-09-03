@@ -11,6 +11,7 @@ type PhotoProps = {
   isError?: boolean
   className?: string
   mini?: boolean
+  vertical?: boolean
   style?: CSSProperties
   render?: boolean
   gpuAcc?: boolean
@@ -25,6 +26,7 @@ const Photo = memo(
       className,
       style,
       mini = false,
+      vertical = false,
       render = true,
       gpuAcc = true
     } = props
@@ -35,6 +37,7 @@ const Photo = memo(
           className={className}
           style={style}
           mini={mini}
+          vertical={vertical}
           ref={ref}
         >
           <div className={styles.photo__error}></div>
@@ -48,6 +51,7 @@ const Photo = memo(
           className={className}
           style={style}
           mini={mini}
+          vertical={vertical}
           ref={ref}
         >
           <Gradient />
@@ -60,6 +64,7 @@ const Photo = memo(
         className={className}
         style={style}
         mini={mini}
+        vertical={vertical}
         ref={ref}
       >
         <Image

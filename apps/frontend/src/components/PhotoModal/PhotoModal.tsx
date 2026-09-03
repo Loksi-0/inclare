@@ -105,31 +105,31 @@ const PhotoModal = observer(() => {
                 {data.iso && (
                   <li className={styles.modal__item}>
                     <p className={styles.modal__subtitle}>iso</p>
-                    <p>{data.iso}</p>
+                    <p className={styles.modal__data}>{data.iso}</p>
                   </li>
                 )}
                 {data.shutterSpeed && (
                   <li className={styles.modal__item}>
                     <p className={styles.modal__subtitle}>shutter_speed</p>
-                    <p>{data.shutterSpeed}</p>
+                    <p className={styles.modal__data}>{data.shutterSpeed}</p>
                   </li>
                 )}
                 {data.aperture && (
                   <li className={styles.modal__item}>
                     <p className={styles.modal__subtitle}>aperture</p>
-                    <p>{data.aperture}</p>
+                    <p className={styles.modal__data}>{data.aperture}</p>
                   </li>
                 )}
                 {data.cameraModel && (
                   <li className={styles.modal__item}>
                     <p className={styles.modal__subtitle}>camera</p>
-                    <p>{data.cameraModel}</p>
+                    <p className={styles.modal__data}>{data.cameraModel}</p>
                   </li>
                 )}
                 {data.focalLength && (
                   <li className={styles.modal__item}>
                     <p className={styles.modal__subtitle}>focal_length</p>
-                    <p>{data.focalLength}</p>
+                    <p className={styles.modal__data}>{data.focalLength}</p>
                   </li>
                 )}
               </ul>

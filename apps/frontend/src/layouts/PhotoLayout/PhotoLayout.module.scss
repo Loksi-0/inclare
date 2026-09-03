@@ -15,6 +15,12 @@
   display: flex;
   position: relative;
 
+  &.vertical {
+    --photo-padding: #{vertical-fluid(10, 5)};
+    --photo-padding-bottom: #{fluid(50, 25)};
+    width: vertical-fluid(280, 140);
+  }
+
   &.mini {
     --photo-padding: #{fluid(7, 5)};
     --photo-padding-bottom: #{fluid(35, 25)};
@@ -24,6 +30,12 @@
     width: fluid(185, 125);
     padding: fluid(7, 5);
     padding-bottom: fluid(35, 25);
+
+    &.vertical {
+      --photo-padding: #{vertical-fluid(7, 3)};
+      --photo-padding-bottom: #{fluid(35, 15)};
+      width: vertical-fluid(185, 125);
+    }
   }
 
   &__inner {

@@ -27,6 +27,25 @@
   );
 }
 
+@function vertical-fluid($max: 48, $min: 16) {
+  $maxViewportHeight: 1080;
+  $minViewportHeight: 350;
+
+  $maxSize: math.div($max, 16);
+  $minSize: math.div($min, 16);
+  $maxHeight: math.div($maxViewportHeight, 16);
+  $minHeight: math.div($minViewportHeight, 16);
+
+  $slope: math.div(($maxSize - $minSize), ($maxHeight - $minHeight));
+  $yAxisIntersection: -$minHeight * $slope + $minSize;
+
+  @return clamp(
+    #{$minSize * 1rem},
+    #{$yAxisIntersection * 1rem} + #{$slope * 100vh},
+    #{$maxSize * 1rem}
+  );
+}
+
 @function border($color: black, $width: 3) {
   $solid: solid;
   $remWidth: math.div($width, 16) + rem;

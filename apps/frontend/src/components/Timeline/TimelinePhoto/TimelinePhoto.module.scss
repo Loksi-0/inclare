@@ -3,7 +3,7 @@
 .photo {
   display: flex;
   flex-direction: column;
-  row-gap: rem(15);
+  row-gap: vertical-fluid(15, 5);
   align-items: center;
   width: fit-content;
   position: relative;

@@ -8,8 +8,16 @@ $tablet: 1023.98;
 $mobile: 830.98;
 $mobile-s: 480.98;
 
-@mixin wide-screen-above {
-  @media (width > rem($wide-screen)) {
+$min-vertical: 900.98;
+
+@mixin min-vertical {
+  @media (height <= rem($min-vertical)) {
+    @content;
+  }
+}
+
+@mixin min-vertical-above {
+  @media (height > rem($min-vertical)) {
     @content;
   }
 }
@@ -20,8 +28,8 @@ $mobile-s: 480.98;
   }
 }
 
-@mixin desktop-above {
-  @media (width > rem($desktop)) {
+@mixin wide-screen-above {
+  @media (width > rem($wide-screen)) {
     @content;
   }
 }
@@ -32,8 +40,8 @@ $mobile-s: 480.98;
   }
 }
 
-@mixin laptop-above {
-  @media (width > rem($laptop)) {
+@mixin desktop-above {
+  @media (width > rem($desktop)) {
     @content;
   }
 }
@@ -44,8 +52,8 @@ $mobile-s: 480.98;
   }
 }
 
-@mixin laptop-s-above {
-  @media (width > rem($laptop-s)) {
+@mixin laptop-above {
+  @media (width > rem($laptop)) {
     @content;
   }
 }
@@ -56,8 +64,8 @@ $mobile-s: 480.98;
   }
 }
 
-@mixin tablet-above {
-  @media (width > rem($tablet)) {
+@mixin laptop-s-above {
+  @media (width > rem($laptop-s)) {
     @content;
   }
 }
@@ -68,8 +76,8 @@ $mobile-s: 480.98;
   }
 }
 
-@mixin mobile-above {
-  @media (width > rem($mobile)) {
+@mixin tablet-above {
+  @media (width > rem($tablet)) {
     @content;
   }
 }
@@ -80,14 +88,20 @@ $mobile-s: 480.98;
   }
 }
 
-@mixin mobile-s-above {
-  @media (width > rem($mobile-s)) {
+@mixin mobile-above {
+  @media (width > rem($mobile)) {
     @content;
   }
 }
 
 @mixin mobile-s {
   @media (width <= rem($mobile-s)) {
+    @content;
+  }
+}
+
+@mixin mobile-s-above {
+  @media (width > rem($mobile-s)) {
     @content;
   }
 }

@@ -5,6 +5,14 @@
   display: flex;
   flex-direction: row;
   column-gap: fluid(10, 5);
+  align-items: start;
+  align-self: start;
+
+  @include mobile-s {
+    width: 100%;
+    align-items: unset;
+    align-self: unset;
+  }
 
   &__button {
     @include mobile-s {
