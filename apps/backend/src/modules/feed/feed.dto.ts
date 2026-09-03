@@ -1,4 +1,5 @@
 import { getPreviewUrl } from '@backend/shared/getPreviewUrl'
+import type { Like } from '@repo/db'
 
 type Post = {
   id: string
@@ -10,7 +11,7 @@ type Post = {
   createdAt: Date
   updatedAt: Date
   primaryColor: string | null
-  isLiked?: boolean
+  likes?: Like[]
 }
 
 export const feedDto = (posts: Post[]) => {
@@ -22,7 +23,7 @@ export const feedDto = (posts: Post[]) => {
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
     pcs: p.photos.length,
-    isLiked: p.isLiked,
+    isLiked: p.likes?.at(0) ? true : false,
     primaryColor: p.primaryColor
   }))
 

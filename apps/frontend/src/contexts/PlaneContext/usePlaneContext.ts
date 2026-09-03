@@ -124,6 +124,7 @@ export const usePlaneContext = (props: PlaneProps) => {
     }
 
     onboardingStore.openPlane()
+    planeStore.setCurrentChunk(0, 0)
 
     const instance = panzoom(canvasRef.current, {
       minZoom: 0.75,
