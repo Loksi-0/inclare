@@ -50,10 +50,7 @@ const TimelinePhoto = (props: TimelinePhotoProps) => {
           postStore.open(id, timelineStore.getOffset())
         }}
       >
-        <Photo
-          src={src}
-          vertical
-        />
+        <Photo src={src} />
       </Button>
     </div>
   )

@@ -25,7 +25,7 @@ class PostStore {
     }
 
     const maxHeight = window.innerHeight * 0.7
-    const minHeight = window.innerHeight * 0.5
+    const minHeight = window.innerHeight * 0.4
 
     const offsetHeight = offset
       ? Math.max(Math.min(window.innerHeight - offset, maxHeight), minHeight)
