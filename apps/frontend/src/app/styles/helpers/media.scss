@@ -8,7 +8,20 @@ $tablet: 1023.98;
 $mobile: 830.98;
 $mobile-s: 480.98;
 
-$min-vertical: 900.98;
+$min-vertical-l: 850.98;
+$min-vertical: 750.98;
+
+@mixin min-vertical-l {
+  @media (height <= rem($min-vertical-l)) {
+    @content;
+  }
+}
+
+@mixin min-vertical-l-above {
+  @media (height > rem($min-vertical-l)) {
+    @content;
+  }
+}
 
 @mixin min-vertical {
   @media (height <= rem($min-vertical)) {

@@ -6,10 +6,20 @@
   flex-direction: column;
   gap: fluid(20, 15);
 
-  @include min-vertical {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  @include mobile-above {
+    @include min-vertical-l {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  @include mobile {
+    @include min-vertical {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   &__body {
@@ -59,7 +69,7 @@
     justify-content: space-between;
     font-family: var(--font-family-mono);
 
-    @include min-vertical {
+    @include min-vertical-l {
       display: none;
     }
   }
@@ -111,7 +121,7 @@
       flex-wrap: wrap;
       justify-content: end;
 
-      @include min-vertical {
+      @include min-vertical-l {
         display: flex;
       }
 

@@ -13,7 +13,7 @@ class TimelineStore {
       return null
     }
 
-    return this.timelineRef.offsetHeight + UI.TIMELINE_PADDING * 2
+    return this.timelineRef.clientHeight + UI.TIMELINE_PADDING * 2
   }
 }
 

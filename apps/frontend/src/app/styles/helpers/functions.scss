@@ -29,7 +29,7 @@
 
 @function vertical-fluid($max: 48, $min: 16) {
   $maxViewportHeight: 1080;
-  $minViewportHeight: 350;
+  $minViewportHeight: 650;
 
   $maxSize: math.div($max, 16);
   $minSize: math.div($min, 16);

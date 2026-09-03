@@ -15,7 +15,7 @@
       row-gap: var(--section-padding);
       padding-block: var(--section-padding);
 
-      @include min-vertical {
+      @include min-vertical-l {
         row-gap: calc(var(--section-padding) / 2);
         padding-block: calc(var(--section-padding) / 2);
       }
