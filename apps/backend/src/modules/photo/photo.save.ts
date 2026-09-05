@@ -78,7 +78,7 @@ export const savePhoto = async ({ file, userId, postId }: Options) => {
     const compressOptions = {
       width: 1920,
       height: null,
-      img: isRaw ? tempPath : rawBuffer,
+      img: isRaw ? tempPath : rawPath,
       output: optimizedPath,
       angle
     }

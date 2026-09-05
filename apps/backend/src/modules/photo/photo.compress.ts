@@ -59,33 +59,46 @@ type CompressJob = {
   options: Options
 }
 
+const compressJob = async ({ format, options }: CompressJob) => {
+  if (format === 'webp') {
+    await compressWebp(options)
+    return
+  } else if (format === 'avif') {
+    await compressAvif(options)
+    return
+  }
+
+  await compressJpeg(options)
+}
 const compressQueue = new Queue(BULLMQ.QUEUES.COMPRESS, {
   connection: bullConnection
 })
-const compressEvents = new QueueEvents(BULLMQ.QUEUES.COMPRESS)
+const compressEvents = new QueueEvents(BULLMQ.QUEUES.COMPRESS, {
+  connection: bullConnection
+})
 new Worker<CompressJob>(
   BULLMQ.QUEUES.COMPRESS,
   async ({ name, data }) => {
-    if (name === BULLMQ.NAMES.COMPRESS) {
-      if (data.format === 'webp') {
-        await compressWebp(data.options)
-        return
-      } else if (data.format === 'avif') {
-        await compressAvif(data.options)
-        return
+    try {
+      if (name === BULLMQ.NAMES.COMPRESS) {
+        await compressJob(data)
       }
-
-      await compressJpeg(data.options)
+    } catch (e) {
+      console.log(e)
     }
   },
   { connection: bullConnection }
 )
 
 export const compressImage = async (format: Format, options: Options) => {
-  const job = await compressQueue.add(BULLMQ.NAMES.COMPRESS, {
-    format,
-    options
-  })
+  if (typeof options.img === 'string') {
+    const job = await compressQueue.add(BULLMQ.NAMES.COMPRESS, {
+      format,
+      options
+    })
 
-  await job.waitUntilFinished(compressEvents)
+    await job.waitUntilFinished(compressEvents)
+  } else {
+    await compressJob({ format, options })
+  }
 }

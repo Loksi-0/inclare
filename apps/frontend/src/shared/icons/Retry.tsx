@@ -11,7 +11,7 @@ const Retry = () => {
       <path
         d='M22 1H1V22H22C22 22 22 14.2484 22 8M18 12C19.5621 10.4379 20.4379 9.5621 22 8C23.5621 9.5621 26 12 26 12'
         stroke='#1A1F21'
-        stroke-width='2'
+        strokeWidth='2'
       />
     </svg>
   )
