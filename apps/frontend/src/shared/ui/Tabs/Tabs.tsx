@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import Button from '../../ui/Button'
 import cx from 'clsx'
 import styles from './Tabs.module.scss'
+import { useSwipe } from '@/shared/hooks/useSwipe'
 
 type TabsProps = {
   data: {
@@ -17,7 +18,34 @@ type TabsProps = {
 const Tabs = (props: TabsProps) => {
   const { data, className, maxWidth } = props
 
+  const tabsLength = useMemo(() => data.length, [data])
   const [currentTab, setCurrentTab] = useState(0)
+
+  useSwipe({
+    strength: 'medium',
+    onLeftToRight: () => {
+      setCurrentTab((prev) => {
+        const nextTab = prev - 1
+
+        if (nextTab < 0) {
+          return prev
+        }
+
+        return nextTab
+      })
+    },
+    onRightToLeft: () => {
+      setCurrentTab((prev) => {
+        const nextTab = prev + 1
+
+        if (nextTab > tabsLength - 1) {
+          return prev
+        }
+
+        return nextTab
+      })
+    }
+  })
 
   return (
     <div className={cx(styles.tabs, className)}>
