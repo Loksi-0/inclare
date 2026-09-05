@@ -9,4 +9,5 @@
   scale: 0.95;
   opacity: 0.05;
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  will-change: transform;
 }

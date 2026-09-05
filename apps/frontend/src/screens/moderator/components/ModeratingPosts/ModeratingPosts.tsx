@@ -103,7 +103,7 @@ const ModeratingPosts = () => {
               <Button
                 color='icon'
                 onClick={() => {
-                  postStore.open(p.id)
+                  postStore.open({ id: p.id })
                 }}
               >
                 <Image

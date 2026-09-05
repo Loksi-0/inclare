@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react'
+import { useEffect, type PropsWithChildren } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useViewPostLayout } from './useViewPostLayout'
 import styles from './ViewPostLayout.module.scss'

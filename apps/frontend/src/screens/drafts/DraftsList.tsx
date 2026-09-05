@@ -1,6 +1,6 @@
 import { api } from '@/shared/api/trpc'
 import ClientDrafts from './ClientDrafts'
-import DraftsLayout from './components/Drafts.layout'
+import DraftsLayout from './components/drafts.layout'
 import { catchError } from '@/shared/functions/catchError'
 import ErrorSection from '@/shared/ui/ErrorSection'
 import styles from './DraftsList.module.scss'

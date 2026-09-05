@@ -4,7 +4,7 @@ import { useTRPC } from '@/shared/api/tanstack'
 import { randomCode } from '@/shared/functions/randomCode'
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
-import { uploadStore } from '@/features/upload/upload.store'
+import { uploadStore } from './upload.store'
 
 export type UploadPhotoProps = {
   file: File

@@ -6,7 +6,7 @@ import { PAGES } from '@/constants'
 import { observer } from 'mobx-react-lite'
 import { useActions } from './useActions'
 import styles from './Actions.module.scss'
-import { uploadStore } from '@/features/upload/upload.store'
+import { postStore } from '@/features/post'
 
 type ClientActionsProps = {
   draftedLength: number
@@ -34,7 +34,7 @@ const ClientActions = observer((props: ClientActionsProps) => {
         className={styles.actions__button}
         color='solid'
         onClick={() => {
-          uploadStore.open()
+          postStore.openUpload()
         }}
       >
         загрузить пачку

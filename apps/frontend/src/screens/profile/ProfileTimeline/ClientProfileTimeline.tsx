@@ -15,7 +15,6 @@ import { useSwipe } from '@/shared/hooks/useSwipe'
 import { observer } from 'mobx-react-lite'
 import { photoModalStore } from '@/features/photoModal/photoModal.store'
 import { imageModalStore } from '@/features/imageModal/imageModal.store'
-import { uploadStore } from '@/features/upload/upload.store'
 
 type ClientTimelineProps = {
   data: ApiReturnType<typeof api.post.my.getPublished.query>
@@ -39,12 +38,12 @@ const ClientProfileTimeline = observer((props: ClientTimelineProps) => {
         photoModalStore.isOpen ||
         imageModalStore.isOpen ||
         imageModalStore.isClosing ||
-        uploadStore.isOpen
+        postStore.isUploading
       ) {
         return
       }
 
-      uploadStore.open()
+      postStore.openUpload()
     }
   })
 
@@ -63,7 +62,7 @@ const ClientProfileTimeline = observer((props: ClientTimelineProps) => {
           <Button
             color='outlined'
             onClick={() => {
-              uploadStore.open()
+              postStore.openUpload()
             }}
           >
             загрузить пачку

@@ -144,13 +144,13 @@ export const usePlaneContext = (props: PlaneProps) => {
 
     instance.on('panstart', () => {
       isDragging.current = true
-      postStore.setCanClose(false)
+      postStore.setCanCloseOutside(false)
     })
 
     instance.on('panend', () => {
       requestAnimationFrame(() => {
         isDragging.current = false
-        postStore.setCanClose(true)
+        postStore.setCanCloseOutside(true)
       })
     })
 
@@ -255,7 +255,7 @@ export const usePlaneContext = (props: PlaneProps) => {
   const onClick = useCallback(
     (id: string) => {
       if (!isDragging.current) {
-        postStore.open(id)
+        postStore.open({ id })
       }
     },
     [isDragging.current]

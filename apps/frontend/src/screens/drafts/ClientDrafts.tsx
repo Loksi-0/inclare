@@ -9,7 +9,7 @@ import { useMemo } from 'react'
 import { useIsMounted } from '@/shared/hooks/useIsMounted'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '@/shared/api/tanstack'
-import DraftsLayout from './components/Drafts.layout'
+import DraftsLayout from './components/drafts.layout'
 import type { ApiReturnType } from '@/shared/types/globals'
 import styles from './DraftsList.module.scss'
 
@@ -46,10 +46,11 @@ const ClientDrafts = ({ data: initialData }: DraftsProps) => {
             (d, i) =>
               d.previewUrl && (
                 <Button
+                  className={styles.drafts__button}
                   key={d.id}
                   color='icon'
                   onClick={() => {
-                    postStore.open(d.id)
+                    postStore.open({ id: d.id })
                   }}
                   style={{
                     zIndex: i * 10

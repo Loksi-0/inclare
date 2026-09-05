@@ -28,19 +28,19 @@ const Post = observer(() => {
     )
   )
 
-  usePostMotion()
   const pathname = usePathname()
+  usePostMotion()
 
-  if (!postStore.postHeight) {
+  if (!postStore.height) {
     return
   }
 
   if (!data) {
-    return <ViewPostSkeleton height={postStore.postHeight} />
+    return <ViewPostSkeleton height={postStore.height} />
   }
 
   return (
-    <ViewPostLayout height={postStore.postHeight}>
+    <ViewPostLayout height={postStore.height}>
       <div className={styles.post__top}>
         <header className={styles.post__header}>
           <AuthorHeader

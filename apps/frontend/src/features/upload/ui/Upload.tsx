@@ -2,15 +2,14 @@ import Button from '@/shared/ui/Button'
 import { dateToMonth } from '@/shared/functions/dateToMonth'
 import ViewPostLayout from '@/shared/layouts/ViewPostLayout'
 import cx from 'clsx'
-import UploadPhoto from '../UploadPhoto/UploadPhoto'
+import UploadPhoto from './UploadPhoto'
 import { observer } from 'mobx-react-lite'
-import { uploadStore } from '@/features/upload/upload.store'
+import { uploadStore } from '@/features/upload/model/upload.store'
 import Plus from '@/shared/icons/Plus'
 import ProgressBar from '@/shared/ui/ProgressBar'
 import Input from '@/shared/ui/Input'
-import { useUpload } from './useUpload'
+import { useUpload } from '../model/useUpload'
 import styles from './Upload.module.scss'
-import { useUploadMotion } from './upload.motion'
 import { postStore } from '@/features/post'
 
 const Upload = observer(() => {
@@ -30,22 +29,14 @@ const Upload = observer(() => {
     onInput
   } = useUpload()
 
-  useUploadMotion()
-
-  if (!uploadStore.height) {
+  if (!postStore.height) {
     return
   }
 
   return (
     <ViewPostLayout
-      zIndex={
-        (uploadStore.isOpen || uploadStore.isAnimating) &&
-        !postStore.isOpen &&
-        !postStore.isAnimating
-          ? 2000
-          : -1000
-      }
-      height={uploadStore.height}
+      zIndex={postStore.isUploading ? 2000 : -1000}
+      height={postStore.height}
     >
       <div className={styles.upload__top}>
         <header className={styles.upload__header}>
@@ -55,7 +46,7 @@ const Upload = observer(() => {
           <Button
             color='underline'
             onClick={() => {
-              uploadStore.close()
+              postStore.close()
             }}
           >
             назад ↑

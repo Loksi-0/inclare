@@ -1,77 +1,48 @@
-'use client'
-
+import { effectorStore } from '../effector'
+import { postStore } from './post.store'
 import { useEffect } from 'react'
 import gsap from 'gsap'
-import { postStore } from './post.store'
-import { effectorStore } from '../effector'
 
 export const usePostMotion = () => {
   useEffect(() => {
-    if (postStore.isOpen) {
+    if (postStore.isOpenSignal) {
       gsap.to(effectorStore.effectorRef, {
-        y: postStore.offsetHeight * -1,
+        y: postStore.shift,
         duration: 0.5,
         ease: 'power2.out',
-        onStart: () => {
-          postStore.setIsRenderReady(false)
-          postStore.setIsOpening(true)
-          postStore.setIsAnimating(true)
-        },
-        onComplete: () => {
-          postStore.setIsRenderReady(true)
-          postStore.setIsOpening(false)
-          postStore.setIsAnimating(false)
-        }
+        onComplete: postStore.onOpenEnd
       })
     } else {
       gsap.to(effectorStore.effectorRef, {
         y: 0,
         duration: 0.5,
         ease: 'power2.out',
-        onStart: () => {
-          postStore.setIsAnimating(true)
-        },
-        onComplete: () => {
-          postStore.setIsRenderReady(false)
-          postStore.setIsAnimating(false)
-
-          if (!postStore.isOpening) {
-            postStore.setPostId(null)
-          }
-        }
+        onComplete: postStore.onCloseEnd
       })
     }
-  }, [postStore.isOpen])
+  }, [postStore.isOpenSignal])
 
   useEffect(() => {
-    if (postStore.isFullyOpen) {
+    if (postStore.isCloseInstantlySignal) {
+      gsap.set(effectorStore.effectorRef, { y: 0 })
+    }
+  }, [postStore.isCloseInstantlySignal])
+
+  useEffect(() => {
+    if (postStore.isFullyOpenSignal) {
       gsap.to(effectorStore.effectorRef, {
-        y: window.innerHeight * -1,
+        y: postStore.shift,
         duration: 0.6,
         ease: 'power2.out',
-        onStart: () => {
-          postStore.setIsAnimating(true)
-        },
-        onComplete: () => {
-          postStore.setIsAnimating(false)
-          postStore.setPostHeight(window.innerHeight)
-          postStore.setIsFullyOpen(true)
-        }
+        onComplete: postStore.onOpenFullEnd
       })
     } else {
       gsap.to(effectorStore.effectorRef, {
-        y: postStore.prevPostHeight * -1,
+        y: postStore.shift,
         duration: 0.4,
         ease: 'power2.out',
-        onStart: () => {
-          postStore.setIsAnimating(true)
-        },
-        onComplete: () => {
-          postStore.setIsAnimating(false)
-          postStore.setPostHeight(postStore.prevPostHeight)
-          postStore.setIsFullyOpen(false)
-        }
+        onComplete: postStore.onCloseFullEnd
       })
     }
-  }, [postStore.isFullyOpen])
+  }, [postStore.isFullyOpenSignal])
 }

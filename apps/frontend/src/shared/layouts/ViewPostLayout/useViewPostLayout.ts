@@ -5,7 +5,6 @@ import { useFluid } from '@/shared/hooks/useFluid'
 import { useSwipe } from '@/shared/hooks/useSwipe'
 import { photoModalStore } from '@/features/photoModal/photoModal.store'
 import { preferencesStore } from '@/shared/stores/preferences.store'
-import { uploadStore } from '@/features/upload'
 
 export const useViewPostLayout = () => {
   const SCROLL_DOWN_THRESHOLD = useFluid(200, 400)
@@ -15,18 +14,16 @@ export const useViewPostLayout = () => {
 
   const handleGesture = () => {
     if (
-      (postStore.isOpen || uploadStore.isOpen) &&
+      postStore.isOpen &&
       !photoModalStore.isOpen &&
       !photoModalStore.isClosing &&
-      !uploadStore.isAnimating &&
       !postStore.isAnimating &&
-      postStore.scrollPosition < 10
+      postStore.scrollPos < 10
     ) {
       if (postStore.isFullyOpen) {
         postStore.closeFull()
       } else {
         postStore.close()
-        uploadStore.close()
       }
     }
   }
@@ -48,13 +45,12 @@ export const useViewPostLayout = () => {
         postStore.canCloseOutside
       ) {
         postStore.close()
-        uploadStore.close()
       }
     }
 
     const onScroll = (e: Event) => {
       if (e.target instanceof HTMLElement) {
-        postStore.setScrollPosition(e.target.scrollTop)
+        postStore.setScrollPos(e.target.scrollTop)
 
         if (
           e.target.scrollHeight > window.innerHeight * 1.5 &&

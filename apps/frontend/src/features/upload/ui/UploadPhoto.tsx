@@ -3,7 +3,7 @@
 import Photo from '@/shared/ui/Photo'
 import Button from '@/shared/ui/Button'
 import Retry from '@/shared/icons/Retry'
-import { useUploadPhoto, type UploadPhotoProps } from './useUploadPhoto'
+import { useUploadPhoto, type UploadPhotoProps } from '../model/useUploadPhoto'
 import styles from './UploadPhoto.module.scss'
 
 const UploadingPhoto = (props: UploadPhotoProps) => {

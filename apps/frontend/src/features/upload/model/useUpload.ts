@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTRPC } from '@/shared/api/tanstack'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { uploadStore } from '@/features/upload/upload.store'
+import { uploadStore } from './upload.store'
 import { invalidatePost } from '@/shared/functions/invalidatePost'
+import { postStore } from '@/features/post'
 
 export const useUpload = () => {
   const [postId, setPostId] = useState<string | null>(null)
@@ -60,7 +61,7 @@ export const useUpload = () => {
 
   const closeUpload = async () => {
     await invalidatePost({ queryClient, trpc })
-    uploadStore.close(() => {
+    postStore.close(() => {
       setPostId(null)
       setFiles([])
       setDescription(undefined)

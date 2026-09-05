@@ -24,7 +24,7 @@ const DeadPixel = () => {
             height: UI.PLANE_GRID_SCALE
           }}
           onClick={() => {
-            postStore.open(postId)
+            postStore.open({ id: postId })
             onboardingStore.openPixel()
           }}
         ></Button>

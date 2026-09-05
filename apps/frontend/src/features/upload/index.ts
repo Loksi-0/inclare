@@ -1,2 +1,2 @@
-export { default } from './Upload/Upload'
-export { uploadStore } from './upload.store'
+export { default } from './ui/Upload'
+export { uploadStore } from './model/upload.store'

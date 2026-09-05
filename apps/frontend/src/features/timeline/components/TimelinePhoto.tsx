@@ -46,7 +46,7 @@ const TimelinePhoto = (props: TimelinePhotoProps) => {
       <Button
         color='icon'
         onClick={() => {
-          postStore.open(id, timelineStore.getOffset())
+          postStore.open({ id, timeline: true })
         }}
       >
         <Photo src={src} />
