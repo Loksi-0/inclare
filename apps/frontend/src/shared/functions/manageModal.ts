@@ -1,4 +1,4 @@
-import { inertStore } from '@/stores/inert.store'
+import { inertStore } from '@/shared/stores/inert.store'
 import type { Dispatch, SetStateAction } from 'react'
 
 export const openModal = (setIsOpen?: Dispatch<SetStateAction<boolean>>) => {

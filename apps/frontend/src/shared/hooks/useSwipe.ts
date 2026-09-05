@@ -1,6 +1,6 @@
 'use client'
 
-import { preferencesStore } from '@/stores/preferences.store'
+import { preferencesStore } from '@/shared/stores/preferences.store'
 import { useEffect, useRef } from 'react'
 
 type UseSwipeProps = {

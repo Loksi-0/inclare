@@ -1,5 +1,5 @@
 import { PAGES } from '@/constants'
-import { toast } from './toast'
+import { toast } from '../../features/toast/toast'
 
 export const shareProfile = async (id: string) => {
   const pathname = PAGES.USER(id)

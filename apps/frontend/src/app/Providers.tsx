@@ -1,7 +1,9 @@
 'use client'
 
-import { getQueryClient, TRPCProvider } from '@/api/tanstack'
-import { api } from '@/api/trpc'
+import { getQueryClient, TRPCProvider } from '@/shared/api/tanstack'
+import { api } from '@/shared/api/trpc'
+import { PreferencesProvider } from '@/shared/providers/preferences.provider'
+import { SoundProvider } from '@/shared/providers/sound.provider'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { useState, type PropsWithChildren } from 'react'
 
@@ -15,7 +17,9 @@ const Providers = ({ children }: PropsWithChildren) => {
         trpcClient={trpcClient}
         queryClient={queryClient}
       >
-        {children}
+        <SoundProvider>
+          <PreferencesProvider>{children}</PreferencesProvider>
+        </SoundProvider>
       </TRPCProvider>
     </QueryClientProvider>
   )

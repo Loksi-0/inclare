@@ -1,9 +1,9 @@
 'use client'
 
-import Misted from '@/components/Misted'
-import Button from '@/components/Button'
+import Misted from '@/shared/ui/Misted'
+import Button from '@/shared/ui/Button'
 import cx from 'clsx'
-import { useTRPC } from '@/api/tanstack'
+import { useTRPC } from '@/shared/api/tanstack'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@/shared/hooks/useNavigate'
 import { DEFAULTS } from '@/constants'

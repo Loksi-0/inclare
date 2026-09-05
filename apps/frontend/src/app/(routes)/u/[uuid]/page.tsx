@@ -1,10 +1,10 @@
-import { api } from '@/api/trpc'
-import PageLayout from '@/layouts/PageLayout'
+import { api } from '@/shared/api/trpc'
+import PageLayout from '@/shared/layouts/PageLayout'
 import { catchError } from '@/shared/functions/catchError'
-import NotFound from '@/widgets/not-found'
-import Actions from '@/widgets/user/Actions'
-import Bio from '@/widgets/user/Bio'
-import UserTimeline from '@/widgets/user/UserTimeline'
+import NotFound from '@/screens/notFound'
+import Actions from '@/screens/user/Actions'
+import Bio from '@/screens/user/Bio'
+import UserTimeline from '@/screens/user/UserTimeline'
 import type { Metadata } from 'next'
 
 type Props = {

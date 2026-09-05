@@ -1,6 +1,6 @@
 import { PAGES } from '@/constants'
-import PageLayout from '@/layouts/PageLayout'
-import DraftsList from '@/widgets/drafts'
+import PageLayout from '@/shared/layouts/PageLayout'
+import DraftsList from '@/screens/drafts'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

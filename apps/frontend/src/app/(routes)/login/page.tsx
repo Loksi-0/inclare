@@ -1,4 +1,4 @@
-import LoginForm from '@/widgets/login'
+import LoginForm from '@/screens/login'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

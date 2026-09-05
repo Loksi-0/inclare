@@ -1,4 +1,4 @@
-import NotFoundPage from '@/widgets/not-found'
+import NotFoundPage from '@/screens/notFound'
 
 const NotFound = () => {
   return <NotFoundPage />

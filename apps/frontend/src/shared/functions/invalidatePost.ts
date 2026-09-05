@@ -1,4 +1,4 @@
-import type { useTRPC } from '@/api/tanstack'
+import type { useTRPC } from '@/shared/api/tanstack'
 import type { QueryClient } from '@tanstack/react-query'
 
 type Props = {

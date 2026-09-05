@@ -1,5 +1,5 @@
-import PageLayout from '@/layouts/PageLayout'
-import PlaneWidget from '@/widgets/plane'
+import PageLayout from '@/shared/layouts/PageLayout'
+import PlaneWidget from '@/screens/plane'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

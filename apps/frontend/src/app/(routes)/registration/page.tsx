@@ -1,4 +1,4 @@
-import RegistrationForm from '@/widgets/registration'
+import RegistrationForm from '@/screens/registration'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

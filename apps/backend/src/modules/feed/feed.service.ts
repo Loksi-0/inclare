@@ -70,7 +70,7 @@ export const feedService = {
     if (uniqueIds.length < limit) {
       const viewedPosts: { id: string }[] = await prisma.$queryRaw`
         SELECT p.* FROM "posts" p
-        WHERE p.id IN (${Prisma.join(viewedIds)})
+        WHERE p.id IN (${Prisma.join(normalizedViewedIds)})
         ORDER BY RANDOM()
         LIMIT ${limit - uniqueIds.length};
       `

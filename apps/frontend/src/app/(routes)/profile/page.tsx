@@ -1,9 +1,9 @@
-import { api } from '@/api/trpc'
+import { api } from '@/shared/api/trpc'
 import { PAGES } from '@/constants'
-import PageLayout from '@/layouts/PageLayout'
-import Actions from '@/widgets/profile/Actions'
-import Me from '@/widgets/profile/Me'
-import ProfileTimeline from '@/widgets/profile/ProfileTimeline'
+import PageLayout from '@/shared/layouts/PageLayout'
+import Actions from '@/screens/profile/Actions'
+import Me from '@/screens/profile/Me'
+import ProfileTimeline from '@/screens/profile/ProfileTimeline'
 import type { Metadata } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
