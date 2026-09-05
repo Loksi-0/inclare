@@ -4,6 +4,7 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@repo/db'
 import type { Context as HonoContext } from 'hono'
 import { createClient as redisClient, type RedisClientType } from 'redis'
+import IoRedis from 'ioredis'
 import { initRedisConfig } from './scripts/initRedisConfig'
 import { authCookie } from './modules/auth/auth.cookie'
 
@@ -16,6 +17,10 @@ export const prisma = new PrismaClient({
 export const redis: RedisClientType = await redisClient({
   url: getEnv('REDIS_URL') || 'redis://localhost:6379'
 }).connect()
+
+export const bullConnection = new IoRedis(getEnv('REDIS_URL'), {
+  maxRetriesPerRequest: null
+})
 
 await initRedisConfig(redis)
 

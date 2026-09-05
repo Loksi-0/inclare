@@ -65,6 +65,15 @@ export const ALGORITHM_DEFAULTS = {
   NOW_INTERVAL: '6'
 }
 
+export const BULLMQ = {
+  NAMES: {
+    COMPRESS: 'compress'
+  },
+  QUEUES: {
+    COMPRESS: 'CompressImage'
+  }
+}
+
 export const REDIS_KEYS = {
   STARS: {
     VIEWED: 'stars:viewed'

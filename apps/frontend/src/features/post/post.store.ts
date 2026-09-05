@@ -118,6 +118,7 @@ class PostStore {
     this.isAnimating = false
     this.isOpen = false
     this.isUploading = false
+    this.isRenderReady = false
     this.onAnimationEnd()
 
     if (!this.isOpening) {

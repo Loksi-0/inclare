@@ -1,5 +1,9 @@
 import sharp from 'sharp'
+import { Queue, QueueEvents, Worker } from 'bullmq'
+import { BULLMQ } from '@backend/constants'
+import { bullConnection } from '@backend/context'
 
+type Format = 'webp' | 'avif' | 'jpeg'
 type Options = {
   width: number | null
   height: number | null
@@ -50,17 +54,38 @@ const compressAvif = async (options: Options) => {
     .toFile(options.output)
 }
 
-export const compressImage = async (
-  format: 'webp' | 'avif' | 'jpeg',
+type CompressJob = {
+  format: Format
   options: Options
-) => {
-  if (format === 'webp') {
-    await compressWebp(options)
-    return
-  } else if (format === 'avif') {
-    await compressAvif(options)
-    return
-  }
+}
 
-  await compressJpeg(options)
+const compressQueue = new Queue(BULLMQ.QUEUES.COMPRESS, {
+  connection: bullConnection
+})
+const compressEvents = new QueueEvents(BULLMQ.QUEUES.COMPRESS)
+new Worker<CompressJob>(
+  BULLMQ.QUEUES.COMPRESS,
+  async ({ name, data }) => {
+    if (name === BULLMQ.NAMES.COMPRESS) {
+      if (data.format === 'webp') {
+        await compressWebp(data.options)
+        return
+      } else if (data.format === 'avif') {
+        await compressAvif(data.options)
+        return
+      }
+
+      await compressJpeg(data.options)
+    }
+  },
+  { connection: bullConnection }
+)
+
+export const compressImage = async (format: Format, options: Options) => {
+  const job = await compressQueue.add(BULLMQ.NAMES.COMPRESS, {
+    format,
+    options
+  })
+
+  await job.waitUntilFinished(compressEvents)
 }
