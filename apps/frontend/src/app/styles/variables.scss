@@ -4,6 +4,7 @@
   --color-white: #ffffff;
   --color-light: #fafafa;
 
+  --color-gray-25: #e7ecee;
   --color-gray-20: #e7ecee;
   --color-gray-10: #6c7b80;
 
@@ -33,15 +34,16 @@
 }
 
 [theme='dark'] {
-  --color-white: #000000;
-  --color-light: #0c0d0d;
+  --color-white: #1d2020;
+  --color-light: #111313;
 
-  --color-gray-20: #181a1b;
+  --color-gray-25: #1b1d1d;
+  --color-gray-20: #292c2e;
   --color-gray-10: #798286;
 
-  --color-dark: #d7d9db;
+  --color-dark: #e1e6f0;
 
-  --color-shadow: #000000;
+  --color-shadow: #111313;
 
   --color-red-10: #fff0f0;
   --color-red: #db3434;

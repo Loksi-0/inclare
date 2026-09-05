@@ -27,15 +27,13 @@
   }
 
   &__photos {
-    display: flex;
-    flex-direction: row;
-    gap: fluid(10, 5);
-    flex-wrap: wrap;
+    @include view-post-grid;
   }
 
   &__photo {
-    width: fluid(180, 140);
-    height: fluid(240, 190);
+    width: 100%;
+    min-width: 0;
+    height: fluid(240, 170);
   }
 
   &__buttons {
