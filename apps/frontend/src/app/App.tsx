@@ -5,8 +5,8 @@ import Providers from './Providers'
 import { Toaster } from 'sonner'
 import Effector from '@/features/effector'
 import Cursor from '@/features/cursor'
-import ViewPost from '@/features/post'
-import UploadPost from '@/features/upload'
+import Post from '@/features/post'
+import Upload from '@/features/upload'
 import PhotoModal from '@/features/photoModal'
 import ImageModal from '@/features/imageModal'
 import Onboarding from '@/features/onboarding'
@@ -39,8 +39,8 @@ const App = ({ children }: PropsWithChildren) => {
       <Onboarding />
       <Effector>
         <Main>{children}</Main>
-        <ViewPost />
-        <UploadPost />
+        <Post />
+        <Upload />
       </Effector>
     </Providers>
   )

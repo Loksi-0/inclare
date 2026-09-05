@@ -48,7 +48,7 @@ const ClientProfileTimeline = observer((props: ClientTimelineProps) => {
   })
 
   if (!data || !data.at(0)) {
-    timelineStore.timelineRef = null
+    timelineStore.setRef({ current: null })
 
     return (
       <section className={styles.timeline}>

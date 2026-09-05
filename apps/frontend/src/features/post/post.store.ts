@@ -120,6 +120,7 @@ class PostStore {
     this.isUploading = false
     this.isRenderReady = false
     this.onAnimationEnd()
+    this.onAnimationEnd = () => {}
 
     if (!this.isOpening) {
       this.setPostId(null)
